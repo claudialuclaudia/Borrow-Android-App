@@ -67,6 +67,13 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
                 mContext.startActivities(new Intent[]{intent});
             }
         });
+        
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "You've clicked the image of " + item.getUserName(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
