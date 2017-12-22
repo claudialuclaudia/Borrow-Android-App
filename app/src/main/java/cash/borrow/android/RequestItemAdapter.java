@@ -2,70 +2,72 @@ package cash.borrow.android;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import cash.borrow.android.model.RequestItem;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import cash.borrow.android.model.RequestItem;
+public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.ViewHolder>{
 
-public class RequestItemAdapter extends ArrayAdapter<RequestItem> {
+    private List<RequestItem> mItems;
+    private Context mContext;
 
-    List<RequestItem> mRequestItems;
-    LayoutInflater mInflater;
-
-    public RequestItemAdapter(@NonNull Context context, @NonNull List<RequestItem> objects) {
-        super(context, R.layout.list_item, objects);
-
-        mRequestItems = objects;
-        mInflater = LayoutInflater.from(context);
+    public RequestItemAdapter(Context context, List<RequestItem> items) {
+        this.mContext = context;
+        this.mItems = items;
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public RequestItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //called each time needed a visual representation of item
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View itemView = inflater.inflate(R.layout.list_item, parent, false);
+        ViewHolder viewHolder = new ViewHolder(itemView);
+        return viewHolder;
+    }
 
-        //convertView is null first time around
-        if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.list_item, parent, false);
-        }
+    @Override
+    public void onBindViewHolder(RequestItemAdapter.ViewHolder holder, int position) {
+        //called each time run into a new item that needs to be displayed
+        //passes ref to view holder, and the position of data item in the collection
+        //take that data item and display the value
+        RequestItem item = mItems.get(position);
 
-        TextView tvName = (TextView) convertView.findViewById(R.id.userNameText);
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.userImageView);
-
-        RequestItem item = mRequestItems.get(position);
-
-        tvName.setText(item.getUserName()+" wants to borrow $" + item.getAmount() + " for " +
-                item.getRequestReason() + " " + item.getSecPast() + " s ago.");
-//        imageView.setImageResource(R.drawable.kelly);
-
-        InputStream inputStream = null;
         try {
+            holder.tvName.setText(item.getUserName()+" wants to borrow $" + item.getAmount() + " for " +
+                    item.getRequestReason() + " " + item.getSecPast() + " s ago.");
             String imageFile = item.getImage();
-            inputStream = getContext().getAssets().open(imageFile);
+            InputStream inputStream = mContext.getAssets().open(imageFile);
             Drawable d = Drawable.createFromStream(inputStream, null);
-            imageView.setImageDrawable(d);
+            holder.imageView.setImageDrawable(d);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
+    }
 
-        return convertView;
+    @Override
+    public int getItemCount() {
+        return mItems.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        //set up bindings to view in xml file
+
+        public TextView tvName;
+        public ImageView imageView;
+        public ViewHolder(View itemView) {
+            super(itemView);
+
+            tvName = (TextView) itemView.findViewById(R.id.userNameText);
+            imageView = (ImageView) itemView.findViewById(R.id.userImageView);
+        }
     }
 }
