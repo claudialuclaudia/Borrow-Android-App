@@ -10,26 +10,37 @@ import cash.borrow.android.model.RequestItem;
 public class SampleRequestProvider {
     public static List<RequestItem> requestItemList;
     public static Map<String, RequestItem> requestItemMap;
+    public static Map<String, List<RequestItem>> userMap;
 
     static {
         requestItemList = new ArrayList<>();
         requestItemMap = new HashMap<>();
+        userMap = new HashMap<>();
 
-        addItem(new RequestItem(null, null, "Kelly Kapoor", 5, 80, "Taylor Swift concert", "kelly.png"));
+        addItem(new RequestItem(null, "1", "Kelly Kapoor", 5, 80, "Taylor Swift concert", "kelly.png"));
 
-        addItem(new RequestItem(null, null, "Ryan Howard", 60, 200, "need some stripper ASAP", "ryan.jpg"));
+        addItem(new RequestItem(null, "2", "Ryan Howard", 60, 200, "need some stripper ASAP", "ryan.jpg"));
 
-        addItem(new RequestItem(null, null, "Jan Levinson", 15, 10, "trying this app out", "jan.jpg"));
+        addItem(new RequestItem(null, "3", "Jan Levinson", 15, 10, "trying this app out", "jan.jpg"));
 
-        addItem(new RequestItem(null, null, "Michael Scott", 40, 100, "locked myself out of my apartment...locksmith $", "michael.jpg"));
+        addItem(new RequestItem(null, "4", "Michael Scott", 40, 100, "locked myself out of my apartment...locksmith $", "michael.jpg"));
 
-        addItem(new RequestItem(null, null, "Dwight Schrute", 80, 0.1, "Jim Halpert has an ugly nose!!!", "dwight.jpg"));
+        addItem(new RequestItem(null, "5", "Dwight Schrute", 80, 0.1, "Jim Halpert has an ugly nose!!!", "dwight.jpg"));
 
-        addItem(new RequestItem(null, null, "Kelly Kapoor", 40, 180, "Beyonce concert", "kelly.png"));
+        addItem(new RequestItem(null, "1", "Kelly Kapoor", 40, 180, "Beyonce concert", "kelly.png"));
+
+        addItem(new RequestItem(null, "1", "Kelly Kapoor", 25, 150, "Drake concert", "kelly.png"));
     }
 
     private static void addItem(RequestItem item){
         requestItemList.add(item);
         requestItemMap.put(item.getRequestId(), item);
+        if (!userMap.containsKey(item.getUserId())) {
+            List<RequestItem> list = new ArrayList<>();
+            list.add(item);
+            userMap.put(item.getUserId(), list);
+        } else {
+            userMap.get(item.getUserId()).add(item);
+        }
     }
 }

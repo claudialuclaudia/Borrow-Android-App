@@ -23,6 +23,10 @@ public class RequestItem implements Parcelable {
             requestId = UUID.randomUUID().toString();
         }
 
+        if (userId == null) {
+            userId = UUID.randomUUID().toString();
+        }
+
         this.requestId = requestId;
         this.userId = userId;
         this.userName = userName;

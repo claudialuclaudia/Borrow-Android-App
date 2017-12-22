@@ -22,6 +22,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
 
     public static final String ITEM_ID_KEY = "item_id_key";
     public static final String ITEM_KEY = "item_key";
+    public static final String USER_ID_KEY = "user_id_key";
     private List<RequestItem> mItems;
     private Context mContext;
 
@@ -64,14 +65,18 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
 //                String itemId = item.getRequestId();
                 Intent intent = new Intent(mContext, DetailActivity.class);
                 intent.putExtra(ITEM_KEY, item);
-                mContext.startActivities(new Intent[]{intent});
+                mContext.startActivity(intent);
             }
         });
-        
+
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "You've clicked the image of " + item.getUserName(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "You've clicked the image of " + item.getUserName(), Toast.LENGTH_SHORT).show();
+                String userId = item.getUserId();
+                Intent intent = new Intent(mContext, UserActivity.class);
+                intent.putExtra(USER_ID_KEY, userId);
+                mContext.startActivity(intent);
             }
         });
     }
