@@ -2,6 +2,7 @@ package cash.borrow.android;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -18,6 +19,12 @@ public class UserActivity extends AppCompatActivity {
 
         String userId = getIntent().getExtras().getString(RequestItemAdapter.USER_ID_KEY);
         List<RequestItem> list = SampleRequestProvider.userMap.get(userId);
-        Toast.makeText(this, "got: " + list, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "got: " + list, Toast.LENGTH_SHORT).show();
+
+        RequestItemAdapter adapter = new RequestItemAdapter(this, list);
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
+        recyclerView.setAdapter(adapter);
+
     }
 }
