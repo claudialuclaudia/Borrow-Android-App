@@ -17,7 +17,7 @@ public class SampleRequestProvider {
         requestItemMap = new HashMap<>();
         userMap = new HashMap<>();
 
-        addItem(new RequestItem(null, "1", "Kelly Kapoor", 5, 80, "Taylor Swift concert", "kelly.png"));
+        addItem(new RequestItem(null, "1", "Kelly Kapoor", 5, 80, "Taylor Swift concert", "kelly.jpg"));
 
         addItem(new RequestItem(null, "2", "Ryan Howard", 60, 200, "need some stripper ASAP", "ryan.jpg"));
 
@@ -25,11 +25,14 @@ public class SampleRequestProvider {
 
         addItem(new RequestItem(null, "4", "Michael Scott", 40, 100, "locked myself out of my apartment...locksmith $", "michael.jpg"));
 
-        addItem(new RequestItem(null, "5", "Dwight Schrute", 80, 0.1, "Jim Halpert has an ugly nose!!!", "dwight.jpg"));
+        addItem(new RequestItem(null, "5", "Dwight Schrute", 80, 0.1, "Jim Halpert's nose job money", "dwight.jpg"));
 
-        addItem(new RequestItem(null, "1", "Kelly Kapoor", 40, 180, "Beyonce concert", "kelly.png"));
+        addItem(new RequestItem(null, "1", "Kelly Kapoor", 40, 180, "Beyonce concert", "kelly.jpg"));
 
-        addItem(new RequestItem(null, "1", "Kelly Kapoor", 25, 150, "Drake concert", "kelly.png"));
+        addItem(new RequestItem(null, "1", "Kelly Kapoor", 25, 150, "Drake concert", "kelly.jpg"));
+
+        addItem(new RequestItem(null, "4", "Michael Scott", 200, 150, "locked myself out of my car...", "michael.jpg"));
+
     }
 
     private static void addItem(RequestItem item){
