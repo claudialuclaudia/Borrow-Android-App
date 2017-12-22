@@ -28,6 +28,6 @@
         android:layout_toEndOf="@+id/userImageView"
         android:layout_toRightOf="@+id/userImageView"
         android:text="A request item"
-        android:textSize="24sp"
+        android:textSize="16sp"
         tools:ignore="HardcodedText" />
 </RelativeLayout>

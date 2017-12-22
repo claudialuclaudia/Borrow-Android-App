@@ -1,5 +1,7 @@
 package cash.borrow.android.model;
 
+import java.util.UUID;
+
 public class RequestItem {
     private String requestId;
     private String userId;
@@ -13,6 +15,11 @@ public class RequestItem {
     }
 
     public RequestItem(String requestId, String userId, String userName, int secPast, double amount, String requestReason, String image) {
+
+        if (requestId == null) {
+            requestId = UUID.randomUUID().toString();
+        }
+
         this.requestId = requestId;
         this.userId = userId;
         this.userName = userName;

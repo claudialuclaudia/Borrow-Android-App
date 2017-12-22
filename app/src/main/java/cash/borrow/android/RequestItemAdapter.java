@@ -1,6 +1,7 @@
 package cash.borrow.android;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cash.borrow.android.model.RequestItem;
 
@@ -17,6 +19,7 @@ import java.util.List;
 
 public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.ViewHolder>{
 
+    public static final String ITEM_ID_KEY = "item_id_key";
     private List<RequestItem> mItems;
     private Context mContext;
 
@@ -39,7 +42,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
         //called each time run into a new item that needs to be displayed
         //passes ref to view holder, and the position of data item in the collection
         //take that data item and display the value
-        RequestItem item = mItems.get(position);
+        final RequestItem item = mItems.get(position);
 
         try {
             holder.tvName.setText(item.getUserName()+" wants to borrow $" + item.getAmount() + " for " +
@@ -51,6 +54,17 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(mContext, "You selected " + item.getRequestReason(), Toast.LENGTH_SHORT).show();
+                String itemId = item.getRequestId();
+                Intent intent = new Intent(mContext, DetailActivity.class);
+                intent.putExtra(ITEM_ID_KEY, itemId);
+                mContext.startActivities(new Intent[]{intent});
+            }
+        });
     }
 
     @Override
@@ -63,11 +77,13 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
 
         public TextView tvName;
         public ImageView imageView;
+        public View mView;
         public ViewHolder(View itemView) {
             super(itemView);
 
             tvName = (TextView) itemView.findViewById(R.id.userNameText);
             imageView = (ImageView) itemView.findViewById(R.id.userImageView);
+            mView = itemView;
         }
     }
 }
