@@ -20,6 +20,7 @@ import java.util.List;
 public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.ViewHolder>{
 
     public static final String ITEM_ID_KEY = "item_id_key";
+    public static final String ITEM_KEY = "item_key";
     private List<RequestItem> mItems;
     private Context mContext;
 
@@ -59,9 +60,9 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
             @Override
             public void onClick(View v) {
 //                Toast.makeText(mContext, "You selected " + item.getRequestReason(), Toast.LENGTH_SHORT).show();
-                String itemId = item.getRequestId();
+//                String itemId = item.getRequestId();
                 Intent intent = new Intent(mContext, DetailActivity.class);
-                intent.putExtra(ITEM_ID_KEY, itemId);
+                intent.putExtra(ITEM_KEY, item);
                 mContext.startActivities(new Intent[]{intent});
             }
         });

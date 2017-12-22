@@ -1,8 +1,11 @@
 package cash.borrow.android.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.UUID;
 
-public class RequestItem {
+public class RequestItem implements Parcelable {
     private String requestId;
     private String userId;
     private String userName;
@@ -85,6 +88,8 @@ public class RequestItem {
         this.image = image;
     }
 
+
+
     @Override
     public String toString() {
         return "RequestItem{" +
@@ -97,4 +102,42 @@ public class RequestItem {
                 ", image='" + image + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.requestId);
+        dest.writeString(this.userId);
+        dest.writeString(this.userName);
+        dest.writeInt(this.secPast);
+        dest.writeDouble(this.amount);
+        dest.writeString(this.requestReason);
+        dest.writeString(this.image);
+    }
+
+    protected RequestItem(Parcel in) {
+        this.requestId = in.readString();
+        this.userId = in.readString();
+        this.userName = in.readString();
+        this.secPast = in.readInt();
+        this.amount = in.readDouble();
+        this.requestReason = in.readString();
+        this.image = in.readString();
+    }
+
+    public static final Parcelable.Creator<RequestItem> CREATOR = new Parcelable.Creator<RequestItem>() {
+        @Override
+        public RequestItem createFromParcel(Parcel source) {
+            return new RequestItem(source);
+        }
+
+        @Override
+        public RequestItem[] newArray(int size) {
+            return new RequestItem[size];
+        }
+    };
 }
