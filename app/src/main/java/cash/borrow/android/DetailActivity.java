@@ -1,26 +1,61 @@
 package cash.borrow.android;
 
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import cash.borrow.android.model.RequestItem;
-import cash.borrow.android.sample.SampleRequestProvider;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class DetailActivity extends AppCompatActivity {
+
+    private TextView tvName, tvDescription, tvPrice;
+    private ImageView itemImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-//        String itemId = getIntent().getExtras().getString(RequestItemAdapter.ITEM_ID_KEY);
-//        RequestItem item = SampleRequestProvider.requestItemMap.get(itemId);
         RequestItem item = getIntent().getExtras().getParcelable(RequestItemAdapter.ITEM_KEY);
-        if (item != null) {
-            Toast.makeText(this, "Received item " + item.getRequestId(), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Didn't receive any data", Toast.LENGTH_SHORT).show();
+        if (item == null) {
+            throw new AssertionError("Null data item received!");
+        }
+
+        tvName = (TextView) findViewById(R.id.tvItemName);
+        tvPrice = (TextView) findViewById(R.id.tvPrice);
+        tvDescription = (TextView) findViewById(R.id.tvDescription);
+        itemImage = (ImageView) findViewById(R.id.itemImage);
+
+        tvName.setText(item.getUserName());
+        tvDescription.setText(item.getRequestReason());
+
+        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        tvPrice.setText(nf.format(item.getAmount()));
+
+        InputStream inputStream = null;
+        try {
+            String imageFile = item.getImage();
+            inputStream = getAssets().open(imageFile);
+            Drawable d = Drawable.createFromStream(inputStream, null);
+            itemImage.setImageDrawable(d);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
