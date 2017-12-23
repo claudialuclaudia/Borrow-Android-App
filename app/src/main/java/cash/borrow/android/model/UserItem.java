@@ -3,6 +3,7 @@ package cash.borrow.android.model;
 public class UserItem {
     private String userId;
     private String userName;
+    private String userImage;
     private int friendsAmount;
     private String houseAddress;
     private String townAddress;
@@ -13,9 +14,10 @@ public class UserItem {
     public UserItem() {
     }
 
-    public UserItem(String userId, String userName, int friendsAmount, String houseAddress, String townAddress, String jobTitle, double creditLimit, double imbalance) {
+    public UserItem(String userId, String userName, String userImage, int friendsAmount, String houseAddress, String townAddress, String jobTitle, double creditLimit, double imbalance) {
         this.userId = userId;
         this.userName = userName;
+        this.userImage = userImage;
         this.friendsAmount = friendsAmount;
         this.houseAddress = houseAddress;
         this.townAddress = townAddress;
@@ -38,6 +40,14 @@ public class UserItem {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
     }
 
     public int getFriendsAmount() {
@@ -93,6 +103,7 @@ public class UserItem {
         return "UserItem{" +
                 "userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
+                ", userImage='" + userImage + '\'' +
                 ", friendsAmount=" + friendsAmount +
                 ", houseAddress='" + houseAddress + '\'' +
                 ", townAddress='" + townAddress + '\'' +
