@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/kelly"/>
+
+    <TextView
+        android:id="@+id/userNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/jobText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/userNameText"
+        android:layout_alignRight="@+id/userNameText"
+        android:layout_below="@+id/userNameText"
+        android:layout_marginTop="10dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/townAddressText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/jobText"
+        android:layout_alignStart="@+id/jobText"
+        android:layout_below="@+id/jobText"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/friendAmountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/townAddressText"
+        android:layout_alignRight="@+id/townAddressText"
+        android:layout_below="@+id/townAddressText"
+        android:layout_marginTop="13dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/borrowLimitText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/friendAmountText"
+        android:layout_alignRight="@+id/friendAmountText"
+        android:layout_below="@+id/friendAmountText"
+        android:layout_marginTop="11dp"
+        android:text="TextView" />
+</RelativeLayout>

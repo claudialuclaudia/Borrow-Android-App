@@ -63,9 +63,13 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
             }
 
             SpannableStringBuilder stringBuilder = new SpannableStringBuilder(first+second+third);
-            stringBuilder.setSpan(new ForegroundColorSpan(Color.parseColor("#31926f")),first.length()+1,
+            stringBuilder.setSpan(new ForegroundColorSpan(Color.parseColor("#31926f")),first.length(),
+                    first.length()+second.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            stringBuilder.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),first.length(),
                     first.length()+second.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             holder.tvName.setText(stringBuilder);
+
+            holder.reqReason.setText(item.getRequestReason());
 
             String imageFile = item.getImage();
             InputStream inputStream = mContext.getAssets().open(imageFile);
@@ -103,16 +107,22 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
         return mItems.size();
     }
 
+    public String getEmojiByUnicode(int unicode){
+        return new String(Character.toChars(unicode));
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         //set up bindings to view in xml file
 
         public TextView tvName;
+        public TextView reqReason;
         public ImageView imageView;
         public View mView;
         public ViewHolder(View itemView) {
             super(itemView);
 
             tvName = (TextView) itemView.findViewById(R.id.userNameText);
+            reqReason = (TextView) itemView.findViewById(R.id.requestReason);
             imageView = (ImageView) itemView.findViewById(R.id.profile_image);
             mView = itemView;
         }

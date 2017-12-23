@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="5dp"
-    android:paddingTop="5dp">
+    android:paddingTop="10dp"
+    >
 
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,16 +17,45 @@
         android:layout_alignParentStart="true"
         android:src="@drawable/kelly"/>
 
-    <TextView
-        android:id="@+id/userNameText"
+    <LinearLayout
+        android:id="@+id/reqLL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
         android:layout_toEndOf="@+id/profile_image"
         android:layout_toRightOf="@+id/profile_image"
-        android:text="A request item"
-        android:textSize="16sp"
-        tools:ignore="HardcodedText" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/userNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A request item"
+            android:textSize="14sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/requestReason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/userNameText"
+            android:layout_alignStart="@+id/userNameText"
+            android:layout_below="@+id/userNameText"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp"
+            android:text="TextView" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/greyPadding"
+        android:layout_width="500dp"
+        android:layout_height="6dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/reqLL"
+        android:background="@color/grey"
+        />
+
 </RelativeLayout>
