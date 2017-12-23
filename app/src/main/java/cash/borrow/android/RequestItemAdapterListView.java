@@ -40,7 +40,7 @@ public class RequestItemAdapterListView extends ArrayAdapter<RequestItem> {
         }
 
         TextView tvName = (TextView) convertView.findViewById(R.id.userNameText);
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.userImageView);
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.profile_image);
 
         RequestItem item = mRequestItems.get(position);
 

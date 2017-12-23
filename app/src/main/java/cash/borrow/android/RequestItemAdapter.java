@@ -3,8 +3,13 @@ package cash.borrow.android;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,8 +53,20 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
         final RequestItem item = mItems.get(position);
 
         try {
-            holder.tvName.setText(item.getUserName()+" wants to borrow $" + item.getAmount() + " for " +
-                    item.getRequestReason() + " " + item.getSecPast() + " s ago.");
+            String first = item.getUserName() + " wants to borrow ";
+            String second = "$" + item.getAmount();
+            String third = " " + item.getSecPast() + "s ago.";
+
+            int secPast = item.getSecPast();
+            if (secPast > 60) {
+                third = " " + secPast/60 + "m" + secPast%60 + "s ago.";
+            }
+
+            SpannableStringBuilder stringBuilder = new SpannableStringBuilder(first+second+third);
+            stringBuilder.setSpan(new ForegroundColorSpan(Color.parseColor("#31926f")),first.length()+1,
+                    first.length()+second.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            holder.tvName.setText(stringBuilder);
+
             String imageFile = item.getImage();
             InputStream inputStream = mContext.getAssets().open(imageFile);
             Drawable d = Drawable.createFromStream(inputStream, null);
@@ -96,7 +113,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
             super(itemView);
 
             tvName = (TextView) itemView.findViewById(R.id.userNameText);
-            imageView = (ImageView) itemView.findViewById(R.id.userImageView);
+            imageView = (ImageView) itemView.findViewById(R.id.profile_image);
             mView = itemView;
         }
     }

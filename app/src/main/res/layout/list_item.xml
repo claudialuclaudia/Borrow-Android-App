@@ -7,16 +7,14 @@
     android:paddingBottom="5dp"
     android:paddingTop="5dp">
 
-    <ImageView
-        android:id="@+id/userImageView"
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:contentDescription="Kelly Kapoor"
-        app:srcCompat="@drawable/kelly"
-        tools:ignore="HardcodedText" />
+        android:src="@drawable/kelly"/>
 
     <TextView
         android:id="@+id/userNameText"
@@ -25,9 +23,9 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
-        android:layout_toEndOf="@+id/userImageView"
-        android:layout_toRightOf="@+id/userImageView"
+        android:layout_toEndOf="@+id/profile_image"
+        android:layout_toRightOf="@+id/profile_image"
         android:text="A request item"
-        android:textSize="20sp"
+        android:textSize="16sp"
         tools:ignore="HardcodedText" />
 </RelativeLayout>
