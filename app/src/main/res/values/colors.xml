@@ -6,4 +6,5 @@
     <color name="borrowGreen">#31926f</color>
     <color name="black">#000000</color>
     <color name="grey">#a09d9d</color>
+    <color name="lightGrey">#c3c1c1</color>
 </resources>
