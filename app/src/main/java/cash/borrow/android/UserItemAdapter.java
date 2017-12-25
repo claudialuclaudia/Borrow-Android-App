@@ -15,7 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,12 +30,14 @@ public class UserItemAdapter extends ArrayAdapter<UserItem> {
 
     List<UserItem> mUserItems;
     LayoutInflater mInflater;
+    private Context mContext;
 
     public UserItemAdapter(@NonNull Context context, @NonNull List<UserItem> objects) {
         super(context, R.layout.user_item, objects);
 
         mUserItems = objects;
         mInflater = LayoutInflater.from(context);
+        this.mContext = context;
     }
 
     @NonNull
@@ -46,7 +51,6 @@ public class UserItemAdapter extends ArrayAdapter<UserItem> {
         TextView jobText = (TextView) convertView.findViewById(R.id.jobText);
         TextView townAddressText = (TextView) convertView.findViewById(R.id.townAddressText);
         TextView friendAmountText = (TextView) convertView.findViewById(R.id.friendAmountText);
-        TextView borrowLimitText = (TextView) convertView.findViewById(R.id.borrowLimitText);
         ImageView imageView = (ImageView) convertView.findViewById(R.id.profile_image);
 
         UserItem item = mUserItems.get(position);
@@ -55,30 +59,6 @@ public class UserItemAdapter extends ArrayAdapter<UserItem> {
         jobText.setText(item.getJobTitle());
         townAddressText.setText(item.getTownAddress());
         friendAmountText.setText(item.getFriendsAmount() + " Friends");
-        double total = item.getCreditLimit()+item.getImbalance();
-
-        String first = "Borrow Limit =\n";
-        String second = "$" + item.getCreditLimit();
-        String third = "(Credit Limit) + ";
-        String fourth = "$" + item.getImbalance();
-        String fifth = "(Imbalance)\n";
-        String sixth = "= $" + total;
-        int totalLength = first.length()+second.length()+third.length()+fourth.length()+fifth.length()+sixth.length();
-
-        SpannableStringBuilder stringBuilder = new SpannableStringBuilder(first+second+third+fourth+fifth+sixth);
-        stringBuilder.setSpan(new ForegroundColorSpan(Color.parseColor("#31926f")),first.length(),
-                first.length()+second.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        stringBuilder.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),first.length(),
-                first.length()+second.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        stringBuilder.setSpan(new ForegroundColorSpan(Color.parseColor("#31926f")),first.length()+second.length()+third.length(),
-                first.length()+second.length()+third.length()+fourth.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        stringBuilder.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),first.length()+second.length()+third.length(),
-                first.length()+second.length()+third.length()+fourth.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        stringBuilder.setSpan(new ForegroundColorSpan(Color.parseColor("#31926f")),
-                first.length()+second.length()+third.length()+fourth.length()+fifth.length()+1, totalLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        stringBuilder.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),
-                first.length()+second.length()+third.length()+fourth.length()+fifth.length()+1, totalLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        borrowLimitText.setText(stringBuilder);
 
         imageView.setImageResource(R.drawable.kelly);
 
@@ -100,7 +80,17 @@ public class UserItemAdapter extends ArrayAdapter<UserItem> {
             }
         }
 
-
+//        boolean checked = ((RadioButton) convertView).isChecked();
+//        switch(convertView.getId()) {
+//            case R.id.borrowed:
+//                if (checked) {
+//                    Toast.makeText(mContext, "borrowed licked", Toast.LENGTH_SHORT).show();
+//                }
+//            case R.id.lent:
+//                if (checked) {
+//                    Toast.makeText(mContext, "lent licked", Toast.LENGTH_SHORT).show();
+//                }
+//        }
         return convertView;
     }
 }

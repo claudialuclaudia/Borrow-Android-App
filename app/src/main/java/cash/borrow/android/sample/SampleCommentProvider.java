@@ -2,8 +2,10 @@ package cash.borrow.android.sample;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.jar.Pack200;
 
 import cash.borrow.android.model.CommentItem;
@@ -13,12 +15,14 @@ public class SampleCommentProvider {
     public static Map<String, CommentItem> commentItemMap;
     public static Map<String, Map<String, CommentItem>> requestCommentItemMap;
     public static Map<String, Double> requestProgress;
+    public static Map<String, Set> lentMap;//userId to list of all requestId that he has contributed to
 
     static {
         commentItemList = new ArrayList<>();
         commentItemMap = new HashMap<>();
         requestCommentItemMap = new HashMap<>();
         requestProgress = new HashMap<>();
+        lentMap = new HashMap<>();
 
         addItem(new CommentItem("2", "1", "Kelly Kapoor", 45, false, 0, "Ryan!!!", "1"));
 
@@ -32,7 +36,9 @@ public class SampleCommentProvider {
 
         addItem(new CommentItem("5", "1", "Kelly Kapoor", 200, false, 0, "Dwight you dumb dumb Jim doesn't need a nose job", "1"));
 
-        addItem(new CommentItem("3", "4", "Michael Scott", 145, true, 10, null, "3"));
+        addItem(new CommentItem("3", "4", "Michael Scott", 145, true, 3, null, "3"));
+
+        addItem(new CommentItem("3", "4", "Michael Scott", 140, true, 2, null, "4"));
 
         addItem(new CommentItem("8", "1", "Kelly Kapoor", 120, true, 20, null, "1"));
 
@@ -68,6 +74,14 @@ public class SampleCommentProvider {
             } else {
                 double progress = item.getLentAmount();
                 requestProgress.put(item.getRequestId(), progress);
+            }
+
+            if(lentMap.containsKey(item.getCommenterId())){
+                lentMap.get(item.getCommenterId()).add(item.getRequestId());
+            } else {
+                Set<String> set = new HashSet<>();
+                set.add(item.getRequestId());
+                lentMap.put(item.getCommenterId(),set);
             }
         }
     }

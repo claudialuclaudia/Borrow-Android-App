@@ -15,7 +15,7 @@ public class SampleUserProvider {
         userItemList = new ArrayList<>();
         userItemMap = new HashMap<>();
 
-        addItem(new UserItem("1", "Kelly Kapoor", "kelly.jpg", 158, "101 Sunset Boulevard", "Los Angelas, CA", "Freelance Stylist", 600, -100));
+        addItem(new UserItem("1", "Kelly Kapoor", "kelly.jpg", 158, "101 Sunset Boulevard", "Los Angelas, CA", "Stylist for Khloe Khardashian", 600, -100));
 
         addItem(new UserItem("2", "Ryan Howard", "ryan.jpg", 87, "101 Sunset Boulevard", "Los Angelas, CA", "Freelancer", 800, -300));
 

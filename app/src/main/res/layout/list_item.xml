@@ -31,7 +31,7 @@
         android:layout_width="17dp"
         android:layout_height="17dp"
         android:id="@+id/refresh"
-        android:src="@drawable/refresh"
+        android:src="@drawable/ic_action_refresh"
         android:layout_below="@+id/profile_image"
         android:layout_marginLeft="18dp"/>
 
@@ -39,7 +39,7 @@
         android:layout_width="17dp"
         android:layout_height="17dp"
         android:id="@+id/chat"
-        android:src="@drawable/chat"
+        android:src="@drawable/ic_action_chat"
         android:layout_below="@+id/profile_image"
         android:layout_toRightOf="@+id/refresh"
         android:layout_marginLeft="2dp"/>
@@ -47,7 +47,7 @@
     <ImageView
         android:layout_width="17dp"
         android:layout_height="17dp"
-        android:src="@drawable/heart"
+        android:src="@drawable/ic_action_favorite"
         android:layout_below="@+id/profile_image"
         android:layout_toRightOf="@+id/chat"
         android:layout_marginLeft="1dp"/>
