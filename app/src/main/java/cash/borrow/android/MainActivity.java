@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_star) {
-            Toast.makeText(this, "I can do nothing because Chase designed nothing--LAZY", Toast.LENGTH_SHORT).show();
+        if (id == R.id.action_sign_in) {
+            Toast.makeText(this, "sign in page", Toast.LENGTH_SHORT).show();
             return true;
         }
 

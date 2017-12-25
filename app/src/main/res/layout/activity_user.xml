@@ -44,8 +44,9 @@
         android:id="@+id/rvItems"
         app:layoutManager="LinearLayoutManager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@android:id/list"
+        android:background="@android:color/white"
         />
 
     <ImageButton

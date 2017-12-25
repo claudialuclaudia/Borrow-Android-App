@@ -31,10 +31,19 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/greyPadding"
+        android:layout_width="500dp"
+        android:layout_height="6dp"
+        android:background="@color/grey"
+        android:layout_alignParentBottom="true"
+        />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvItems"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/greyPadding"
         app:layoutManager="LinearLayoutManager"
         android:layout_below="@+id/my_toolbar"
         />

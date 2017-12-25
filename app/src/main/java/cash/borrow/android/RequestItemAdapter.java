@@ -70,7 +70,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
             String third = " " + item.getSecPast() + "s ago.";
 
             int secPast = item.getSecPast();
-            if (secPast > 60) {
+            if (secPast >= 60) {
                 String remainderSec = (int)item.getSecPast() % 60 != 0 ? Integer.toString(item.getSecPast()%60) + "s" : "";
                 third = " " + secPast/60 + "m" + remainderSec + " ago.";
             }
