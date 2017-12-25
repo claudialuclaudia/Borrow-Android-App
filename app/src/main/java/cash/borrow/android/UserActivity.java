@@ -69,7 +69,6 @@ public class UserActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
     }
 
     @Override

@@ -7,11 +7,36 @@
     android:layout_height="match_parent"
     tools:context="cash.borrow.android.DetailActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/borrowGreen"
+        tools:ignore="HardcodedText"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/mytext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Detail"
+            android:paddingLeft="40dp"
+            android:paddingRight="5dp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            tools:ignore="HardcodedText" />
+
+    </android.support.v7.widget.Toolbar>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/detailRvItems"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="LinearLayoutManager"
+        android:layout_below="@+id/my_toolbar"
         />
 
     <ListView
@@ -20,5 +45,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/detailRvItems"
         />
+
+    <ImageButton
+        android:id="@+id/action_back"
+        style="?attr/actionButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/my_toolbar"
+        android:layout_alignBottom="@+id/my_toolbar"
+        android:src="@drawable/ic_action_back" />
 
 </RelativeLayout>
