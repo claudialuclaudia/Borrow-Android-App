@@ -59,12 +59,12 @@ public class DetailActivity extends AppCompatActivity {
             commentItemList = new ArrayList<>(map.values());
         }
 
-//        Collections.sort(commentItemList, new Comparator<CommentItem>() {
-//            @Override
-//            public int compare(CommentItem o1, CommentItem o2) {
-//                return Double.compare(o1.getSecPast(), o2.getSecPast());
-//            }
-//        });
+        Collections.sort(commentItemList, new Comparator<CommentItem>() {
+            @Override
+            public int compare(CommentItem o1, CommentItem o2) {
+                return Double.compare(o2.getSecPast(), o1.getSecPast());
+            }
+        });
 
         CommentItemAdapter commentAdapter = new CommentItemAdapter(this, commentItemList);
 //

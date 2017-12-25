@@ -19,12 +19,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cash.borrow.android.model.RequestItem;
+import cash.borrow.android.sample.SampleCommentProvider;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import static cash.borrow.android.R.id.reqAmount;
+import static cash.borrow.android.R.id.requestReason;
 
 public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.ViewHolder>{
 
@@ -33,6 +36,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
     public static final String USER_ID_KEY = "user_id_key";
     private List<RequestItem> mItems;
     private Context mContext;
+    Map<String, Double> requestProgress = SampleCommentProvider.requestProgress;
 
     public RequestItemAdapter(Context context, List<RequestItem> items) {
         this.mContext = context;
@@ -67,7 +71,8 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
 
             int secPast = item.getSecPast();
             if (secPast > 60) {
-                third = " " + secPast/60 + "m" + secPast%60 + "s ago.";
+                String remainderSec = (int)item.getSecPast() % 60 != 0 ? Integer.toString(item.getSecPast()%60) + "s" : "";
+                third = " " + secPast/60 + "m" + remainderSec + " ago.";
             }
 
             SpannableStringBuilder stringBuilder = new SpannableStringBuilder(first+second+third);
@@ -85,7 +90,13 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
             holder.imageView.setImageDrawable(d);
 
             holder.progressBar.setMax((int) item.getAmount()!=0 ? (int) item.getAmount(): (int) item.getAmount()+1);
-            holder.progressBar.setProgress(50);
+
+            if (!requestProgress.containsKey(item.getRequestId())){
+                holder.progressBar.setProgress(0);
+            } else {
+                double progress = requestProgress.get(item.getRequestId());
+                holder.progressBar.setProgress((int) progress);
+            }
 
             String reqA;
             if (item.getAmount()%1 != 0) {
