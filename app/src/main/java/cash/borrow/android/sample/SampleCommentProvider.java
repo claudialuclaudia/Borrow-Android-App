@@ -14,7 +14,7 @@ public class SampleCommentProvider {
     public static List<CommentItem> commentItemList;
     public static Map<String, CommentItem> commentItemMap;
     public static Map<String, Map<String, CommentItem>> requestCommentItemMap;
-    public static Map<String, Double> requestProgress;
+    public static Map<String, Double> requestProgress;//request Id : progress so far
     public static Map<String, Set> lentMap;//userId to list of all requestId that he has contributed to
 
     static {
@@ -53,6 +53,8 @@ public class SampleCommentProvider {
         addItem(new CommentItem("10", "3", "Jan Levinson", 17, true, 5, null, "1"));
 
         addItem(new CommentItem("10", "2", "Ryan Howard", 8, true, 30, null, "2"));
+
+        addItem(new CommentItem("5", "4", "Michael Scott", 180, true, 0.1, null, "2"));
 
     }
 

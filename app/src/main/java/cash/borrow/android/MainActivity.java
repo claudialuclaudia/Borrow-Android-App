@@ -17,14 +17,17 @@ import android.widget.Toast;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import cash.borrow.android.model.RequestItem;
+import cash.borrow.android.sample.SampleCommentProvider;
 import cash.borrow.android.sample.SampleRequestProvider;
 
 public class MainActivity extends AppCompatActivity {
 
     List<RequestItem> requestItemList = SampleRequestProvider.requestItemList;
 //    TextView tvOut;
+    Map<String, Double> requestProgress = SampleCommentProvider.requestProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,16 @@ public class MainActivity extends AppCompatActivity {
                     return Double.compare(o1.getSecPast(), o2.getSecPast());
             }
         });
+
+        double progress;
+        for (RequestItem item: requestItemList) {
+            if (requestProgress.containsKey(item.getRequestId())){
+                progress = requestProgress.get(item.getRequestId());
+                if (progress >= item.getAmount()) {
+                    requestItemList.remove(item);
+                }
+            }
+        }
 
         RequestItemAdapter adapter = new RequestItemAdapter(this, requestItemList);
 

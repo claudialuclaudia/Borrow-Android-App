@@ -132,4 +132,14 @@ public class UserActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void addFriend(View view) {
+        // Do something in response to button click
+        Toast.makeText(UserActivity.this, "My name is Chase and I LUUUUUUVVV it when things are CLICKABLE", Toast.LENGTH_SHORT).show();
+    }
+
+    public void sendMoney(View view) {
+        // Do something in response to button click
+        Toast.makeText(UserActivity.this, "My name is Chase and I LUUUUUUVVV it when things are CLICKABLE", Toast.LENGTH_SHORT).show();
+    }
 }

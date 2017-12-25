@@ -28,7 +28,7 @@
             android:paddingRight="5dp"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText,RtlHardcoded" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -40,18 +40,60 @@
         android:layout_below="@+id/my_toolbar"
         />
 
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@android:id/list"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/addFriendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:theme="@style/Button"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:textSize="12sp"
+            android:text="+Add Friend"
+            android:textColor="@android:color/white"
+            android:includeFontPadding="false"
+            android:textAllCaps="false"
+            tools:ignore="HardcodedText"
+            android:onClick="addFriend"/>
+
+        <Button
+            android:id="@+id/sendMoneyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:theme="@style/Button"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:textSize="12sp"
+            android:text="Send Money"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            tools:ignore="HardcodedText"
+            android:onClick="sendMoney"/>
+
+    </LinearLayout>
+
     <RadioGroup
         android:checkedButton="@+id/borrowed"
         android:id="@+id/toggle"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/green_out_line"
         android:orientation="horizontal"
-        android:layout_below="@android:id/list">
+        android:layout_below="@+id/buttons">
 
         <RadioButton
             android:layout_marginTop="1dp"
