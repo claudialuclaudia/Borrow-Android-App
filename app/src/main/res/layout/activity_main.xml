@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:design="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -17,7 +18,8 @@
         tools:ignore="HardcodedText"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:foregroundTint="@android:color/white">
 
         <TextView
             android:id="@+id/mytext"
@@ -32,22 +34,22 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/greyPadding"
-        android:layout_width="500dp"
-        android:layout_height="6dp"
-        android:background="@color/grey"
-        android:layout_alignParentBottom="true"
-        />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvItems"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/greyPadding"
-        app:layoutManager="LinearLayoutManager"
+        android:id="@+id/scroll"
         android:layout_below="@+id/my_toolbar"
-        />
+        android:layout_above="@+id/navigation"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvItems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="LinearLayoutManager"
+            />
+
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/action_write"
@@ -59,4 +61,43 @@
         android:layout_alignTop="@+id/my_toolbar"
         android:layout_alignBottom="@+id/my_toolbar"
         android:src="@drawable/ic_action_edit" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:background="#fff"
+        android:id="@+id/navigation">
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_action_cloud"
+            android:background="@drawable/selector"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_action_search"
+            android:background="@drawable/selector"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_action_cc_bcc"
+            android:background="@drawable/selector"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_action_person_grey"
+            android:background="@drawable/selector"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
 </RelativeLayout>

@@ -57,7 +57,7 @@
     <LinearLayout
         android:id="@+id/reqLL"
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
+        android:layout_height="90dp"
         android:layout_toEndOf="@+id/profile_image"
         android:layout_toRightOf="@+id/profile_image"
         android:layout_marginLeft="20dp"
@@ -72,26 +72,23 @@
         <TextView
             android:id="@+id/userNameText"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="30dp"
             android:text="A request item"
             android:textSize="12sp"
             android:maxLines="2"
-            android:gravity="center_vertical"
+            android:gravity="top"
             tools:ignore="HardcodedText"
             android:textColor="@android:color/black"/>
 
         <TextView
             android:id="@+id/requestReason"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignLeft="@+id/userNameText"
-            android:layout_alignStart="@+id/userNameText"
-            android:layout_below="@+id/userNameText"
+            android:layout_height="35dp"
             android:layout_marginTop="4dp"
             android:textSize="14sp"
             android:maxLines="2"
-            android:gravity="center_vertical"
-            android:layout_gravity="center_vertical"
+            android:gravity="top"
+            android:layout_gravity="top"
             android:text="TextView"
             android:textColor="@android:color/black"/>
 
