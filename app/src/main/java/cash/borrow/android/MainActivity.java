@@ -1,6 +1,7 @@
 package cash.borrow.android;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,11 +13,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -28,9 +31,11 @@ import cash.borrow.android.sample.SampleRequestProvider;
 
 public class MainActivity extends AppCompatActivity {
 
-    List<RequestItem> requestItemList = SampleRequestProvider.requestItemList;
+    List<RequestItem> requestItemList;
 //    TextView tvOut;
     Map<String, Double> requestProgress = SampleCommentProvider.requestProgress;
+    List<RequestItem> worldFeedList;
+    List<RequestItem> friendFeedList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
+        requestItemList = SampleRequestProvider.requestItemList;
         Collections.sort(requestItemList, new Comparator<RequestItem>() {
             @Override
             public int compare(RequestItem o1, RequestItem o2) {
@@ -59,10 +65,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        RequestItemAdapter adapter = new RequestItemAdapter(this, requestItemList);
+        worldFeedList = requestItemList;
+
+        RequestItemAdapter adapter = new RequestItemAdapter(this, worldFeedList);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
         recyclerView.setAdapter(adapter);
+
+        requestItemList = new ArrayList<>();
+        for (RequestItem item: worldFeedList) {
+            if (Integer.parseInt(item.getUserId()) > 10) {
+                requestItemList.add(item);
+            }
+        }
+        friendFeedList = requestItemList;
+
 
 //        tvOut = (TextView) findViewById(R.d.out);
 
@@ -90,21 +107,51 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (position == 0) {
+                    RequestItemAdapter adapter = new RequestItemAdapter(MainActivity.this, worldFeedList);
+
+                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
+                    recyclerView.setAdapter(adapter);
+
+                } else if (position == 1) {
+                    RequestItemAdapter adapter = new RequestItemAdapter(MainActivity.this, friendFeedList);
+
+                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    requestItemList = new ArrayList<RequestItem>();
+                    RequestItemAdapter adapter = new RequestItemAdapter(MainActivity.this, requestItemList);
+
+                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
+                    recyclerView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_sign_in) {
-//            Toast.makeText(this, "sign in page", Toast.LENGTH_SHORT).show();
-//            return true;
-//        }
-        return true;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+////        if (id == R.id.action_sign_in) {
+////            Toast.makeText(this, "sign in page", Toast.LENGTH_SHORT).show();
+////            return true;
+////        }
+//        return true;
+//    }
 }

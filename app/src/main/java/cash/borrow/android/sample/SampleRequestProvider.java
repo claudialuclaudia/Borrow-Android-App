@@ -37,6 +37,20 @@ public class SampleRequestProvider {
 
         addItem(new RequestItem("10", "5", "Dwight Schrute", 30, 300, "fund for Dwight Schrute's plan for the world", "dwight.jpg"));
 
+        addItem(new RequestItem("11", "11", "Bojack Horseman", 48, 80, "groceries for my fat horse ass...", "bojack.jpg"));
+
+        addItem(new RequestItem("12", "12", "Sarah Lynn", 234, 5, "I'm back from the dead you dumb shits!!!", "sarah.jpg"));
+
+        addItem(new RequestItem("13", "13", "Diane Nguyen", 78, 30, "money for the new David Sedaris book", "diane.jpg"));
+
+        addItem(new RequestItem("14", "14", "Mr. Peanutbutter", 85, 250, "bouncy house needs to be fixed! :(", "peanutbutter.jpg"));
+
+        addItem(new RequestItem("15", "15", "Todd Chavez", 8, 30, "kettlecorns!!", "todd.jpg"));
+
+        addItem(new RequestItem("16", "15", "Todd Chavez", 208, 20, "butter scotches!!", "todd.jpg"));
+
+        addItem(new RequestItem("17", "14", "Mr. Peanutbutter", 25, 79, "new bow ties!", "peanutbutter.jpg"));
+
     }
 
     private static void addItem(RequestItem item){
