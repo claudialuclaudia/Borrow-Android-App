@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Borrow</string>
+
+    <string-array name="spinner_list_item_array">
+        <item>World Feed</item>
+        <item>My Friends</item>
+        <item>My Connects</item>
+    </string-array>
 </resources>

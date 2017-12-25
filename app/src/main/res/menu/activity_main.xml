@@ -3,10 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_sign_in"
-        android:title="Send"
-        android:icon="@drawable/ic_action_person"
-        app:showAsAction="always"
-        />
+        android:id="@+id/spinner"
+        android:title="Spinner"
+        app:actionViewClass= "android.widget.Spinner"
+        android:background="@android:color/transparent"
+        app:showAsAction="always">
+    </item>
+
+    <!--<item-->
+        <!--android:id="@+id/action_send"-->
+        <!--android:title="Send"-->
+        <!--android:icon="@drawable/ic_action_expand"-->
+        <!--app:showAsAction="always"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--/>-->
+
+
+    <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:src="@drawable/ic_action_expand" />-->
 
 </menu>

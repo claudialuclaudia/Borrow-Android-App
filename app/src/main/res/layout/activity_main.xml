@@ -5,7 +5,9 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cash.borrow.android.MainActivity">
+    tools:context="cash.borrow.android.MainActivity"
+    android:background="@android:color/white"
+    android:backgroundTint="@android:color/white">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -42,7 +44,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvItems"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@id/greyPadding"
         app:layoutManager="LinearLayoutManager"
         android:layout_below="@+id/my_toolbar"

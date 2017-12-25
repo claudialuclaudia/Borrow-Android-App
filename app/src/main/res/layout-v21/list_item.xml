@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="5dp"
+    android:background="@android:color/white"
+    android:backgroundTint="@android:color/white"
     >
 
     <TextView
@@ -75,7 +77,8 @@
             android:textSize="12sp"
             android:maxLines="2"
             android:gravity="center_vertical"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText"
+            android:textColor="@android:color/black"/>
 
         <TextView
             android:id="@+id/requestReason"
@@ -89,13 +92,16 @@
             android:maxLines="2"
             android:gravity="center_vertical"
             android:layout_gravity="center_vertical"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@android:color/black"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
+            android:progressTint="@color/darkerGrey"
+            android:backgroundTint="@color/buttonGrey"
             />
 
     </LinearLayout>
