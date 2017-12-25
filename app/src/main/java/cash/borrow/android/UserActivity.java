@@ -39,8 +39,6 @@ public class UserActivity extends AppCompatActivity {
 //        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 //        getSupportActionBar().setCustomView(R.layout.abs_profile);
 
-
-
         String userId = getIntent().getExtras().getString(RequestItemAdapter.USER_ID_KEY);
         List<RequestItem> list = SampleRequestProvider.userMap.get(userId);
 //        Toast.makeText(this, "got: " + list, Toast.LENGTH_SHORT).show();
@@ -90,8 +88,6 @@ public class UserActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_send) {
-//            onBackPressed();
-            // Do something
             Toast.makeText(this, "I can do nothing because Chase designed nothing--LAZY", Toast.LENGTH_SHORT).show();
             return true;
         }

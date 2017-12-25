@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ import cash.borrow.android.model.RequestItem;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+
+import static cash.borrow.android.R.id.reqAmount;
 
 public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.ViewHolder>{
 
@@ -54,7 +57,12 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
 
         try {
             String first = item.getUserName() + " wants to borrow ";
-            String second = "$" + item.getAmount();
+            String second;
+            if (item.getAmount()%1 != 0) {
+                second = "$" + item.getAmount();
+            } else {
+                second = "$" + (int) item.getAmount();
+            }
             String third = " " + item.getSecPast() + "s ago.";
 
             int secPast = item.getSecPast();
@@ -75,6 +83,18 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
             InputStream inputStream = mContext.getAssets().open(imageFile);
             Drawable d = Drawable.createFromStream(inputStream, null);
             holder.imageView.setImageDrawable(d);
+
+            holder.progressBar.setMax((int) item.getAmount()!=0 ? (int) item.getAmount(): (int) item.getAmount()+1);
+            holder.progressBar.setProgress(50);
+
+            String reqA;
+            if (item.getAmount()%1 != 0) {
+                reqA = "$" + item.getAmount();
+            } else {
+                reqA = "$" + (int) item.getAmount();
+            }
+            holder.reqAmount.setText(reqA);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,15 +136,19 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
 
         public TextView tvName;
         public TextView reqReason;
+        public TextView reqAmount;
         public ImageView imageView;
         public View mView;
+        public ProgressBar progressBar;
         public ViewHolder(View itemView) {
             super(itemView);
 
             tvName = (TextView) itemView.findViewById(R.id.userNameText);
             reqReason = (TextView) itemView.findViewById(R.id.requestReason);
+            reqAmount = (TextView) itemView.findViewById(R.id.reqAmount);
             imageView = (ImageView) itemView.findViewById(R.id.profile_image);
             mView = itemView;
+            progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
         }
     }
 }

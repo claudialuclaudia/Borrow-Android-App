@@ -1,11 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/borrowGreen</item>
         <item name="colorPrimaryDark">@color/borrowGreen</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@android:color/darker_gray</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
