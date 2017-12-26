@@ -48,9 +48,9 @@ public class ProfileActivity extends AppCompatActivity {
         RequestItemAdapter adapter = new RequestItemAdapter(this, list);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
 
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-//        layoutManager.setAutoMeasureEnabled(true);
-//        recyclerView.setLayoutManager(layoutManager);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setAutoMeasureEnabled(true);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
 
