@@ -3,6 +3,7 @@ package cash.borrow.android;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -46,6 +47,11 @@ public class ProfileActivity extends AppCompatActivity {
         });
         RequestItemAdapter adapter = new RequestItemAdapter(this, list);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
+
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+//        layoutManager.setAutoMeasureEnabled(true);
+//        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
 
         userItem = SampleUserProvider.userItemMap.get(userId);

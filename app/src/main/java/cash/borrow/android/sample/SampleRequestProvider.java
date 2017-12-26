@@ -39,7 +39,7 @@ public class SampleRequestProvider {
 
         addItem(new RequestItem("11", "11", "Bojack Horseman", 48, 80, "groceries for my fat horse ass...", "bojack.jpg"));
 
-        addItem(new RequestItem("12", "12", "Sarah Lynn", 234, 5, "I'm back from the dead you dumb shits!!!", "sarah.jpg"));
+        addItem(new RequestItem("12", "12", "Sarah Lynn", 234, 150, "I'm back from the dead you dumb shits!!!", "sarah.jpg"));
 
         addItem(new RequestItem("13", "13", "Diane Nguyen", 78, 30, "money for the new David Sedaris book", "diane.jpg"));
 

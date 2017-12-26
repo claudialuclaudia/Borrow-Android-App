@@ -91,11 +91,19 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
 
             holder.progressBar.setMax((int) item.getAmount()!=0 ? (int) item.getAmount(): (int) item.getAmount()+1);
 
+            int progressInt;
+            double progress;
             if (!requestProgress.containsKey(item.getRequestId())){
                 holder.progressBar.setProgress(0);
             } else {
-                double progress = requestProgress.get(item.getRequestId());
-                holder.progressBar.setProgress(progress%1!=0 && (int) progress ==0 ? (int) progress : (int) progress+1);
+                progress = requestProgress.get(item.getRequestId());
+                progressInt = progress%1!=0 && (int) progress ==0 ? (int) progress+1 : (int) progress;
+                if (progress > item.getAmount()){
+                    holder.progressBar.setProgress(0);
+                    holder.progressBar.setDrawingCacheBackgroundColor(Color.RED);
+                } else {
+                    holder.progressBar.setProgress(progressInt);
+                }
             }
 
             String reqA;
