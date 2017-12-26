@@ -95,7 +95,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
                 holder.progressBar.setProgress(0);
             } else {
                 double progress = requestProgress.get(item.getRequestId());
-                holder.progressBar.setProgress(progress%1!=0 && (int) progress ==0 ? (int) progress+1 : (int) progress);
+                holder.progressBar.setProgress(progress%1!=0 && (int) progress ==0 ? (int) progress : (int) progress+1);
             }
 
             String reqA;

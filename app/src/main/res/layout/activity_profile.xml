@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:design="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cash.borrow.android.MainActivity"
-    android:background="@android:color/white"
-    android:backgroundTint="@android:color/white">
+    android:id="@+id/activity_profile"
+    android:background="@drawable/user_activity_background"
+    tools:context="cash.borrow.android.ProfileActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -18,50 +16,59 @@
         tools:ignore="HardcodedText"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:foregroundTint="@android:color/white">
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/mytext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Home"
-            android:paddingLeft="100dp"
+            android:text="Profile"
+            android:paddingLeft="40dp"
+            android:paddingRight="5dp"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText,RtlHardcoded" />
 
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scroll"
+        android:layout_gravity="center_horizontal"
         android:layout_below="@+id/my_toolbar"
-        android:layout_above="@+id/navigation"
-        android:orientation="vertical">
+        />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvItems"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="LinearLayoutManager"
-            />
-
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/action_write"
-        style="?attr/actionButtonStyle"
+    <Button
+        android:id="@+id/addFriendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/my_toolbar"
-        android:layout_alignBottom="@+id/my_toolbar"
-        android:src="@drawable/ic_action_edit" />
-    
+        android:layout_centerHorizontal="true"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:theme="@style/Button"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:textSize="12sp"
+        android:text="+Add Friend"
+        android:textColor="@android:color/white"
+        android:includeFontPadding="false"
+        android:textAllCaps="false"
+        tools:ignore="HardcodedText"
+        android:layout_below="@android:id/list"
+        android:onClick="addFriend"
+        android:layout_marginBottom="10dp"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvItems"
+        app:layoutManager="LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addFriendButton"
+        android:background="@android:color/white"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
