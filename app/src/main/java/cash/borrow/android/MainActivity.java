@@ -101,7 +101,9 @@ public class MainActivity extends AppCompatActivity {
                 if (commentItem.isLent()) {
                     for (RequestItem reqI: userMap.get(commentItem.getCommenterId())){
                         //list of RequestItems
-                        myConnectsList.add(reqI);
+                        if (!myConnectsList.contains(reqI)){
+                            myConnectsList.add(reqI);
+                        }
                     }
                 }
             }
