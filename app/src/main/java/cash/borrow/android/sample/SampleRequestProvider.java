@@ -10,7 +10,7 @@ import cash.borrow.android.model.RequestItem;
 public class SampleRequestProvider {
     public static List<RequestItem> requestItemList;
     public static Map<String, RequestItem> requestItemMap;
-    public static Map<String, List<RequestItem>> userMap;
+    public static Map<String, List<RequestItem>> userMap; //userId to list of RequestItems
 
     static {
         requestItemList = new ArrayList<>();

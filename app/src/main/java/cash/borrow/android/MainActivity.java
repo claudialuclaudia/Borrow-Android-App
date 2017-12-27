@@ -25,7 +25,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import cash.borrow.android.model.CommentItem;
 import cash.borrow.android.model.RequestItem;
 import cash.borrow.android.sample.SampleCommentProvider;
 import cash.borrow.android.sample.SampleRequestProvider;
@@ -35,8 +37,14 @@ public class MainActivity extends AppCompatActivity {
     List<RequestItem> requestItemList;
 //    TextView tvOut;
     Map<String, Double> requestProgress = SampleCommentProvider.requestProgress;
+    Map<String, Set> lentMap = SampleCommentProvider.lentMap;
+    Map<String, RequestItem> requestItemMap = SampleRequestProvider.requestItemMap;
+    Map<String, List<RequestItem>> userMap = SampleRequestProvider.userMap;
+    Map<String, Map<String, CommentItem>> requestCommentItemMap = SampleCommentProvider.requestCommentItemMap;
     List<RequestItem> worldFeedList;
     List<RequestItem> friendFeedList;
+    List<RequestItem> myConnectsList;
+    String userId = "12";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +88,25 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         friendFeedList = requestItemList;
+
+        myConnectsList = new ArrayList<>();
+        //everyone Sarah Lynn has contributed towards
+        for (Object reqId: lentMap.get(userId)) {
+            myConnectsList = userMap.get(requestItemMap.get(reqId).getUserId());
+        }
+        //everyone who has contributed towards Sarah Lynn's causes
+        for (RequestItem reqItem: userMap.get(userId)){//list of Sarah's requestItems
+            for (CommentItem commentItem: requestCommentItemMap.get(reqItem.getRequestId()).values()) {
+                //map of commentId : CommentItems
+                if (commentItem.isLent()) {
+                    for (RequestItem reqI: userMap.get(commentItem.getCommenterId())){
+                        //list of RequestItems
+                        myConnectsList.add(reqI);
+                    }
+                }
+            }
+        }
+
 
 
 //        tvOut = (TextView) findViewById(R.d.out);
@@ -133,8 +160,7 @@ public class MainActivity extends AppCompatActivity {
                     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
                     recyclerView.setAdapter(adapter);
                 } else {
-                    requestItemList = new ArrayList<RequestItem>();
-                    RequestItemAdapter adapter = new RequestItemAdapter(MainActivity.this, requestItemList);
+                    RequestItemAdapter adapter = new RequestItemAdapter(MainActivity.this, myConnectsList);
 
                     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
                     recyclerView.setAdapter(adapter);

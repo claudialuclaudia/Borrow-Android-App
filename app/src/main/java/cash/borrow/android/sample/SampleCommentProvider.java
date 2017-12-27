@@ -13,9 +13,9 @@ import cash.borrow.android.model.CommentItem;
 public class SampleCommentProvider {
     public static List<CommentItem> commentItemList;
     public static Map<String, CommentItem> commentItemMap;
-    public static Map<String, Map<String, CommentItem>> requestCommentItemMap;
+    public static Map<String, Map<String, CommentItem>> requestCommentItemMap; //requestId to a map of commentId : CommentItems
     public static Map<String, Double> requestProgress;//request Id : progress so far
-    public static Map<String, Set> lentMap;//userId to list of all requestId that he has contributed to
+    public static Map<String, Set> lentMap;//userId to set of all requestId that he has contributed to
 
     static {
         commentItemList = new ArrayList<>();
