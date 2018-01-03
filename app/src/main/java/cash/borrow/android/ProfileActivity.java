@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
 import cash.borrow.android.model.ProfileItem;
 import cash.borrow.android.model.RequestItem;
 import cash.borrow.android.model.UserItem;
+import cash.borrow.android.sample.SampleCommentProvider;
 import cash.borrow.android.sample.SampleRequestProvider;
 import cash.borrow.android.sample.SampleSarahProfileProvider;
 import cash.borrow.android.sample.SampleUserProvider;
@@ -66,6 +68,9 @@ public class ProfileActivity extends AppCompatActivity {
 //        ListView profileListView = (ListView) findViewById(R.id.profileRecyclerView);
 //        profileListView.setAdapter(profileAdapter);
         RecyclerView recyclerView2 = (RecyclerView) findViewById(R.id.profileRecyclerView);
+        recyclerView2.setLayoutManager(mGrid);
+        recyclerView2.setHasFixedSize(true);
+        recyclerView2.setNestedScrollingEnabled(false);
         ProfileItemAdapter adapter2 = new ProfileItemAdapter(this, profileItemList);
         recyclerView2.setAdapter(adapter2);
 
@@ -76,6 +81,51 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(ProfileActivity.this,
                         MainActivity.class);
                 startActivity(myIntent);
+            }
+        });
+
+        RadioButton borrowedButton = (RadioButton) findViewById(R.id.borrowed);
+        RadioButton lentButton = (RadioButton) findViewById(R.id.lent);
+
+        borrowedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(UserActivity.this, "You've clicked borrowed", Toast.LENGTH_SHORT).show();
+                list = SampleRequestProvider.userMap.get(userId);
+                Collections.sort(list, new Comparator<RequestItem>() {
+                    @Override
+                    public int compare(RequestItem o1, RequestItem o2) {
+                        return Double.compare(o1.getSecPast(), o2.getSecPast());
+                    }
+                });
+                RequestItemAdapter adapter = new RequestItemAdapter(ProfileActivity.this, list);
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
+                recyclerView.setAdapter(adapter);
+            }
+        });
+
+
+        lentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(UserActivity.this, "You've clicked lent", Toast.LENGTH_SHORT).show();
+                list = new ArrayList<RequestItem>();
+                if (SampleCommentProvider.lentMap.containsKey(userId)) {//if user has lent before
+                    for (Object reqId: SampleCommentProvider.lentMap.get(userId)) {//for each request that user has lent towards
+                        RequestItem item = SampleRequestProvider.requestItemMap.get(reqId);
+                        //get requestItem correlated to the requestId
+                        list.add(item);
+                    }
+                }
+                Collections.sort(list, new Comparator<RequestItem>() {
+                    @Override
+                    public int compare(RequestItem o1, RequestItem o2) {
+                        return Double.compare(o1.getSecPast(), o2.getSecPast());
+                    }
+                });
+                RequestItemAdapter adapter = new RequestItemAdapter(ProfileActivity.this, list);
+                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
+                recyclerView.setAdapter(adapter);
             }
         });
     }

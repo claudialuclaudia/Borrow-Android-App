@@ -77,6 +77,48 @@
                 app:layoutManager="LinearLayoutManager"
                 android:orientation="vertical"/>
 
+            <RadioGroup
+                android:checkedButton="@+id/borrowed"
+                android:id="@+id/toggle"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/green_out_line"
+                android:orientation="horizontal"
+                android:layout_below="@+id/buttons">
+
+                <RadioButton
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:id="@+id/borrowed"
+                    android:background="@drawable/toggle_widget_background"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="Borrowed"
+                    android:textColor="@android:color/white"/>
+
+                <RadioButton
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:id="@+id/lent"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_widget_background"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="Lent"
+                    android:textColor="@android:color/white"/>
+            </RadioGroup>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvItems"
                 android:layout_width="match_parent"
