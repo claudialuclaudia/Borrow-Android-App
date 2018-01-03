@@ -102,6 +102,12 @@ public class UserActivity extends AppCompatActivity {
                         list.add(item);
                     }
                 }
+                Collections.sort(list, new Comparator<RequestItem>() {
+                    @Override
+                    public int compare(RequestItem o1, RequestItem o2) {
+                        return Double.compare(o1.getSecPast(), o2.getSecPast());
+                    }
+                });
                 RequestItemAdapter adapter = new RequestItemAdapter(UserActivity.this, list);
                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
                 recyclerView.setAdapter(adapter);

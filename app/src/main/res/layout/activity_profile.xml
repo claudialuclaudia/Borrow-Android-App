@@ -38,7 +38,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
-        android:layout_below="@+id/my_toolbar">
+        android:layout_below="@+id/my_toolbar"
+        android:id="@+id/scroll"
+        android:layout_above="@+id/navigation">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,115 +68,20 @@
                 android:includeFontPadding="false"
                 android:textAllCaps="false"
                 tools:ignore="HardcodedText"
-                android:layout_below="@android:id/list"
-                android:onClick="addFriend"
-                android:layout_marginBottom="10dp"/>
+                android:onClick="addFriend"/>
 
-            <LinearLayout
-                android:id="@+id/imbalance"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/profileRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="66dp"
-                android:background="@android:color/white"
-                android:orientation="vertical"
-                android:layout_below="@+id/inviteFriendsButton"
-                tools:layout_editor_absoluteY="25dp"
-                tools:layout_editor_absoluteX="8dp">
-                <TextView
-                    android:id="@+id/greyPadding"
-                    android:layout_width="500dp"
-                    android:layout_height="6dp"
-                    android:background="@color/grey"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:textSize="12sp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_gravity="bottom"
-                    android:paddingTop="5dp"
-                    android:text="Current Balance"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:text="-$50"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="@color/borrowGreen"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/paymentDueDate"
-                android:layout_width="match_parent"
-                android:layout_height="66dp"
-                android:background="@android:color/white"
-                android:orientation="vertical"
-                android:layout_below="@+id/imbalance"
-                tools:layout_editor_absoluteY="25dp"
-                tools:layout_editor_absoluteX="8dp">
-                <TextView
-                    android:id="@+id/greyPadding2"
-                    android:layout_width="500dp"
-                    android:layout_height="6dp"
-                    android:background="@color/grey"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:textSize="12sp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_gravity="bottom"
-                    android:paddingTop="5dp"
-                    android:text="Payment Due Date"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:text="01/25/18"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="@android:color/black"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/minPayDue"
-                android:layout_width="match_parent"
-                android:layout_height="66dp"
-                android:background="@android:color/white"
-                android:orientation="vertical"
-                android:layout_below="@+id/paymentDueDate"
-                tools:layout_editor_absoluteY="25dp"
-                tools:layout_editor_absoluteX="8dp">
-                <TextView
-                    android:id="@+id/greyPadding3"
-                    android:layout_width="500dp"
-                    android:layout_height="6dp"
-                    android:background="@color/grey"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:textSize="12sp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_gravity="bottom"
-                    android:paddingTop="5dp"
-                    android:text="Minimum Payment Due"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:text="$25"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="@color/borrowGreen"
-                    android:textStyle="bold"/>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                app:layoutManager="LinearLayoutManager"
+                android:orientation="vertical"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvItems"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/minPayDue"
-                android:minHeight="150dp"
+                android:orientation="vertical"
                 android:background="@android:color/white"
                 app:layoutManager="LinearLayoutManager" />
 

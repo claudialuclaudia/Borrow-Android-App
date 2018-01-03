@@ -59,8 +59,6 @@ public class SampleCommentProvider {
         addItem(new CommentItem("12", "11", "Bojack Horseman", 124, true, 100, null, "1"));
 
         addItem(new CommentItem("14", "12", "Sarah Lynn", 72, true, 50, null, "1"));
-
-
     }
 
     private static void addItem(CommentItem item) {
