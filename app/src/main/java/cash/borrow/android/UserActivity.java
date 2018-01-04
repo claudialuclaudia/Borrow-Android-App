@@ -1,5 +1,6 @@
 package cash.borrow.android;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -111,6 +113,26 @@ public class UserActivity extends AppCompatActivity {
                 RequestItemAdapter adapter = new RequestItemAdapter(UserActivity.this, list);
                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
                 recyclerView.setAdapter(adapter);
+            }
+        });
+
+        ImageButton imageButton = (ImageButton) findViewById(R.id.nav_home);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(UserActivity.this,
+                        MainActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        ImageButton imageButton2 = (ImageButton) findViewById(R.id.nav_profile);
+        imageButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(UserActivity.this,
+                        ProfileActivity.class);
+                startActivity(myIntent);
             }
         });
 

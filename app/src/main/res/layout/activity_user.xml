@@ -130,7 +130,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toggle"
-        android:background="@android:color/white"
+        android:background="@color/grey"
+        android:layout_above="@+id/navigation"
         />
 
     <ImageButton
@@ -143,4 +144,46 @@
         android:layout_alignTop="@+id/my_toolbar"
         android:layout_alignBottom="@+id/my_toolbar"
         android:src="@drawable/ic_action_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:background="#fff"
+        android:id="@+id/navigation">
+
+        <ImageButton
+            android:id="@+id/nav_home"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_action_cloud"
+            android:background="@drawable/selector"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/nav_search"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_action_search"
+            android:background="@drawable/selector"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/nav_notifications"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_action_cc_bcc"
+            android:background="@drawable/selector"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/nav_profile"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_action_person_grey"
+            android:background="@drawable/selector"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 </RelativeLayout>

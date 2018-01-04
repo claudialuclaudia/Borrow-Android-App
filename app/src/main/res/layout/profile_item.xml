@@ -27,7 +27,6 @@
         android:layout_marginBottom="10dp"
         android:text="01/25/18"
         android:textSize="14sp"
-        android:textColor="@color/borrowGreen"
-        android:textStyle="bold"/>
+        android:textColor="@color/borrowGreen"/>
 
 </LinearLayout>

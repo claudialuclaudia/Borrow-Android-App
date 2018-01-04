@@ -2,6 +2,8 @@ package cash.borrow.android;
 
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import cash.borrow.android.model.ProfileItem;
 
@@ -43,6 +46,10 @@ public class ProfileItemAdapter extends RecyclerView.Adapter<ProfileItemAdapter.
         final ProfileItem item = mItems.get(position);
         holder.description.setText(item.getDescription());
         holder.content.setText(item.getContent());
+        if (item.getTextStyle().equals("BOLD")) {
+            holder.content.setTypeface(null, Typeface.BOLD);
+        }
+        holder.content.setTextColor(Color.parseColor(item.getTextColor()));
     }
 
     @Override

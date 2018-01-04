@@ -4,6 +4,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import cash.borrow.android.model.RequestItem;
 import cash.borrow.android.sample.SampleCommentProvider;
+import cash.borrow.android.sample.SampleRequestProvider;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,6 +39,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
     private List<RequestItem> mItems;
     private Context mContext;
     Map<String, Double> requestProgress = SampleCommentProvider.requestProgress;
+    List<RequestItem> requestItemList = SampleRequestProvider.requestItemList;
 
     public RequestItemAdapter(Context context, List<RequestItem> items) {
         this.mContext = context;
@@ -98,12 +101,10 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
             } else {
                 progress = requestProgress.get(item.getRequestId());
                 progressInt = progress%1!=0 && (int) progress ==0 ? (int) progress+1 : (int) progress;
-                if (progress > item.getAmount()){
-                    holder.progressBar.setProgress(0);
-                    holder.progressBar.setDrawingCacheBackgroundColor(Color.RED);
-                } else {
-                    holder.progressBar.setProgress(progressInt);
+                if (progress >= item.getAmount()){
+                    holder.progressBar.getProgressDrawable().setColorFilter(Color.parseColor("#31926f"), PorterDuff.Mode.SRC_IN);
                 }
+                holder.progressBar.setProgress(progressInt);
             }
 
             String reqA;

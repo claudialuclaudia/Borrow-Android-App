@@ -1,5 +1,6 @@
 package cash.borrow.android;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -76,6 +78,26 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        ImageButton imageButton = (ImageButton) findViewById(R.id.nav_home);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(DetailActivity.this,
+                        MainActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        ImageButton imageButton2 = (ImageButton) findViewById(R.id.nav_profile);
+        imageButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(DetailActivity.this,
+                        ProfileActivity.class);
+                startActivity(myIntent);
             }
         });
     }
