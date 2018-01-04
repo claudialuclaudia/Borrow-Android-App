@@ -1,15 +1,19 @@
 package cash.borrow.android;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -33,11 +37,17 @@ public class ProfileActivity extends AppCompatActivity {
     String userId = "12";
     List<UserItem> userItemOne = new ArrayList<UserItem>();
     List<ProfileItem> profileItemList = new ArrayList<ProfileItem>();
+    private CustomProgressBar seekbar;
+    private ArrayList<ProgressItem> progressItemList;
+    private ProgressItem mProgressItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        seekbar = ((CustomProgressBar) findViewById(R.id.seekBar0));
+        seekbar.getThumb().mutate().setAlpha(0);
+        initDataToSeekbar();
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -68,7 +78,8 @@ public class ProfileActivity extends AppCompatActivity {
 //        ListView profileListView = (ListView) findViewById(R.id.profileRecyclerView);
 //        profileListView.setAdapter(profileAdapter);
         RecyclerView recyclerView2 = (RecyclerView) findViewById(R.id.profileRecyclerView);
-        recyclerView2.setLayoutManager(mGrid);
+        GridLayoutManager mGrid2 = new GridLayoutManager(this, 1);
+        recyclerView2.setLayoutManager(mGrid2);
         recyclerView2.setHasFixedSize(true);
         recyclerView2.setNestedScrollingEnabled(false);
         ProfileItemAdapter adapter2 = new ProfileItemAdapter(this, profileItemList);
@@ -128,6 +139,31 @@ public class ProfileActivity extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
             }
         });
+
+    }
+
+    private void initDataToSeekbar() {
+        progressItemList = new ArrayList<ProgressItem>();
+        //
+        mProgressItem = new ProgressItem();
+        mProgressItem.progressItemPercentage = 16;
+        Log.i("Mainactivity", mProgressItem.progressItemPercentage + "");
+        mProgressItem.color = R.color.colorAccent;
+        progressItemList.add(mProgressItem);
+        //
+        mProgressItem = new ProgressItem();
+        mProgressItem.progressItemPercentage = 33;
+        mProgressItem.color = R.color.borrowGreen;
+        progressItemList.add(mProgressItem);
+        //
+        mProgressItem = new ProgressItem();
+        mProgressItem.progressItemPercentage = 50;
+        mProgressItem.color =  R.color.grey;
+        progressItemList.add(mProgressItem);
+
+
+        seekbar.initData(progressItemList);
+        seekbar.invalidate();
     }
 
     @Override
