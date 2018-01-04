@@ -148,7 +148,7 @@ public class ProfileActivity extends AppCompatActivity {
         mProgressItem = new ProgressItem();
         mProgressItem.progressItemPercentage = 16;
         Log.i("Mainactivity", mProgressItem.progressItemPercentage + "");
-        mProgressItem.color = R.color.colorAccent;
+        mProgressItem.color = R.color.red;
         progressItemList.add(mProgressItem);
         //
         mProgressItem = new ProgressItem();

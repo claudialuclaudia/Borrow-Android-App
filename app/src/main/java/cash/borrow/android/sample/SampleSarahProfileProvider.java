@@ -11,17 +11,21 @@ public class SampleSarahProfileProvider {
     static {
         profileItemList = new ArrayList<>();
 
-        addItem(new ProfileItem("You've borrowed", "$50", "BOLD", "#FF4081"));
+        addItem(new ProfileItem("You've Borrowed", "$100", "BOLD", "#a0a0a0"));
 
-        addItem(new ProfileItem("Your current active requests total", "$150", "BOLD", "#31926f"));
+        addItem(new ProfileItem("You've Lent", "$50", "BOLD", "#a0a0a0"));
 
-        addItem(new ProfileItem("Your Current Credit Limit", "$300", "BOLD", "#80000000"));
+        addItem(new ProfileItem("Balance", "-$50", "BOLD", "#cc0000"));
 
-        addItem(new ProfileItem("Your Remaining Borrow Power", "$150", "BOLD", "#31926f"));
+        addItem(new ProfileItem("Currently Requesting", "$150", "BOLD", "#31926f"));
 
-        addItem(new ProfileItem("Payment Due Date (dd/mm/yy)", "01/25/18", "NORMAL", "#000000"));
+        addItem(new ProfileItem("Credit Limit", "$300", "BOLD", "#80000000"));
 
-        addItem(new ProfileItem("Minimum Payment Due", "$25", "BOLD", "#31926f"));
+        addItem(new ProfileItem("Remaining Borrow Amount", "$150", "BOLD", "#80000000"));
+
+        addItem(new ProfileItem("Payment Due Date (dd/mm/yy)", "01/25/18", "NORMAL", "#80000000"));
+
+        addItem(new ProfileItem("Minimum Payment Due", "$25", "BOLD", "#a0a0a0"));
 
     }
 

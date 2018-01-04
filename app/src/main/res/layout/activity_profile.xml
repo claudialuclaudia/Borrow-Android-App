@@ -62,6 +62,7 @@
                 android:theme="@style/Button"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
+                android:layout_marginBottom="6dp"
                 android:textSize="12sp"
                 android:text="+Invite Friends"
                 android:textColor="@android:color/white"
@@ -86,7 +87,7 @@
                 <TextView
                     android:id="@+id/greyPadding"
                     android:layout_width="500dp"
-                    android:layout_height="6dp"
+                    android:layout_height="3dp"
                     android:background="@color/grey"
                     />
                 <LinearLayout
@@ -100,21 +101,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="9sp"
-                        android:textColor="@color/colorAccent"
-                        android:text="borrowed "/>
+                        android:textColor="@color/red"
+                        android:text="balance "/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
                         android:text="$50"
                         android:textStyle="bold"
-                        android:textColor="@color/colorAccent"/>
+                        android:textColor="@color/red"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="9sp"
                         android:textColor="@color/borrowGreen"
-                        android:text="        requested"/>
+                        android:text="       requesting"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -127,12 +128,12 @@
                         android:layout_height="wrap_content"
                         android:textSize="9sp"
                         android:textColor="@color/darkerGrey"
-                        android:text="          remaining power"/>
+                        android:text="                         150"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
-                        android:text="        $300"
+                        android:text="               $300"
                         android:textStyle="bold"
                         android:textColor="@color/darkerGrey"/>
                 </LinearLayout>
@@ -153,10 +154,9 @@
                 android:id="@+id/toggle"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="6dp"
                 android:background="@drawable/green_out_line"
                 android:orientation="horizontal"
                 android:layout_below="@+id/buttons">
