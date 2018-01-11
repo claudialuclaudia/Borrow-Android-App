@@ -108,6 +108,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        Collections.sort(myConnectsList, new Comparator<RequestItem>() {
+            @Override
+            public int compare(RequestItem o1, RequestItem o2) {
+                return Double.compare(o1.getSecPast(), o2.getSecPast());
+            }
+        });
 
 
 

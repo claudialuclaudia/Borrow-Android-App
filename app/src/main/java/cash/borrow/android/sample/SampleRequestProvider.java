@@ -33,8 +33,6 @@ public class SampleRequestProvider {
 
         addItem(new RequestItem("8", "4", "Michael Scott", 200, 150, "locked myself out of my car...", "michael.jpg"));
 
-        addItem(new RequestItem("9", "2", "Ryan Howard", 20, 200, "ASAPPPPPP", "ryan.jpg"));
-
         addItem(new RequestItem("10", "5", "Dwight Schrute", 30, 300, "fund for Dwight Schrute's plan for the world", "dwight.jpg"));
 
         addItem(new RequestItem("11", "11", "Bojack Horseman", 48, 80, "groceries for my fat horse ass...", "bojack.jpg"));
