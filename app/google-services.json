@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1079730999305",
+    "firebase_url": "https://borrow-cwlcbm.firebaseio.com",
+    "project_id": "borrow-cwlcbm",
+    "storage_bucket": "borrow-cwlcbm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079730999305:android:ec4fd4c0b1eecf4e",
+        "android_client_info": {
+          "package_name": "cash.borrow.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079730999305-etclerfgm4j5g1qengokp0icrre9loel.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOArjESEVQW0ybo4op4FCDT0Fzbvd4HCA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

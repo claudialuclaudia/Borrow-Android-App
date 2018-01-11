@@ -10,6 +10,15 @@
         app:showAsAction="always">
     </item>
 
+    <item
+        android:id="@+id/signIn"
+        android:title="Sign in"
+        android:background="@android:color/transparent"
+        app:showAsAction="always"
+        />
+
+
+
     <!--<item-->
         <!--android:id="@+id/action_send"-->
         <!--android:title="Send"-->

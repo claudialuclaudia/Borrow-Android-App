@@ -19,7 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:foregroundTint="@android:color/white">
+        android:theme="@style/MyTheme.PopupOverlay">
 
         <TextView
             android:id="@+id/mytext"
