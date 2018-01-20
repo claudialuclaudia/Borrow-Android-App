@@ -115,8 +115,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
 //        tvOut = (TextView) findViewById(R.d.out);
 
         ImageView imageView = (ImageView) findViewById(R.id.action_write);
@@ -194,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.signIn) {
 //            Toast.makeText(this, "I can do nothing because Chase designed nothing--LAZY", Toast.LENGTH_SHORT).show();
             Intent myIntent = new Intent(MainActivity.this,
-                    ProfileActivity.class);
+                    SignInActivity.class);
             startActivity(myIntent);
             return true;
         }
