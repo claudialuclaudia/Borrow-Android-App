@@ -17,6 +17,9 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,6 +35,8 @@ import cash.borrow.android.sample.SampleUserProvider;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private FirebaseAuth firebaseAuth;
+
     List<RequestItem> list;
     UserItem userItem;
     String userId = "12";
@@ -45,6 +50,18 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        if(firebaseAuth.getCurrentUser() == null){
+            finish();
+            startActivity(new Intent(this, SignInActivity.class));
+        }
+
+//        FirebaseUser user = firebaseAuth.getCurrentUser();
+//        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
+//        textViewUserEmail.setText("Welcome " + user.getEmail());
+
         seekbar = ((CustomProgressBar) findViewById(R.id.seekBar0));
         seekbar.getThumb().mutate().setAlpha(0);
         initDataToSeekbar();
@@ -175,6 +192,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void addFriend(View view) {
         // Do something in response to button click
-        Toast.makeText(ProfileActivity.this, "My name is Chase and I LUUUUUUVVV it when things are CLICKABLE", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(ProfileActivity.this, "My name is Chase and I LUUUUUUVVV it when things are CLICKABLE", Toast.LENGTH_SHORT).show();
+        firebaseAuth.signOut();
+        finish();
+        startActivity(new Intent(ProfileActivity.this, SignInActivity.class));
     }
 }

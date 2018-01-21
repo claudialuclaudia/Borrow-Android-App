@@ -34,11 +34,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         firebaseAuth = FirebaseAuth.getInstance();//initialize firebaseAuth object
 
-//        if(firebaseAuth.getCurrentUser() != null){
-//            //already logged in; start profile activity
-//            finish();
-//            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//        }
+        if(firebaseAuth.getCurrentUser() != null){
+            //already logged in; start profile activity
+            finish();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        }
 
         progressDialog = new ProgressDialog(this);
 
@@ -75,10 +75,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            progressDialog.dismiss();
                             if(task.isSuccessful()) {
                                 //user is successfully registered and logged in; start the profile activity
                                 finish();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                             }else {
                                 Toast.makeText(SignUpActivity.this, "Could not register. " +
                                         "please try again", Toast.LENGTH_SHORT);
@@ -96,7 +97,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         if (view == textViewSignInInstead) {
             //will open login activity here
-//            startActivity(new Intent(this, SignInActivity.class));
+            startActivity(new Intent(this, SignInActivity.class));
         }
     }
 }
