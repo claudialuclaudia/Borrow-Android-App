@@ -75,16 +75,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            progressDialog.dismiss();
-                            if(task.isSuccessful()) {
-                                //user is successfully registered and logged in; start the profile activity
-                                finish();
-                                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                            }else {
-                                Toast.makeText(SignUpActivity.this, "Could not register. " +
-                                        "please try again", Toast.LENGTH_SHORT);
-                            }
+                            finish();
+                            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                        }else {
+                            Toast.makeText(SignUpActivity.this, "Could not register. " +
+                                    "please try again", Toast.LENGTH_SHORT).show();
                         }
+                        progressDialog.dismiss();
                     }
                 });
     }

@@ -76,6 +76,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                             //start the profile activity
                             finish();
                             startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                        }else {
+                            Toast.makeText(SignInActivity.this, "Could not sign in. " +
+                                    "please try again", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

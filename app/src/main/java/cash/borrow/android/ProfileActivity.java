@@ -191,7 +191,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void addFriend(View view) {
-        // Do something in response to button click
 //        Toast.makeText(ProfileActivity.this, "My name is Chase and I LUUUUUUVVV it when things are CLICKABLE", Toast.LENGTH_SHORT).show();
         firebaseAuth.signOut();
         finish();
