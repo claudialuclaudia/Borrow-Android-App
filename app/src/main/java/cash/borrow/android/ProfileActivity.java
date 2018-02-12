@@ -10,8 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -132,7 +134,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
         lentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,7 +179,6 @@ public class ProfileActivity extends AppCompatActivity {
         mProgressItem.color =  R.color.grey;
         progressItemList.add(mProgressItem);
 
-
         seekbar.initData(progressItemList);
         seekbar.invalidate();
     }
@@ -195,5 +195,22 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseAuth.signOut();
         finish();
         startActivity(new Intent(ProfileActivity.this, SignInActivity.class));
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_setting) {
+//            Toast.makeText(this, "I can do nothing because Chase designed nothing--LAZY", Toast.LENGTH_SHORT).show();
+            Intent myIntent = new Intent(ProfileActivity.this,
+                    UserSettingsActivity.class);
+            startActivity(myIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
