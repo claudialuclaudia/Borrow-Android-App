@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
     tools:context="cash.borrow.android.UserSettingsActivity">
 
     <LinearLayout
@@ -12,41 +13,53 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textViewUserSettings"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="15dp"
-            android:text="User Settings"
-            android:textAppearance="?android:textAppearanceLarge" />
+            android:text="Tap on camera to choose profile picture"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+        <ImageView
+            android:id="@+id/imageViewUpload"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:background="@drawable/if_camera_115759"
+            android:scaleType="centerCrop" />
 
         <EditText
             android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:hint="Enter your full name" />
+            android:hint="Enter your full name"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
 
         <EditText
             android:id="@+id/editTextLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:hint="Enter your location" />
+            android:hint="Enter your location"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
 
         <Button
             android:id="@+id/buttonSave"
-            android:layout_width="match_parent"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Save Information" />
-
-        <Button
-            android:id="@+id/buttonUpload"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Upload Profile Pic" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="3dp"
+            android:includeFontPadding="false"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:theme="@style/Button" />
 
     </LinearLayout>
 
