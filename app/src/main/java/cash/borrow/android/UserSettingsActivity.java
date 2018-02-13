@@ -1,5 +1,6 @@
 package cash.borrow.android;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,7 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
     private DatabaseReference databaseReference;
 
     private EditText editTextName, editTextLocation;
-    private Button buttonSave;
+    private Button buttonSave, buttonUpload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +35,10 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextLocation = (EditText) findViewById(R.id.editTextLocation);
         buttonSave = (Button) findViewById(R.id.buttonSave);
+        buttonUpload = (Button) findViewById(R.id.buttonUpload);
 
         buttonSave.setOnClickListener(this);
+        buttonUpload.setOnClickListener(this);
     }
 
     private void saveInfo(){
@@ -55,6 +58,12 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         if (view == buttonSave){
             saveInfo();
+        }
+
+        if (view == buttonUpload){
+            Intent myIntent = new Intent(UserSettingsActivity.this,
+                    UploadActivity.class);
+            startActivity(myIntent);
         }
     }
 }

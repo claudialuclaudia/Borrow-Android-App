@@ -39,7 +39,8 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".SignInActivity" />
-        <activity android:name=".UserSettingsActivity"></activity>
+        <activity android:name=".UserSettingsActivity" />
+        <activity android:name=".UploadActivity"></activity>
     </application>
 
 </manifest>
