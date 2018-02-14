@@ -135,8 +135,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton imageButton = (ImageButton) findViewById(R.id.nav_profile);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton navSearchButton = (ImageButton) findViewById(R.id.nav_search);
+        navSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MainActivity.this,
+                        ProfileActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        ImageButton navProfileButton = (ImageButton) findViewById(R.id.nav_profile);
+        navProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(MainActivity.this,

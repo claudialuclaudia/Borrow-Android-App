@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="20dp"
-    tools:context="cash.borrow.android.UserSettingsActivity">
+    tools:context="cash.borrow.android.UserSettingsActivity"
+    android:background="@color/borrowGreen">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tap on camera to choose profile picture"
             android:textAlignment="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+            android:textSize="14dp"/>
 
         <ImageView
             android:id="@+id/imageViewUpload"
@@ -32,34 +33,44 @@
             android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your full name"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="5dp"
+            android:hint="Your Full Name"
+            android:textSize="12dp"
+            android:background="@drawable/edittext"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/editTextLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="5dp"
             android:hint="Enter your location"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"/>
+            android:textSize="12dp"
+            android:background="@drawable/edittext"
+            android:padding="12dp"/>
 
         <Button
             android:id="@+id/buttonSave"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="3dp"
-            android:includeFontPadding="false"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:text="Save"
+            android:fontFamily="sans-serif"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/white"
+            android:background="@drawable/white_out_line"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:text="Save"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:theme="@style/Button" />
+            android:includeFontPadding="false"/>
 
     </LinearLayout>
 

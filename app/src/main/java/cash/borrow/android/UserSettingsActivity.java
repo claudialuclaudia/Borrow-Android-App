@@ -116,12 +116,12 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
 //            UserInfoItem userInfoItem = new UserInfoItem(fullName, location);
 
 
-            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(fullName)
-                    .setPhotoUri(Uri.parse(profileImageUrl))
-                    .build();
-
-            user.updateProfile(profile);
+//            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+//                    .setDisplayName(fullName)
+//                    .setPhotoUri(Uri.parse(profileImageUrl))
+//                    .build();
+//
+//            user.updateProfile(profile);
         }
 
     private void uploadImage() {
