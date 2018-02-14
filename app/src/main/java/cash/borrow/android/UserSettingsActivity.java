@@ -3,7 +3,6 @@ package cash.borrow.android;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -15,10 +14,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -30,25 +33,27 @@ import java.io.IOException;
 
 import cash.borrow.android.model.UserInfoItem;
 
-public class UserSettingsActivity extends AppCompatActivity implements View.OnClickListener{
+public class UserSettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
 
     private ImageView imageView;
     private EditText editTextName, editTextLocation;
     private Button buttonSave;
 
-    private Uri filePath;
+    private Uri uriProfileImage;
     private StorageReference storageReference;
     private static final int PICK_IMAGE_REQUEST = 234;
+
+    String profileImageUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_settings);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -61,36 +66,73 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showFileChooser();
+                showImageChooser();
             }
         });
     }
 
-    private void saveInfo(){
-        String name = editTextName.getText().toString().trim();
-        String location = editTextLocation.getText().toString().trim();
-        UserInfoItem userInfoItem = new UserInfoItem(name, location);
 
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+    private void loadUserInformation() {
+        final FirebaseUser user = mAuth.getCurrentUser();
 
-        databaseReference.child(user.getUid()).setValue(userInfoItem);
+        if (user != null) {
+            if (user.getPhotoUrl() != null) {
+                Glide.with(this)
+                        .load(user.getPhotoUrl().toString())
+                        .into(imageView);
+            }
 
-        uploadFile();
-
-        Toast.makeText(this, "Info Saved", Toast.LENGTH_LONG).show();
-
+            if (user.getDisplayName() != null) {
+                editTextName.setText(user.getDisplayName());
+            }
+        }
     }
 
-    private void uploadFile() {
-        if (filePath != null) {
+    private void saveInfo() {
+        String fullName = editTextName.getText().toString();
+        String location = editTextLocation.getText().toString().trim();
+        UserInfoItem userInfoItem = new UserInfoItem(fullName, location);
+
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        databaseReference.child(user.getUid()).setValue(userInfoItem).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(UserSettingsActivity.this, "Text Info Updated", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+//        if (fullName.isEmpty()) {
+//            editTextName.setError("Name required");
+//            editTextName.requestFocus();
+//            return;
+//        }
+
+//        if (user != null && profileImageUrl != null) {
+//            UserInfoItem userInfoItem = new UserInfoItem(fullName, location);
+
+
+//            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+//                    .setDisplayName(fullName)
+//                    .setPhotoUri(Uri.parse(profileImageUrl))
+//                    .build();
+//
+//            user.updateProfile(profile);
+        }
+
+    private void uploadImage() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        StorageReference profileRef = storageReference.child(user.getUid() + "/profilepics/"
+                + System.currentTimeMillis() + ".jpg");
+
+        if (uriProfileImage != null) {
 
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            StorageReference profileRef = storageReference.child("images/profile.jpg");
-
-            profileRef.putFile(filePath)
+            profileRef.putFile(uriProfileImage)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -111,14 +153,11 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
                             double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                             progressDialog.setMessage(((int) progress) + "% Uploaded...");
                         }
-                    })
-            ;
-        } else {
-            //display an error toast
+                    });
         }
     }
 
-    private void showFileChooser() {
+    private void showImageChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -131,21 +170,22 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null
                 && data.getData() != null) { //user have choosen an image
-            filePath = data.getData();
+            uriProfileImage = data.getData();
             try {
-                Bitmap bitMap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                Bitmap bitMap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriProfileImage);
                 imageView.setImageBitmap(bitMap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
     @Override
     public void onClick(View view) {
-        if (view == buttonSave){
+        if (view == buttonSave) {
             saveInfo();
+            uploadImage();
+
         }
     }
 }
