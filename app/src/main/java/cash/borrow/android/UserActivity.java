@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import cash.borrow.android.adapter.RequestItemAdapter;
+import cash.borrow.android.adapter.UserItemAdapter;
 import cash.borrow.android.model.RequestItem;
 import cash.borrow.android.model.UserItem;
 import cash.borrow.android.sample.SampleCommentProvider;

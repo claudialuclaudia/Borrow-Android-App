@@ -1,4 +1,4 @@
-package cash.borrow.android;
+package cash.borrow.android.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import cash.borrow.android.R;
 import cash.borrow.android.model.UserItem;
 
 public class UserItemAdapter extends ArrayAdapter<UserItem> {

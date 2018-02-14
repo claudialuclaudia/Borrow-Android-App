@@ -8,13 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import org.w3c.dom.Comment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,10 +19,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import cash.borrow.android.adapter.CommentItemAdapter;
+import cash.borrow.android.adapter.RequestItemAdapter;
 import cash.borrow.android.model.CommentItem;
 import cash.borrow.android.model.RequestItem;
 import cash.borrow.android.sample.SampleCommentProvider;
-import cash.borrow.android.sample.SampleRequestProvider;
 
 public class DetailActivity extends AppCompatActivity {
 

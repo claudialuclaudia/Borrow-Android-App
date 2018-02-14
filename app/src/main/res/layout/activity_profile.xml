@@ -18,9 +18,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         tools:layout_editor_absoluteY="25dp"
-        tools:layout_editor_absoluteX="8dp">
+        tools:layout_editor_absoluteX="8dp"
+        android:theme="@style/MyTheme.PopupOverlay">
 
-        <TextView
+    <TextView
             android:id="@+id/mytext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

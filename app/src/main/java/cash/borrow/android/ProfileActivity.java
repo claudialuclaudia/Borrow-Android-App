@@ -1,8 +1,6 @@
 package cash.borrow.android;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,20 +11,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import cash.borrow.android.adapter.ProfileItemAdapter;
+import cash.borrow.android.adapter.RequestItemAdapter;
+import cash.borrow.android.adapter.UserItemAdapter;
 import cash.borrow.android.model.ProfileItem;
 import cash.borrow.android.model.RequestItem;
 import cash.borrow.android.model.UserItem;
@@ -191,10 +189,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void addFriend(View view) {
-//        Toast.makeText(ProfileActivity.this, "My name is Chase and I LUUUUUUVVV it when things are CLICKABLE", Toast.LENGTH_SHORT).show();
-        firebaseAuth.signOut();
-        finish();
-        startActivity(new Intent(ProfileActivity.this, SignInActivity.class));
+        Toast.makeText(ProfileActivity.this, "My name is Chase and I LUUUUUUVVV it when things are CLICKABLE", Toast.LENGTH_SHORT).show();
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -211,6 +206,13 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(myIntent);
             return true;
         }
+
+        if(id == R.id.action_sign_out){
+            firebaseAuth.signOut();
+            finish();
+            startActivity(new Intent(ProfileActivity.this, SignInActivity.class));
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }

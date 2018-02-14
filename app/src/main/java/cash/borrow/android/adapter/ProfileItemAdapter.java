@@ -1,23 +1,18 @@
-package cash.borrow.android;
+package cash.borrow.android.adapter;
 
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
+import cash.borrow.android.R;
 import cash.borrow.android.model.ProfileItem;
 
 public class ProfileItemAdapter extends RecyclerView.Adapter<ProfileItemAdapter.ViewHolder> {

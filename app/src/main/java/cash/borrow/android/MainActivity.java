@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import cash.borrow.android.adapter.RequestItemAdapter;
 import cash.borrow.android.model.CommentItem;
 import cash.borrow.android.model.RequestItem;
 import cash.borrow.android.sample.SampleCommentProvider;
@@ -194,16 +195,16 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+//        int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.signIn) {
-//            Toast.makeText(this, "I can do nothing because Chase designed nothing--LAZY", Toast.LENGTH_SHORT).show();
-            Intent myIntent = new Intent(MainActivity.this,
-                    SignInActivity.class);
-            startActivity(myIntent);
-            return true;
-        }
+//        if (id == R.id.signIn) {
+////            Toast.makeText(this, "I can do nothing because Chase designed nothing--LAZY", Toast.LENGTH_SHORT).show();
+//            Intent myIntent = new Intent(MainActivity.this,
+//                    SignInActivity.class);
+//            startActivity(myIntent);
+//            return true;
+//        }
         return super.onOptionsItemSelected(item);
     }
 }

@@ -27,7 +27,8 @@
         android:layout_marginTop="10dp"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/darkerGrey"/>
 
     <TextView
         android:id="@+id/jobText"
@@ -37,7 +38,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:textSize="12dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/darkerGrey"/>
 
     <TextView
         android:id="@+id/townAddressText"
@@ -46,7 +48,8 @@
         android:layout_below="@+id/jobText"
         android:layout_centerHorizontal="true"
         android:textSize="12dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/darkerGrey"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -67,7 +70,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="TextView"/>
+            android:text="TextView"
+            android:textColor="@color/darkerGrey"/>
 
     </LinearLayout>
 

@@ -1,6 +1,5 @@
-package cash.borrow.android;
+package cash.borrow.android.adapter;
 
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,8 +16,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import cash.borrow.android.DetailActivity;
+import cash.borrow.android.R;
+import cash.borrow.android.UserActivity;
 import cash.borrow.android.model.RequestItem;
 import cash.borrow.android.sample.SampleCommentProvider;
 import cash.borrow.android.sample.SampleRequestProvider;
@@ -27,9 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
-
-import static cash.borrow.android.R.id.reqAmount;
-import static cash.borrow.android.R.id.requestReason;
 
 public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.ViewHolder>{
 
