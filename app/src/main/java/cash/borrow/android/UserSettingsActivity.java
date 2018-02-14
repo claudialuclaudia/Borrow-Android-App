@@ -38,7 +38,7 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
 
-    private ImageView imageView;
+    private ImageView imageViewUpload;
     private EditText editTextName, editTextLocation;
     private Button buttonSave;
 
@@ -62,13 +62,16 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
         buttonSave = (Button) findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(this);
 
-        imageView = (ImageView) findViewById(R.id.imageViewUpload);
-        imageView.setOnClickListener(new View.OnClickListener() {
+        imageViewUpload = (ImageView) findViewById(R.id.imageViewUpload);
+        imageViewUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showImageChooser();
             }
         });
+
+//        loadUserInformation();
+        // not working rn...i will figure it out later :(
     }
 
 
@@ -79,7 +82,7 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
             if (user.getPhotoUrl() != null) {
                 Glide.with(this)
                         .load(user.getPhotoUrl().toString())
-                        .into(imageView);
+                        .into(imageViewUpload);
             }
 
             if (user.getDisplayName() != null) {
@@ -113,12 +116,12 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
 //            UserInfoItem userInfoItem = new UserInfoItem(fullName, location);
 
 
-//            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-//                    .setDisplayName(fullName)
-//                    .setPhotoUri(Uri.parse(profileImageUrl))
-//                    .build();
-//
-//            user.updateProfile(profile);
+            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(fullName)
+                    .setPhotoUri(Uri.parse(profileImageUrl))
+                    .build();
+
+            user.updateProfile(profile);
         }
 
     private void uploadImage() {
@@ -173,7 +176,7 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
             uriProfileImage = data.getData();
             try {
                 Bitmap bitMap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriProfileImage);
-                imageView.setImageBitmap(bitMap);
+                imageViewUpload.setImageBitmap(bitMap);
             } catch (IOException e) {
                 e.printStackTrace();
             }

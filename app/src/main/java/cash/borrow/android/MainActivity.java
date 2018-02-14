@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,8 +44,18 @@ public class MainActivity extends AppCompatActivity {
     List<RequestItem> myConnectsList;
     String userId = "12";
 
+    private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        if(firebaseAuth.getCurrentUser() == null){
+            //not signed in
+            finish();
+            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+        }
+
         setTheme(R.style.AppTheme);
 
         super.onCreate(savedInstanceState);
