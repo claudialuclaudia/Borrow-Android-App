@@ -6,4 +6,20 @@
     android:layout_height="match_parent"
     tools:context="cash.borrow.android.SearchActivity">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editTextSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search a User"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

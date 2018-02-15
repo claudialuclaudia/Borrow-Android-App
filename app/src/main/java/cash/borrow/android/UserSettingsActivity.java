@@ -21,7 +21,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -36,7 +35,7 @@ import cash.borrow.android.model.UserInfoItem;
 public class UserSettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseUsersReference;
 
     private ImageView imageViewUpload;
     private EditText editTextName, editTextLocation;
@@ -54,7 +53,7 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_user_settings);
 
         mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseUsersReference = FirebaseDatabase.getInstance().getReference("users");
         storageReference = FirebaseStorage.getInstance().getReference();
 
         editTextName = (EditText) findViewById(R.id.editTextName);
@@ -98,7 +97,7 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
 
         FirebaseUser user = mAuth.getCurrentUser();
 
-        databaseReference.child(user.getUid()).setValue(userInfoItem).addOnCompleteListener(new OnCompleteListener<Void>() {
+        databaseUsersReference.child(user.getUid()).setValue(userInfoItem).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
