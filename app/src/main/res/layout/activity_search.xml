@@ -15,9 +15,18 @@
             android:id="@+id/editTextSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search a User"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:inputType="textPersonName"
+            android:background="@drawable/edittext"
+            android:hint="Search"
+            android:textSize="14dp"
+            android:padding="12dp"
+            android:textAlignment="center"
+            />
 
         <ListView
+            android:id="@+id/listViewUsers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></ListView>
     </LinearLayout>

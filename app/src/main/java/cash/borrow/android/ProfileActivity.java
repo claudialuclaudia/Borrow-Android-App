@@ -112,6 +112,16 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton navSearchButton = (ImageButton) findViewById(R.id.nav_search);
+        navSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ProfileActivity.this,
+                        SearchActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
         RadioButton borrowedButton = (RadioButton) findViewById(R.id.borrowed);
         RadioButton lentButton = (RadioButton) findViewById(R.id.lent);
 
