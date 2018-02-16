@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -37,10 +38,12 @@ public class UserSearchItemAdapter extends ArrayAdapter<UserInfoItem> {
         View listViewItem = inflater.inflate(R.layout.user_search_item, null, true);
 
         TextView textViewUserName = (TextView) listViewItem.findViewById(R.id.textViewUserName);
+        TextView textViewUserLocation = (TextView) listViewItem.findViewById(R.id.textViewUserLocation);
 
         UserInfoItem userInfoItem = userList.get(position);
 
         textViewUserName.setText(userInfoItem.getName());
+        textViewUserLocation.setText(userInfoItem.getLocation());
 
         return listViewItem;
     }

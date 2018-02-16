@@ -1,8 +1,12 @@
 package cash.borrow.android;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.google.firebase.auth.UserInfo;
@@ -33,12 +37,35 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
         databaseUsers = FirebaseDatabase.getInstance().getReference("users");
 
         editTextSearch = (EditText) findViewById(R.id.editTextSearch);
         listViewUsers = (ListView) findViewById(R.id.listViewUsers);
 
         userInfoItemList = new ArrayList<>();
+
+        ImageButton navSearchButton = (ImageButton) findViewById(R.id.nav_home);
+        navSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(SearchActivity.this,
+                        MainActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        ImageButton navProfileButton = (ImageButton) findViewById(R.id.nav_profile);
+        navProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(SearchActivity.this,
+                        ProfileActivity.class);
+                startActivity(myIntent);
+            }
+        });
     }
 
     @Override
