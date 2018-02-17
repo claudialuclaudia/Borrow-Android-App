@@ -7,14 +7,16 @@ package cash.borrow.android.model;
 public class UserInfoItem {
     public String name;
     public String location;
+    public String profilePicUrl;
 
     public UserInfoItem() {
 
     }
 
-    public UserInfoItem(String name, String location) {
+    public UserInfoItem(String name, String location, String profilePicUrl) {
         this.name = name;
         this.location = location;
+        this.profilePicUrl = profilePicUrl;
     }
 
     public String getName() {
@@ -25,6 +27,8 @@ public class UserInfoItem {
         return location;
     }
 
+    public String getProfilePicUrl() {return profilePicUrl; }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -32,4 +36,6 @@ public class UserInfoItem {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public void setProfilePicUrl(String profilePicUrl) { this.profilePicUrl = profilePicUrl; }
 }

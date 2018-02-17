@@ -1,6 +1,7 @@
 package cash.borrow.android;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,7 +37,7 @@ import cash.borrow.android.model.UserInfoItem;
 public class UserSettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth;
-    private DatabaseReference databaseUsersReference;
+    private DatabaseReference mDatabase;
 
     private ImageView imageViewUpload;
     private EditText editTextName, editTextLocation;
@@ -53,7 +55,7 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_user_settings);
 
         mAuth = FirebaseAuth.getInstance();
-        databaseUsersReference = FirebaseDatabase.getInstance().getReference("users");
+        mDatabase = FirebaseDatabase.getInstance().getReference("users");
         storageReference = FirebaseStorage.getInstance().getReference();
 
         editTextName = (EditText) findViewById(R.id.editTextName);
@@ -91,44 +93,13 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void saveInfo() {
-        String fullName = editTextName.getText().toString();
-        String location = editTextLocation.getText().toString().trim();
-        UserInfoItem userInfoItem = new UserInfoItem(fullName, location);
-
-        FirebaseUser user = mAuth.getCurrentUser();
-
-        databaseUsersReference.child(user.getUid()).setValue(userInfoItem).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(UserSettingsActivity.this, "Text Info Updated", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-//        if (fullName.isEmpty()) {
-//            editTextName.setError("Name required");
-//            editTextName.requestFocus();
-//            return;
-//        }
-
-//        if (user != null && profileImageUrl != null) {
-//            UserInfoItem userInfoItem = new UserInfoItem(fullName, location);
-
-
-//            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-//                    .setDisplayName(fullName)
-//                    .setPhotoUri(Uri.parse(profileImageUrl))
-//                    .build();
-//
-//            user.updateProfile(profile);
-        }
-
-    private void uploadImage() {
-        FirebaseUser user = mAuth.getCurrentUser();
-        StorageReference profileRef = storageReference.child(user.getUid() + "/profilepics/"
-                + System.currentTimeMillis() + ".jpg");
+        final FirebaseUser user = mAuth.getCurrentUser();
+        final String fullName = editTextName.getText().toString().trim();
+        final String location = editTextLocation.getText().toString().trim();
 
         if (uriProfileImage != null) {
+            StorageReference profileRef = storageReference.child(user.getUid() + Constants.PROFILE_PICS_PATH_UPLOADS
+                    + System.currentTimeMillis() + "." + getFileExtension(uriProfileImage));
 
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
@@ -139,7 +110,9 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "File Uploaded", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Info Saved", Toast.LENGTH_LONG).show();
+                            UserInfoItem userInfoItem = new UserInfoItem(fullName, location, taskSnapshot.getDownloadUrl().toString());
+                            mDatabase.child(user.getUid()).setValue(userInfoItem);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -156,7 +129,33 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
                             progressDialog.setMessage(((int) progress) + "% Uploaded...");
                         }
                     });
+        } else {
+            UserInfoItem userInfoItem = new UserInfoItem(fullName, location, null);
+            mDatabase.child(user.getUid()).setValue(userInfoItem).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(UserSettingsActivity.this, "Text Info Updated", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
+//        if (fullName.isEmpty()) {
+//            editTextName.setError("Name required");
+//            editTextName.requestFocus();
+//            return;
+//        }
+
+//        if (user != null && profileImageUrl != null) {
+//            UserInfoItem userInfoItem = new UserInfoItem(fullName, location);
+
+
+//            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+//                    .setDisplayName(fullName)
+//                    .setPhotoUri(Uri.parse(profileImageUrl))
+//                    .build();
+//
+//            user.updateProfile(profile);
     }
 
     private void showImageChooser() {
@@ -182,12 +181,17 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
+    //.jpg or .png and all that
+    public String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
     @Override
     public void onClick(View view) {
         if (view == buttonSave) {
             saveInfo();
-            uploadImage();
-
         }
     }
 }

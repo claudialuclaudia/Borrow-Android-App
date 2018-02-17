@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     List<RequestItem> requestItemList;
 //    TextView tvOut;
+
     Map<String, Double> requestProgress = SampleCommentProvider.requestProgress;
     Map<String, Set> lentMap = SampleCommentProvider.lentMap;
     Map<String, RequestItem> requestItemMap = SampleRequestProvider.requestItemMap;
@@ -49,14 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        if(firebaseAuth.getCurrentUser() == null){
-            //not signed in
-            finish();
-            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
-        }
-
         setTheme(R.style.AppTheme);
 
         super.onCreate(savedInstanceState);
@@ -64,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        if(firebaseAuth.getCurrentUser() == null){
+            //not signed in
+            finish();
+            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
+        }
 
         requestItemList = SampleRequestProvider.requestItemList;
         Collections.sort(requestItemList, new Comparator<RequestItem>() {

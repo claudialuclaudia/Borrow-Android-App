@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/activity_profile"
     android:background="@color/lightGrey"
-    tools:context="cash.borrow.android.ProfileActivity">
+    tools:context="cash.borrow.android.SearchActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -29,7 +29,7 @@
             android:layout_marginRight="10dp"
             android:inputType="textPersonName"
             android:background="@drawable/edittext"
-            android:hint="Search"
+            android:hint="Search a User"
             android:textColorHint="@color/darkerGrey"
             android:textColor="@color/darkerGrey"
             android:textSize="14dp"
@@ -38,12 +38,14 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ListView
-        android:id="@+id/listViewUsers"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewUsers"
         android:layout_below="@+id/my_toolbar"
         android:layout_above="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"

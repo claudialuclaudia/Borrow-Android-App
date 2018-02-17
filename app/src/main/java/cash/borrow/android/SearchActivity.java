@@ -1,8 +1,12 @@
 package cash.borrow.android;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
@@ -23,14 +27,15 @@ import cash.borrow.android.adapter.UserSearchItemAdapter;
 import cash.borrow.android.model.UserInfoItem;
 
 public class SearchActivity extends AppCompatActivity {
+    private EditText editTextSearch;
+    private ProgressDialog progressDialog;
 
-    EditText editTextSearch;
+    private RecyclerView recyclerViewUsers;
+    private RecyclerView.Adapter adapter;
 
-    DatabaseReference databaseUsers;
+    private DatabaseReference mDatabase;
 
-    ListView listViewUsers;
-
-    List<UserInfoItem> userInfoItemList;
+    private List<UserInfoItem> userInfoItemList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +45,41 @@ public class SearchActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        databaseUsers = FirebaseDatabase.getInstance().getReference("users");
+        recyclerViewUsers = (RecyclerView) findViewById(R.id.recyclerViewUsers);
+        recyclerViewUsers.setHasFixedSize(true);
+        recyclerViewUsers.setLayoutManager(new LinearLayoutManager(this));
 
-        editTextSearch = (EditText) findViewById(R.id.editTextSearch);
-        listViewUsers = (ListView) findViewById(R.id.listViewUsers);
+        progressDialog = new ProgressDialog(this);
 
         userInfoItemList = new ArrayList<>();
+
+        progressDialog.setMessage("Loading users...");
+        progressDialog.show();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_USERS_PATH_UPLOADS);
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                progressDialog.dismiss();
+
+                userInfoItemList.clear();
+                //iterating through all the values in database
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    UserInfoItem userInfoItem = postSnapshot.getValue(UserInfoItem.class);
+                    userInfoItemList.add(userInfoItem);
+                }
+                adapter = new UserSearchItemAdapter(SearchActivity.this, userInfoItemList);
+                recyclerViewUsers.setAdapter(adapter);
+
+                editTextSearch = (EditText) findViewById(R.id.editTextSearch);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                progressDialog.dismiss();
+            }
+        });
 
         ImageButton navSearchButton = (ImageButton) findViewById(R.id.nav_home);
         navSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -64,30 +98,6 @@ public class SearchActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(SearchActivity.this,
                         ProfileActivity.class);
                 startActivity(myIntent);
-            }
-        });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        databaseUsers.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userInfoItemList.clear();
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()){
-                    UserInfoItem userInfoItem = userSnapshot.getValue(UserInfoItem.class);
-                    userInfoItemList.add(userInfoItem);
-                }
-
-                UserSearchItemAdapter adapter = new UserSearchItemAdapter(SearchActivity.this, userInfoItemList);
-                listViewUsers.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
