@@ -9,6 +9,5 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Constants {
 
     public static final String DATABASE_USERS_PATH_UPLOADS = "users";
-    public static final String PROFILE_PICS_PATH_UPLOADS = "/profilepics/";
 
 }

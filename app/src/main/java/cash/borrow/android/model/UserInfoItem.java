@@ -5,7 +5,10 @@ package cash.borrow.android.model;
  */
 
 public class UserInfoItem {
-    public String name;
+    public String firstName;
+    public String firstNameIgnoreCase;
+    public String lastName;
+    public String lastNameIgnoreCase;
     public String location;
     public String profilePicUrl;
 
@@ -13,29 +16,60 @@ public class UserInfoItem {
 
     }
 
-    public UserInfoItem(String name, String location, String profilePicUrl) {
-        this.name = name;
+    public UserInfoItem(String firstName, String firstNameIgnoreCase, String lastName, String lastNameIgnoreCase, String location, String profilePicUrl) {
+        this.firstName = firstName;
+        this.firstNameIgnoreCase = firstNameIgnoreCase;
+        this.lastName = lastName;
+        this.lastNameIgnoreCase = lastNameIgnoreCase;
         this.location = location;
         this.profilePicUrl = profilePicUrl;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getFirstNameIgnoreCase() {
+        return firstNameIgnoreCase;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getLastNameIgnoreCase() {
+        return lastNameIgnoreCase;
     }
 
     public String getLocation() {
         return location;
     }
 
-    public String getProfilePicUrl() {return profilePicUrl; }
+    public String getProfilePicUrl() {
+        return profilePicUrl;
+    }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setFirstNameIgnoreCase(String firstNameIgnoreCase) {
+        this.firstNameIgnoreCase = firstNameIgnoreCase;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setLastNameIgnoreCase(String lastNameIgnoreCase) {
+        this.lastNameIgnoreCase = lastNameIgnoreCase;
     }
 
     public void setLocation(String location) {
         this.location = location;
     }
 
-    public void setProfilePicUrl(String profilePicUrl) { this.profilePicUrl = profilePicUrl; }
+    public void setProfilePicUrl(String profilePicUrl) {
+        this.profilePicUrl = profilePicUrl;
+    }
 }

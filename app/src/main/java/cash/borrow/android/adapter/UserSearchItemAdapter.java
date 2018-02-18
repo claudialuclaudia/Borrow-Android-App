@@ -46,7 +46,7 @@ public class UserSearchItemAdapter extends RecyclerView.Adapter<UserSearchItemAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         UserInfoItem userInfoItem = userList.get(position);
 
-        holder.textViewUserName.setText(userInfoItem.getName());
+        holder.textViewUserName.setText(userInfoItem.getFirstName() + " " + userInfoItem.getLastName());
         holder.textViewUserLocation.setText(userInfoItem.getLocation());
 
         Glide.with(context).load(userInfoItem.getProfilePicUrl()).into(holder.imageView);

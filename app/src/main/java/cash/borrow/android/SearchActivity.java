@@ -126,7 +126,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void performSearch(String searchText) {
-        Query firebaseSearchQuery = mDatabase.orderByChild("name").startAt(searchText).endAt(searchText + "\uf8ff");
+        Query firebaseSearchQuery = mDatabase.orderByChild("firstNameIgnoreCase").startAt(searchText).endAt(searchText + "\uf8ff");
 
         firebaseSearchQuery.addValueEventListener(new ValueEventListener() {
             @Override

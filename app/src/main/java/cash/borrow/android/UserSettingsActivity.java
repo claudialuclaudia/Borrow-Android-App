@@ -23,14 +23,20 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import cash.borrow.android.model.UserInfoItem;
 
@@ -40,7 +46,7 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
     private DatabaseReference mDatabase;
 
     private ImageView imageViewUpload;
-    private EditText editTextName, editTextLocation;
+    private EditText editTextFirstName, editTextLastName, editTextLocation;
     private Button buttonSave;
 
     private Uri uriProfileImage;
@@ -55,10 +61,11 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_user_settings);
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
+        mDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_USERS_PATH_UPLOADS);
         storageReference = FirebaseStorage.getInstance().getReference();
 
-        editTextName = (EditText) findViewById(R.id.editTextName);
+        editTextFirstName = (EditText) findViewById(R.id.editTextFirstName);
+        editTextLastName = (EditText) findViewById(R.id.editTextLastName);
         editTextLocation = (EditText) findViewById(R.id.editTextLocation);
         buttonSave = (Button) findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(this);
@@ -71,35 +78,54 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
             }
         });
 
-//        loadUserInformation();
-        // not working rn...i will figure it out later :(
+        loadUserInformation();
     }
 
 
     private void loadUserInformation() {
-        final FirebaseUser user = mAuth.getCurrentUser();
+        FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null) {
-            if (user.getPhotoUrl() != null) {
-                Glide.with(this)
-                        .load(user.getPhotoUrl().toString())
-                        .into(imageViewUpload);
-            }
+            Query firebaseSearchQuery = mDatabase.orderByKey().startAt(user.getUid()).endAt(user.getUid());
+            firebaseSearchQuery.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        UserInfoItem userInfoItem = postSnapshot.getValue(UserInfoItem.class);
 
-            if (user.getDisplayName() != null) {
-                editTextName.setText(user.getDisplayName());
-            }
+                        if (userInfoItem.getFirstName() != null){
+                            editTextFirstName.setText(userInfoItem.getFirstName());
+                        }
+                        if (userInfoItem.getLastName() != null){
+                            editTextLastName.setText(userInfoItem.getLastName());
+                        }
+                        if (userInfoItem.getLocation() != null){
+                            editTextLocation.setText(userInfoItem.getLocation());
+                        }
+                        if (userInfoItem.getProfilePicUrl() != null){
+                            Glide.with(UserSettingsActivity.this)
+                                    .load(userInfoItem.getProfilePicUrl())
+                                    .into(imageViewUpload);
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
         }
     }
 
     private void saveInfo() {
         final FirebaseUser user = mAuth.getCurrentUser();
-        final String fullName = editTextName.getText().toString().trim();
+        final String firstName = editTextFirstName.getText().toString().trim();
+        final String lastName = editTextLastName.getText().toString().trim();
         final String location = editTextLocation.getText().toString().trim();
 
         if (uriProfileImage != null) {
-            StorageReference profileRef = storageReference.child(user.getUid() + Constants.PROFILE_PICS_PATH_UPLOADS
-                    + System.currentTimeMillis() + "." + getFileExtension(uriProfileImage));
+//            StorageReference profileRef = storageReference.child(user.getUid() + Constants.PROFILE_PICS_PATH_UPLOADS
+//                    + System.currentTimeMillis() + "." + getFileExtension(uriProfileImage));
+            StorageReference profileRef = storageReference.child(user.getUid() + "/profilePic.jpg");
 
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
@@ -111,7 +137,8 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "Info Saved", Toast.LENGTH_LONG).show();
-                            UserInfoItem userInfoItem = new UserInfoItem(fullName, location, taskSnapshot.getDownloadUrl().toString());
+                            UserInfoItem userInfoItem = new UserInfoItem(firstName, firstName.toLowerCase(),
+                                    lastName, lastName.toLowerCase(), location, taskSnapshot.getDownloadUrl().toString());
                             mDatabase.child(user.getUid()).setValue(userInfoItem);
                         }
                     })
@@ -130,12 +157,13 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
                         }
                     });
         } else {
-            UserInfoItem userInfoItem = new UserInfoItem(fullName, location, null);
+            UserInfoItem userInfoItem = new UserInfoItem(firstName, firstName.toLowerCase(),
+                    lastName, lastName.toLowerCase(), location, null);
             mDatabase.child(user.getUid()).setValue(userInfoItem).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(UserSettingsActivity.this, "Text Info Updated", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserSettingsActivity.this, "Text Info Saved", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -149,12 +177,10 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
 //        if (user != null && profileImageUrl != null) {
 //            UserInfoItem userInfoItem = new UserInfoItem(fullName, location);
 
-
 //            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
 //                    .setDisplayName(fullName)
 //                    .setPhotoUri(Uri.parse(profileImageUrl))
 //                    .build();
-//
 //            user.updateProfile(profile);
     }
 
