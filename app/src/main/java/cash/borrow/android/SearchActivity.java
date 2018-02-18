@@ -8,16 +8,23 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -71,13 +78,29 @@ public class SearchActivity extends AppCompatActivity {
                 }
                 adapter = new UserSearchItemAdapter(SearchActivity.this, userInfoItemList);
                 recyclerViewUsers.setAdapter(adapter);
-
-                editTextSearch = (EditText) findViewById(R.id.editTextSearch);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 progressDialog.dismiss();
+            }
+        });
+
+        editTextSearch = (EditText) findViewById(R.id.editTextSearch);
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+//                Toast.makeText(SearchActivity.this, s, Toast.LENGTH_LONG).show();
+                performSearch(s.toString());
+            }
+
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
             }
         });
 
@@ -98,6 +121,31 @@ public class SearchActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(SearchActivity.this,
                         ProfileActivity.class);
                 startActivity(myIntent);
+            }
+        });
+    }
+
+    private void performSearch(String searchText) {
+        Query firebaseSearchQuery = mDatabase.orderByChild("name").startAt(searchText).endAt(searchText + "\uf8ff");
+
+        firebaseSearchQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                progressDialog.dismiss();
+
+                userInfoItemList.clear();
+                //iterating through all the values in database
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    UserInfoItem userInfoItem = postSnapshot.getValue(UserInfoItem.class);
+                    userInfoItemList.add(userInfoItem);
+                }
+                adapter = new UserSearchItemAdapter(SearchActivity.this, userInfoItemList);
+                recyclerViewUsers.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                progressDialog.dismiss();
             }
         });
     }

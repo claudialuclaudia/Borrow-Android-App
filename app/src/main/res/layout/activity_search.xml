@@ -27,14 +27,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:inputType="textPersonName"
             android:background="@drawable/edittext"
             android:hint="Search a User"
             android:textColorHint="@color/darkerGrey"
             android:textColor="@color/darkerGrey"
             android:textSize="14dp"
-            android:padding="12dp"
-            />
+            android:padding="12dp">
+
+            <requestFocus />
+        </EditText>
 
     </android.support.v7.widget.Toolbar>
 
