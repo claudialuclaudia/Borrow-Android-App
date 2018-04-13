@@ -15,12 +15,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 
 public class Main2Activity extends AppCompatActivity {
@@ -40,14 +34,14 @@ public class Main2Activity extends AppCompatActivity {
         DisplayText = (TextView) findViewById(R.id.DisplayText);
 
         final RequestQueue queue = Volley.newRequestQueue(this);
-        final String url = "http://192.168.1.6:8080/postdata"; // your URL
+        final String url = "http://140.233.175.40:8080/goals"; // your URL
 
         queue.start();
         RequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HashMap<String, String> params = new HashMap<String,String>();
-                params.put("data", DataField.getText().toString()); // the entered data as the body.
+                params.put("goal", DataField.getText().toString()); // the entered data as the body.
 
                 JsonObjectRequest jsObjRequest = new
                         JsonObjectRequest(com.android.volley.Request.Method.POST,
