@@ -49,7 +49,9 @@
         <activity android:name=".UserSettingsActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".Main2Activity" />
-        <activity android:name=".Main3Activity"></activity>
+        <activity android:name=".Main3Activity" />
+        <activity android:name=".StripeActivity" />
+        <activity android:name=".StripeActivity2"></activity>
     </application>
 
 </manifest>

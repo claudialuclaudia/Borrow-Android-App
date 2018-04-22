@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:stripe="http://schemas.android.com/apk/res-auto"
+    tools:context="cash.borrow.android.StripeActivity">
+
+    <com.stripe.android.view.CardInputWidget
+        android:id="@+id/card_input_widget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <!--<EditText-->
+        <!--android:id="@+id/customer_name"-->
+        <!--android:hint="Full Name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/zip_code"-->
+        <!--android:hint="Zipcode"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/customer_name"/>-->
+
+    <!--<com.stripe.android.view.CardInputWidget-->
+        <!--android:id="@+id/card_input_widget"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--stripe:cardTint="@android:color/holo_purple"-->
+        <!--stripe:cardTextErrorColor="@android:color/holo_orange_dark"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/zip_code"-->
+        <!--android:theme="@style/CardWidgetStyle"-->
+        <!--/>-->
+
+    <!--<Button-->
+        <!--android:id="@+id/save_card_button"-->
+        <!--android:text="Save"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/card_input_widget"-->
+        <!--android:theme="@style/Button"/>-->
+
+</android.support.constraint.ConstraintLayout>

@@ -31,7 +31,7 @@ public class Main3Activity extends AppCompatActivity {
         DisplayText = (TextView) findViewById(R.id.DisplayText);
 
         final RequestQueue queue = Volley.newRequestQueue(this);
-        final String url = "http://140.233.175.40:8080/goals"; // your URL
+        final String url = "http://192.168.1.17:8080/goals"; // your URL
 
 //        DisplayText.setText("try");
         // prepare the Request
