@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(MainActivity.this,
-                        Main3Activity.class);
+                        Main2Activity.class);
                 startActivity(myIntent);
             }
         });

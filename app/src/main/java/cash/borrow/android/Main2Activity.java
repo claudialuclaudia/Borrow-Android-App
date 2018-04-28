@@ -34,7 +34,7 @@ public class Main2Activity extends AppCompatActivity {
         DisplayText = (TextView) findViewById(R.id.DisplayText);
 
         final RequestQueue queue = Volley.newRequestQueue(this);
-        final String url = "http://140.233.175.40:8080/goals"; // your URL
+        final String url = "http://140.233.178.240:8080/goals"; // your URL
 
         queue.start();
         RequestButton.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +65,5 @@ public class Main2Activity extends AppCompatActivity {
                 queue.add(jsObjRequest);
             }
         });
-
     }
 }
