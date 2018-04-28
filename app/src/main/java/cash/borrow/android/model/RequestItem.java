@@ -8,8 +8,11 @@ import java.util.Arrays;
 public class RequestItem implements Parcelable {
     private String requestId;
     private String userId;
+    private String userName;
+    private String userProfileUrl;
     private int msPast;
     private int amount;
+    private int amountRaised;
     private String repaymentDate;
     private String paymentPlan;
     private double interestRate;
@@ -24,11 +27,14 @@ public class RequestItem implements Parcelable {
     public RequestItem() {
     }
 
-    public RequestItem(String requestId, String userId, int msPast, int amount, String repaymentDate, String paymentPlan, double interestRate, String requestType, String requestReason, String[] hashTags, String[] atPeople, String[] attachedImages, String[] commentsId, String stripeToken) {
+    public RequestItem(String requestId, String userId, String userName, String userProfileUrl, int msPast, int amount, int amountRaised, String repaymentDate, String paymentPlan, double interestRate, String requestType, String requestReason, String[] hashTags, String[] atPeople, String[] attachedImages, String[] commentsId, String stripeToken) {
         this.requestId = requestId;
         this.userId = userId;
+        this.userName = userName;
+        this.userProfileUrl = userProfileUrl;
         this.msPast = msPast;
         this.amount = amount;
+        this.amountRaised = amountRaised;
         this.repaymentDate = repaymentDate;
         this.paymentPlan = paymentPlan;
         this.interestRate = interestRate;
@@ -44,8 +50,11 @@ public class RequestItem implements Parcelable {
     protected RequestItem(Parcel in) {
         requestId = in.readString();
         userId = in.readString();
+        userName = in.readString();
+        userProfileUrl = in.readString();
         msPast = in.readInt();
         amount = in.readInt();
+        amountRaised = in.readInt();
         repaymentDate = in.readString();
         paymentPlan = in.readString();
         interestRate = in.readDouble();
@@ -86,6 +95,22 @@ public class RequestItem implements Parcelable {
         this.userId = userId;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserProfileUrl() {
+        return userProfileUrl;
+    }
+
+    public void setUserProfileUrl(String userProfileUrl) {
+        this.userProfileUrl = userProfileUrl;
+    }
+
     public int getMsPast() {
         return msPast;
     }
@@ -100,6 +125,14 @@ public class RequestItem implements Parcelable {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public int getAmountRaised() {
+        return amountRaised;
+    }
+
+    public void setAmountRaised(int amountRaised) {
+        this.amountRaised = amountRaised;
     }
 
     public String getRepaymentDate() {
@@ -178,13 +211,20 @@ public class RequestItem implements Parcelable {
         return StripeToken;
     }
 
+    public void setStripeToken(String stripeToken) {
+        StripeToken = stripeToken;
+    }
+
     @Override
     public String toString() {
         return "RequestItem{" +
                 "requestId='" + requestId + '\'' +
                 ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userProfileUrl='" + userProfileUrl + '\'' +
                 ", msPast=" + msPast +
                 ", amount=" + amount +
+                ", amountRaised=" + amountRaised +
                 ", repaymentDate='" + repaymentDate + '\'' +
                 ", paymentPlan='" + paymentPlan + '\'' +
                 ", interestRate=" + interestRate +
@@ -198,10 +238,6 @@ public class RequestItem implements Parcelable {
                 '}';
     }
 
-    public void setStripeToken(String stripeToken) {
-        StripeToken = stripeToken;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -211,8 +247,11 @@ public class RequestItem implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(requestId);
         parcel.writeString(userId);
+        parcel.writeString(userName);
+        parcel.writeString(userProfileUrl);
         parcel.writeInt(msPast);
         parcel.writeInt(amount);
+        parcel.writeInt(amountRaised);
         parcel.writeString(repaymentDate);
         parcel.writeString(paymentPlan);
         parcel.writeDouble(interestRate);
@@ -224,6 +263,4 @@ public class RequestItem implements Parcelable {
         parcel.writeStringArray(commentsId);
         parcel.writeString(StripeToken);
     }
-
-
 }

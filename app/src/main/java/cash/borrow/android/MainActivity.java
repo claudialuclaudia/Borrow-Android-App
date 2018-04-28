@@ -3,6 +3,8 @@ package cash.borrow.android;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
@@ -26,12 +28,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cash.borrow.android.adapter.RequestItemAdapter;
+import cash.borrow.android.adapter.UserSearchItemAdapter;
 import cash.borrow.android.model.RequestItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static Map<String,RequestItem> requestItemMap;
+    private Map<String,RequestItem> requestItemMap;
+    private List<RequestItem> requestItemList;
     private FirebaseAuth firebaseAuth;
+
+    private RecyclerView rvItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +57,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), SignInActivity.class));
         }
 
+        requestItemList = new ArrayList<>();
         requestItemMap = new HashMap<>();
+        populateList();
+
+        rvItems = findViewById(R.id.rvItems);
+        rvItems.setHasFixedSize(true);
+        rvItems.setLayoutManager(new LinearLayoutManager(this));
 
         ImageView imageView = (ImageView) findViewById(R.id.action_write);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
-
-        populateList();
 
         ImageButton navSearchButton = (ImageButton) findViewById(R.id.nav_search);
         navSearchButton.setOnClickListener(new View.OnClickListener() {
@@ -97,23 +108,31 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray borrowRequests = response.getJSONArray("borrowRequests");
-                            Toast.makeText(getApplicationContext(), borrowRequests.toString(), Toast.LENGTH_LONG).show();
-//                            StringBuilder sb = new StringBuilder();
                             for(int i = 0 ; i < borrowRequests.length() ; i++){
                                 JSONObject p = (JSONObject)borrowRequests.get(i);
                                 String requestId = p.getString("_id");
                                 String userId = p.getString("userId");
+                                String userName = p.getString("userName");
+                                String userProfileUrl = p.getString("userProfileUrl");
                                 int msPast = 10;
-                                int amount = p.getInt("amount");
+                                int amount = Integer.parseInt(p.getString("amount"));
+                                int amountRaised = Integer.parseInt(p.getString("amountRaised"));
                                 String repaymentDate = p.getString("repaymentDate");
                                 String paymentPlan = p.getString("paymentPlan");
-                                double interestRate = p.getDouble("interestRate");
+                                double interestRate = Double.parseDouble(p.getString("interestRate"));
                                 String requestType = p.getString("requestType");
                                 String requestReason = p.getString("requestReason");
                                 String[] empty = {};
-                                RequestItem requestItem = new RequestItem(requestId, userId, msPast, amount, repaymentDate, paymentPlan,interestRate,requestType, requestReason, empty, empty, empty, empty, null);
+                                RequestItem requestItem = new RequestItem(requestId, userId, userName, userProfileUrl,msPast, amount, amountRaised, repaymentDate, paymentPlan,interestRate,requestType, requestReason, empty, empty, empty, empty, null);
                                 requestItemMap.put(requestItem.getRequestId(), requestItem);
+                                requestItemList.add(requestItem);
+//                                Toast.makeText(getApplicationContext(), requestItemList.toString(), Toast.LENGTH_LONG).show();
                             }
+
+//                            Toast.makeText(getApplicationContext(), requestItemList.toString(), Toast.LENGTH_LONG).show();
+                            RequestItemAdapter adapter = new RequestItemAdapter(MainActivity.this, requestItemList);
+                            rvItems.setAdapter(adapter);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
