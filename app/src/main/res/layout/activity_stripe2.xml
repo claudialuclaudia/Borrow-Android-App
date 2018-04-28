@@ -12,11 +12,26 @@
         android:layout_height="wrap_content"
         />
 
+    <EditText
+    android:id="@+id/customer_name"
+    android:hint="Full Name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/card_input_widget"/>
+
+    <EditText
+    android:id="@+id/zip_code"
+    android:hint="Zipcode"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@+id/customer_name"/>
+
+
     <Button
         android:id="@+id/submit"
         android:text="submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/card_input_widget"/>
+        app:layout_constraintTop_toBottomOf="@+id/zip_code"/>
 
 </android.support.constraint.ConstraintLayout>
