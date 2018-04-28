@@ -31,7 +31,7 @@ public class Main3Activity extends AppCompatActivity {
         DisplayText = (TextView) findViewById(R.id.DisplayText);
 
         final RequestQueue queue = Volley.newRequestQueue(this);
-        final String url = "http://192.168.1.17:8080/goals"; // your URL
+        final String url = "http://140.233.178.240:8080/goals"; // your URL
 
 //        DisplayText.setText("try");
         // prepare the Request
@@ -42,22 +42,22 @@ public class Main3Activity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // display response
 //                        Log.d("Response", response.toString());
-//                        DisplayText.setText(response.toString());
+                        DisplayText.setText(response.toString());
                         try {
-                            JSONArray goals = response.getJSONArray("goals");
-//                            DisplayText.setText(goals.toString());
+                            JSONArray goals = response.getJSONArray("message");
+                            DisplayText.setText(goals.toString());
 //                            JSONObject p = (JSONObject)goals.get(0);
 //                            String description = p.getString("description");
 //                            DisplayText.setText(description);
-                            StringBuilder sb = new StringBuilder();
-                            for(int i = 0 ; i < goals.length() ; i++){
-                                JSONObject p = (JSONObject)goals.get(i);
-                                String id = p.getString("_id");
-                                sb.append(i + ": " + id);
+//                            StringBuilder sb = new StringBuilder();
+//                            for(int i = 0 ; i < goals.length() ; i++){
+//                                JSONObject p = (JSONObject)goals.get(i);
+//                                String id = p.getString("_id");
+//                                sb.append(i + ": " + id);
 //                                sb.append(description);
 //                                DisplayText.setText(description);
-                            }
-                            DisplayText.setText(sb.toString());
+//                            }
+//                            DisplayText.setText(sb.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -68,7 +68,7 @@ public class Main3Activity extends AppCompatActivity {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        DisplayText.setText("That didn't work!");
+                        DisplayText.setText("That don't work!");
 //                        Log.d("Error.Response", response);
                     }
                 }
