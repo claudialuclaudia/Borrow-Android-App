@@ -3,38 +3,72 @@ package cash.borrow.android.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.UUID;
+import java.util.Arrays;
 
 public class RequestItem implements Parcelable {
     private String requestId;
     private String userId;
-    private String userName;
-    private int secPast;
-    private double amount;
+    private int msPast;
+    private int amount;
+    private String repaymentDate;
+    private String paymentPlan;
+    private double interestRate;
+    private String requestType;
     private String requestReason;
-    private String image;
+    private String[] hashTags;
+    private String[] atPeople;
+    private String[] attachedImages;
+    private String[] commentsId;
+    private String StripeToken;
 
     public RequestItem() {
     }
 
-    public RequestItem(String requestId, String userId, String userName, int secPast, double amount, String requestReason, String image) {
-
-        if (requestId == null) {
-            requestId = UUID.randomUUID().toString();
-        }
-
-        if (userId == null) {
-            userId = UUID.randomUUID().toString();
-        }
-
+    public RequestItem(String requestId, String userId, int msPast, int amount, String repaymentDate, String paymentPlan, double interestRate, String requestType, String requestReason, String[] hashTags, String[] atPeople, String[] attachedImages, String[] commentsId, String stripeToken) {
         this.requestId = requestId;
         this.userId = userId;
-        this.userName = userName;
-        this.secPast = secPast;
+        this.msPast = msPast;
         this.amount = amount;
+        this.repaymentDate = repaymentDate;
+        this.paymentPlan = paymentPlan;
+        this.interestRate = interestRate;
+        this.requestType = requestType;
         this.requestReason = requestReason;
-        this.image = image;
+        this.hashTags = hashTags;
+        this.atPeople = atPeople;
+        this.attachedImages = attachedImages;
+        this.commentsId = commentsId;
+        StripeToken = stripeToken;
     }
+
+    protected RequestItem(Parcel in) {
+        requestId = in.readString();
+        userId = in.readString();
+        msPast = in.readInt();
+        amount = in.readInt();
+        repaymentDate = in.readString();
+        paymentPlan = in.readString();
+        interestRate = in.readDouble();
+        requestType = in.readString();
+        requestReason = in.readString();
+        hashTags = in.createStringArray();
+        atPeople = in.createStringArray();
+        attachedImages = in.createStringArray();
+        commentsId = in.createStringArray();
+        StripeToken = in.readString();
+    }
+
+    public static final Creator<RequestItem> CREATOR = new Creator<RequestItem>() {
+        @Override
+        public RequestItem createFromParcel(Parcel in) {
+            return new RequestItem(in);
+        }
+
+        @Override
+        public RequestItem[] newArray(int size) {
+            return new RequestItem[size];
+        }
+    };
 
     public String getRequestId() {
         return requestId;
@@ -52,28 +86,52 @@ public class RequestItem implements Parcelable {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public int getMsPast() {
+        return msPast;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setMsPast(int msPast) {
+        this.msPast = msPast;
     }
 
-    public int getSecPast() {
-        return secPast;
-    }
-
-    public void setSecPast(int secPast) {
-        this.secPast = secPast;
-    }
-
-    public double getAmount() {
+    public int getAmount() {
         return amount;
     }
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public String getRepaymentDate() {
+        return repaymentDate;
+    }
+
+    public void setRepaymentDate(String repaymentDate) {
+        this.repaymentDate = repaymentDate;
+    }
+
+    public String getPaymentPlan() {
+        return paymentPlan;
+    }
+
+    public void setPaymentPlan(String paymentPlan) {
+        this.paymentPlan = paymentPlan;
+    }
+
+    public double getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(double interestRate) {
+        this.interestRate = interestRate;
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
     }
 
     public String getRequestReason() {
@@ -84,27 +142,64 @@ public class RequestItem implements Parcelable {
         this.requestReason = requestReason;
     }
 
-    public String getImage() {
-        return image;
+    public String[] getHashTags() {
+        return hashTags;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setHashTags(String[] hashTags) {
+        this.hashTags = hashTags;
     }
 
+    public String[] getAtPeople() {
+        return atPeople;
+    }
 
+    public void setAtPeople(String[] atPeople) {
+        this.atPeople = atPeople;
+    }
+
+    public String[] getAttachedImages() {
+        return attachedImages;
+    }
+
+    public void setAttachedImages(String[] attachedImages) {
+        this.attachedImages = attachedImages;
+    }
+
+    public String[] getCommentsId() {
+        return commentsId;
+    }
+
+    public void setCommentsId(String[] commentsId) {
+        this.commentsId = commentsId;
+    }
+
+    public String getStripeToken() {
+        return StripeToken;
+    }
 
     @Override
     public String toString() {
         return "RequestItem{" +
                 "requestId='" + requestId + '\'' +
                 ", userId='" + userId + '\'' +
-                ", userName='" + userName + '\'' +
-                ", secPast=" + secPast +
+                ", msPast=" + msPast +
                 ", amount=" + amount +
+                ", repaymentDate='" + repaymentDate + '\'' +
+                ", paymentPlan='" + paymentPlan + '\'' +
+                ", interestRate=" + interestRate +
+                ", requestType='" + requestType + '\'' +
                 ", requestReason='" + requestReason + '\'' +
-                ", image='" + image + '\'' +
+                ", hashTags=" + Arrays.toString(hashTags) +
+                ", atPeople=" + Arrays.toString(atPeople) +
+                ", attachedImages=" + Arrays.toString(attachedImages) +
+                ", commentsId=" + Arrays.toString(commentsId) +
+                ", StripeToken='" + StripeToken + '\'' +
                 '}';
+    }
+
+    public void setStripeToken(String stripeToken) {
+        StripeToken = stripeToken;
     }
 
     @Override
@@ -113,35 +208,22 @@ public class RequestItem implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.requestId);
-        dest.writeString(this.userId);
-        dest.writeString(this.userName);
-        dest.writeInt(this.secPast);
-        dest.writeDouble(this.amount);
-        dest.writeString(this.requestReason);
-        dest.writeString(this.image);
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(requestId);
+        parcel.writeString(userId);
+        parcel.writeInt(msPast);
+        parcel.writeInt(amount);
+        parcel.writeString(repaymentDate);
+        parcel.writeString(paymentPlan);
+        parcel.writeDouble(interestRate);
+        parcel.writeString(requestType);
+        parcel.writeString(requestReason);
+        parcel.writeStringArray(hashTags);
+        parcel.writeStringArray(atPeople);
+        parcel.writeStringArray(attachedImages);
+        parcel.writeStringArray(commentsId);
+        parcel.writeString(StripeToken);
     }
 
-    protected RequestItem(Parcel in) {
-        this.requestId = in.readString();
-        this.userId = in.readString();
-        this.userName = in.readString();
-        this.secPast = in.readInt();
-        this.amount = in.readDouble();
-        this.requestReason = in.readString();
-        this.image = in.readString();
-    }
 
-    public static final Parcelable.Creator<RequestItem> CREATOR = new Parcelable.Creator<RequestItem>() {
-        @Override
-        public RequestItem createFromParcel(Parcel source) {
-            return new RequestItem(source);
-        }
-
-        @Override
-        public RequestItem[] newArray(int size) {
-            return new RequestItem[size];
-        }
-    };
 }

@@ -2,8 +2,6 @@ package cash.borrow.android;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -17,23 +15,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-
-public class Main3Activity extends AppCompatActivity {
+public class GetActivity extends AppCompatActivity {
 
     TextView DisplayText; // a text field to display the request response
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.activity_get);
 
         DisplayText = (TextView) findViewById(R.id.DisplayText);
 
         final RequestQueue queue = Volley.newRequestQueue(this);
         final String url = "http://140.233.178.240:8080/goals"; // your URL
 
-//        DisplayText.setText("try");
         // prepare the Request
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>()
@@ -41,7 +36,6 @@ public class Main3Activity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
-//                        Log.d("Response", response.toString());
                         DisplayText.setText(response.toString());
                         try {
                             JSONArray goals = response.getJSONArray("message");

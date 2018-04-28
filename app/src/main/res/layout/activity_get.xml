@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cash.borrow.android.Main3Activity">
+    tools:context="cash.borrow.android.GetActivity">
 
     <TextView
         android:id="@+id/DisplayText"

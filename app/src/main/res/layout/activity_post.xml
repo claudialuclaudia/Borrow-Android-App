@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cash.borrow.android.PostActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:id="@+id/greyPadding"
+        android:layout_width="500dp"
+        android:layout_height="6dp"
+        android:background="@color/grey"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/greyPadding"
+        android:src="@drawable/kelly"
+        app:layout_constraintTop_toBottomOf="@+id/greyPadding"
+        />
+
+    <EditText
+        android:id="@+id/RequestReason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Type Borrow Request Here"
+        android:minLines="4"
+        app:layout_constraintTop_toBottomOf="@+id/greyPadding"
+        app:layout_constraintLeft_toRightOf="@+id/profile_image"/>
+
+    <TextView
+        android:id="@+id/greyPadding2"
+        android:layout_width="500dp"
+        android:layout_height="3dp"
+        android:background="@color/grey"
+        app:layout_constraintTop_toBottomOf="@+id/RequestReason"/>
+
+    <TextView
+        android:id="@+id/borrowAmountAsk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Input Borrow Amount: "
+        app:layout_constraintTop_toBottomOf="@+id/RequestReason"/>
+
+    <EditText
+        android:id="@+id/borrowAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/RequestReason"
+        app:layout_constraintLeft_toRightOf="@+id/borrowAmountAsk"/>
+
+    <TextView
+        android:id="@+id/repaymentDateAsk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repayment Day: "
+        app:layout_constraintTop_toBottomOf="@+id/borrowAmount"/>
+
+    <EditText
+        android:id="@+id/repaymentDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/borrowAmount"
+        app:layout_constraintLeft_toRightOf="@+id/repaymentDateAsk"/>
+
+    <TextView
+        android:id="@+id/paymentPlanAsk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Payment Plan: "
+        app:layout_constraintTop_toBottomOf="@+id/repaymentDate"/>
+
+    <EditText
+        android:id="@+id/paymentPlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/repaymentDate"
+        app:layout_constraintLeft_toRightOf="@+id/paymentPlanAsk"/>
+
+    <TextView
+        android:id="@+id/interestRateAsk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Interest Rate: "
+        app:layout_constraintTop_toBottomOf="@+id/paymentPlan"/>
+
+    <EditText
+        android:id="@+id/interestRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/paymentPlan"
+        app:layout_constraintLeft_toRightOf="@+id/interestRateAsk"/>
+
+    <TextView
+        android:id="@+id/requestTypeAsk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Request Type: "
+        app:layout_constraintTop_toBottomOf="@+id/interestRate"/>
+
+    <EditText
+        android:id="@+id/requestType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/interestRate"
+        app:layout_constraintLeft_toRightOf="@+id/requestTypeAsk"/>
+
+    <TextView
+        android:id="@+id/greyPadding3"
+        android:layout_width="500dp"
+        android:layout_height="3dp"
+        android:background="@color/grey"
+        app:layout_constraintBottom_toTopOf="@+id/postButton"/>
+
+    <Button
+        android:id="@+id/postButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Post"
+        android:textColor="@color/white"
+        android:background="@color/darkBorrowGreen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

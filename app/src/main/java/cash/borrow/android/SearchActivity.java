@@ -119,7 +119,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(SearchActivity.this,
-                        ProfileActivity.class);
+                        MainActivity.class);
                 startActivity(myIntent);
             }
         });

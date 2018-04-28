@@ -1,51 +1,36 @@
 package cash.borrow.android;
 
 import android.content.Intent;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import cash.borrow.android.adapter.RequestItemAdapter;
-import cash.borrow.android.model.CommentItem;
 import cash.borrow.android.model.RequestItem;
-import cash.borrow.android.sample.SampleCommentProvider;
-import cash.borrow.android.sample.SampleRequestProvider;
 
 public class MainActivity extends AppCompatActivity {
 
-    List<RequestItem> requestItemList;
-//    TextView tvOut;
-
-    Map<String, Double> requestProgress = SampleCommentProvider.requestProgress;
-    Map<String, Set> lentMap = SampleCommentProvider.lentMap;
-    Map<String, RequestItem> requestItemMap = SampleRequestProvider.requestItemMap;
-    Map<String, List<RequestItem>> userMap = SampleRequestProvider.userMap;
-    Map<String, Map<String, CommentItem>> requestCommentItemMap = SampleCommentProvider.requestCommentItemMap;
-    List<RequestItem> worldFeedList;
-    List<RequestItem> friendFeedList;
-    List<RequestItem> myConnectsList;
-    String userId = "12";
-
+    public static Map<String,RequestItem> requestItemMap;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -65,82 +50,26 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), SignInActivity.class));
         }
 
-        requestItemList = SampleRequestProvider.requestItemList;
-        Collections.sort(requestItemList, new Comparator<RequestItem>() {
-            @Override
-            public int compare(RequestItem o1, RequestItem o2) {
-                    return Double.compare(o1.getSecPast(), o2.getSecPast());
-            }
-        });
-
-        double progress;
-        for (RequestItem item: requestItemList) {
-            if (requestProgress.containsKey(item.getRequestId())){
-                progress = requestProgress.get(item.getRequestId());
-                if (progress >= item.getAmount()) {
-                    requestItemList.remove(item);
-                }
-            }
-        }
-
-        worldFeedList = requestItemList;
-
-        RequestItemAdapter adapter = new RequestItemAdapter(this, worldFeedList);
-
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
-        recyclerView.setAdapter(adapter);
-
-        requestItemList = new ArrayList<>();
-        for (RequestItem item: worldFeedList) {
-            if (Integer.parseInt(item.getUserId()) > 10) {
-                requestItemList.add(item);
-            }
-        }
-        friendFeedList = requestItemList;
-
-        myConnectsList = new ArrayList<>();
-        //everyone Sarah Lynn has contributed towards
-        for (Object reqId: lentMap.get(userId)) {
-            myConnectsList = userMap.get(requestItemMap.get(reqId).getUserId());
-        }
-        //everyone who has contributed towards Sarah Lynn's causes
-        for (RequestItem reqItem: userMap.get(userId)){//list of Sarah's requestItems
-            for (CommentItem commentItem: requestCommentItemMap.get(reqItem.getRequestId()).values()) {
-                //map of commentId : CommentItems
-                if (commentItem.isLent()) {
-                    for (RequestItem reqI: userMap.get(commentItem.getCommenterId())){
-                        //list of RequestItems
-                        if (!myConnectsList.contains(reqI)){
-                            myConnectsList.add(reqI);
-                        }
-                    }
-                }
-            }
-        }
-        Collections.sort(myConnectsList, new Comparator<RequestItem>() {
-            @Override
-            public int compare(RequestItem o1, RequestItem o2) {
-                return Double.compare(o1.getSecPast(), o2.getSecPast());
-            }
-        });
-
-//        tvOut = (TextView) findViewById(R.d.out);
+        requestItemMap = new HashMap<>();
 
         ImageView imageView = (ImageView) findViewById(R.id.action_write);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,
-                        "I can do nothing because Chase designed nothing--LAZY", Toast.LENGTH_SHORT).show();
+                Intent myIntent = new Intent(MainActivity.this,
+                        PostActivity.class);
+                startActivity(myIntent);
             }
         });
+
+        populateList();
 
         ImageButton navSearchButton = (ImageButton) findViewById(R.id.nav_search);
         navSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(MainActivity.this,
-                        SearchActivity.class);
+                        PostActivity.class);
                 startActivity(myIntent);
             }
         });
@@ -150,71 +79,57 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(MainActivity.this,
-                        Main2Activity.class);
+                        PostActivity.class);
                 startActivity(myIntent);
             }
         });
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_main, menu);
+    private void populateList() {
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        final String url = "http://140.233.178.240:8080/borrowRequests"; // your URL
 
-        MenuItem item = menu.findItem(R.id.spinner);
-        Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.spinner_list_item_array, R.layout.spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (position == 0) {
-                    RequestItemAdapter adapter = new RequestItemAdapter(MainActivity.this, worldFeedList);
-
-                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
-                    recyclerView.setAdapter(adapter);
-
-                } else if (position == 1) {
-                    RequestItemAdapter adapter = new RequestItemAdapter(MainActivity.this, friendFeedList);
-
-                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
-                    recyclerView.setAdapter(adapter);
-                } else {
-                    RequestItemAdapter adapter = new RequestItemAdapter(MainActivity.this, myConnectsList);
-
-                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvItems);
-                    recyclerView.setAdapter(adapter);
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray borrowRequests = response.getJSONArray("borrowRequests");
+                            Toast.makeText(getApplicationContext(), borrowRequests.toString(), Toast.LENGTH_LONG).show();
+//                            StringBuilder sb = new StringBuilder();
+                            for(int i = 0 ; i < borrowRequests.length() ; i++){
+                                JSONObject p = (JSONObject)borrowRequests.get(i);
+                                String requestId = p.getString("_id");
+                                String userId = p.getString("userId");
+                                int msPast = 10;
+                                int amount = p.getInt("amount");
+                                String repaymentDate = p.getString("repaymentDate");
+                                String paymentPlan = p.getString("paymentPlan");
+                                double interestRate = p.getDouble("interestRate");
+                                String requestType = p.getString("requestType");
+                                String requestReason = p.getString("requestReason");
+                                String[] empty = {};
+                                RequestItem requestItem = new RequestItem(requestId, userId, msPast, amount, repaymentDate, paymentPlan,interestRate,requestType, requestReason, empty, empty, empty, empty, null);
+                                requestItemMap.put(requestItem.getRequestId(), requestItem);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "That didn't work!", Toast.LENGTH_LONG).show();
+//                        Log.d("Error.Response", response);
+                    }
                 }
-            }
+        );
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-        });
-
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.signIn) {
-////            Toast.makeText(this, "I can do nothing because Chase designed nothing--LAZY", Toast.LENGTH_SHORT).show();
-//            Intent myIntent = new Intent(MainActivity.this,
-//                    SignInActivity.class);
-//            startActivity(myIntent);
-//            return true;
-//        }
-        return super.onOptionsItemSelected(item);
+// add it to the RequestQueue
+        queue.add(getRequest);
     }
 }
