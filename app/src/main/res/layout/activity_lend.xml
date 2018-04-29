@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cash.borrow.android.PostActivity">
+    tools:context="cash.borrow.android.LendActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Post"
+            android:text="Lend"
             android:paddingLeft="40dp"
             android:paddingRight="5dp"
             android:textColor="@android:color/white"
@@ -29,6 +29,8 @@
             tools:ignore="HardcodedText" />
 
     </android.support.v7.widget.Toolbar>
+
+
 
     <ImageButton
         android:id="@+id/action_back"
@@ -60,11 +62,12 @@
         app:layout_constraintTop_toBottomOf="@+id/greyPadding"
         />
 
+
     <EditText
-        android:id="@+id/RequestReason"
+        android:id="@+id/commentContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Type Borrow Request Here"
+        android:hint="Leave a comment!"
         android:minLines="4"
         app:layout_constraintTop_toBottomOf="@+id/greyPadding"
         app:layout_constraintLeft_toRightOf="@+id/profile_image"/>
@@ -74,86 +77,22 @@
         android:layout_width="500dp"
         android:layout_height="3dp"
         android:background="@color/grey"
-        app:layout_constraintTop_toBottomOf="@+id/RequestReason"/>
-
-    <TextView
-        android:id="@+id/borrowAmountAsk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Input Borrow Amount: "
-        app:layout_constraintTop_toBottomOf="@+id/RequestReason"/>
+        app:layout_constraintTop_toBottomOf="@+id/commentContent"/>
 
     <EditText
         android:id="@+id/lendAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@+id/RequestReason"
+        android:hint="How much would you like to lend?"
+        app:layout_constraintTop_toBottomOf="@+id/greyPadding2"
         app:layout_constraintLeft_toRightOf="@+id/borrowAmountAsk"/>
-
-    <TextView
-        android:id="@+id/repaymentDateAsk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Repayment Day: "
-        app:layout_constraintTop_toBottomOf="@+id/lendAmount"/>
-
-    <EditText
-        android:id="@+id/repaymentDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        app:layout_constraintTop_toBottomOf="@+id/lendAmount"
-        app:layout_constraintLeft_toRightOf="@+id/repaymentDateAsk"/>
-
-    <TextView
-        android:id="@+id/paymentPlanAsk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Payment Plan: "
-        app:layout_constraintTop_toBottomOf="@+id/repaymentDate"/>
-
-    <EditText
-        android:id="@+id/paymentPlan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/repaymentDate"
-        app:layout_constraintLeft_toRightOf="@+id/paymentPlanAsk"/>
-
-    <TextView
-        android:id="@+id/interestRateAsk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Interest Rate: "
-        app:layout_constraintTop_toBottomOf="@+id/paymentPlan"/>
-
-    <EditText
-        android:id="@+id/interestRate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@+id/paymentPlan"
-        app:layout_constraintLeft_toRightOf="@+id/interestRateAsk"/>
-
-    <TextView
-        android:id="@+id/requestTypeAsk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Request Type: "
-        app:layout_constraintTop_toBottomOf="@+id/interestRate"/>
-
-    <EditText
-        android:id="@+id/requestType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/interestRate"
-        app:layout_constraintLeft_toRightOf="@+id/requestTypeAsk"/>
 
     <com.stripe.android.view.CardInputWidget
         android:id="@+id/card_input_widget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/requestType"
+        app:layout_constraintTop_toBottomOf="@+id/lendAmount"
         />
 
     <EditText
@@ -176,16 +115,17 @@
         android:layout_width="500dp"
         android:layout_height="3dp"
         android:background="@color/grey"
-        app:layout_constraintBottom_toTopOf="@+id/postButton"/>
+        app:layout_constraintBottom_toTopOf="@+id/lendButton"/>
 
     <Button
-        android:id="@+id/postButton"
+        android:id="@+id/lendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Post"
+        android:text="Lend"
         android:textColor="@color/white"
         android:background="@color/darkBorrowGreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
 
 </android.support.constraint.ConstraintLayout>

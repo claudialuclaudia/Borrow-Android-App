@@ -2,8 +2,6 @@ package cash.borrow.android.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import cash.borrow.android.MainActivity;
+import cash.borrow.android.LendActivity;
 import cash.borrow.android.R;
 import cash.borrow.android.model.RequestItem;
 
@@ -24,6 +22,9 @@ import java.util.List;
 
 public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.ViewHolder>{
 
+    public static final String ITEM_ID_KEY = "item_id_key";
+    public static final String ITEM_KEY = "item_key";
+    public static final String USER_ID_KEY = "user_id_key";
     private Context context;
     private List<RequestItem> requestItemList;
 
@@ -81,6 +82,17 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
             }
         });
 
+        holder.lendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(context, "You selected " + item.getRequestReason(), Toast.LENGTH_SHORT).show();
+                String itemId = item.getRequestId();
+                Intent intent = new Intent(context, LendActivity.class);
+                intent.putExtra(ITEM_KEY, item);
+                context.startActivity(intent);
+            }
+        });
+
         holder.profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +125,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
         public TextView repaymentDate;
         public TextView interestRate;
         public ProgressBar progressBar;
+        public ImageView lendButton;
         public View mView;
 
 
@@ -121,11 +134,12 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
 
             profileImage = (ImageView) itemView.findViewById(R.id.profile_image);
             userNameText = (TextView) itemView.findViewById(R.id.userNameText);
-            borrowAmont = (TextView) itemView.findViewById(R.id.borrowAmount);
+            borrowAmont = (TextView) itemView.findViewById(R.id.lendAmount);
             timeAgo = (TextView) itemView.findViewById(R.id.timeAgo);
             requestReason = (TextView) itemView.findViewById(R.id.requestReason);
             repaymentDate = (TextView) itemView.findViewById(R.id.repaymentDate);
             interestRate = (TextView) itemView.findViewById(R.id.interestRate);
+            lendButton = itemView.findViewById(R.id.refresh);
             progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
 
             mView = itemView;

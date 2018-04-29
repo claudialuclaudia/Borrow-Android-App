@@ -53,7 +53,7 @@
         />
 
     <TextView
-        android:id="@+id/borrowAmount"
+        android:id="@+id/lendAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="$200"
@@ -77,20 +77,13 @@
         app:layout_constraintLeft_toRightOf="@+id/profile_image"
         />
 
-    <ImageView
-        android:id="@+id/attachedImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/kelly"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image"/>
-
     <TextView
         android:id="@+id/requestReason"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="2"
         android:text="Got in a wreck. Need money for repairs"
-        app:layout_constraintTop_toBottomOf="@+id/attachedImage"/>
+        app:layout_constraintTop_toBottomOf="@+id/profile_image"/>
 
     <TextView
         android:id="@+id/repaymentDate"
@@ -104,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Interest Rate: 5%"
-        app:layout_constraintRight_toRightOf="@+id/attachedImage"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/requestReason"/>
 
     <ImageView

@@ -3,10 +3,10 @@ package cash.borrow.android;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -14,16 +14,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.stripe.android.Stripe;
 import com.stripe.android.TokenCallback;
@@ -34,34 +27,35 @@ import com.stripe.android.view.CardInputWidget;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-import cash.borrow.android.model.UserInfoItem;
+import cash.borrow.android.adapter.RequestItemAdapter;
+import cash.borrow.android.model.RequestItem;
 
-public class PostActivity extends AppCompatActivity {
+public class LendActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
-    private StorageReference storageReference;
     private FirebaseUser user;
 
-    private ImageView profileImage;
-    private EditText requestReason, borrowAmount, repaymentDate, paymentPlan, interestRate, requestType;
     private CardInputWidget mCardInputWidget;
-    private EditText customerName;
-    private EditText zipcode;
-    private Button postButton; // button which on clicking, sends the request
+    private EditText commentContent, lendAmount, customerName, zipcode;
+    private Button lendButton;
 
-    final private String url = "http://140.233.178.240:8080/borrowRequests"; // your URL
+    RequestItem item;
+
+    private String url = "http://140.233.178.240:8080/lend/:"; // your URL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post);
+        setContentView(R.layout.activity_lend);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_USERS_PATH_UPLOADS);
-        storageReference = FirebaseStorage.getInstance().getReference();
         user = mAuth.getCurrentUser();
         if(user == null){
             //not signed in
@@ -69,51 +63,27 @@ public class PostActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), SignInActivity.class));
         }
 
-        profileImage = findViewById(R.id.profile_image);
-        requestReason = findViewById(R.id.RequestReason);
-        borrowAmount = findViewById(R.id.lendAmount);
-        repaymentDate = findViewById(R.id.repaymentDate);
-        paymentPlan = findViewById(R.id.paymentPlan);
-        interestRate = findViewById(R.id.interestRate);
-        requestType = findViewById(R.id.requestType);
+        item = getIntent().getExtras().getParcelable(RequestItemAdapter.ITEM_KEY);
+        if (item == null) {
+            throw new AssertionError("Null data item received!");
+        }
+
+        commentContent = findViewById(R.id.commentContent);
+        lendAmount = findViewById(R.id.lendAmount);
         mCardInputWidget = findViewById(R.id.card_input_widget);
         customerName = findViewById(R.id.customer_name);
         zipcode = findViewById(R.id.zip_code);
-        postButton = findViewById(R.id.postButton);
+        lendButton = findViewById(R.id.lendButton);
 
-        loadUserProfilePic();
-
-        postButton.setOnClickListener(new View.OnClickListener() {
+        lendButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                saveRequest();
+            public void onClick(View view) {
+                saveComment();
             }
         });
     }
 
-    //loads user's profile picture
-    private void loadUserProfilePic() {
-        Query firebaseSearchQuery = mDatabase.orderByKey().startAt(user.getUid()).endAt(user.getUid());
-        firebaseSearchQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    UserInfoItem userInfoItem = postSnapshot.getValue(UserInfoItem.class);
-                    if (userInfoItem.getProfilePicUrl() != null){
-                        Glide.with(PostActivity.this)
-                                .load(userInfoItem.getProfilePicUrl())
-                                .into(profileImage);
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
-
-
-    private void saveRequest() {
+    private void saveComment () {
         Card cardToSave = mCardInputWidget.getCard();
         if (cardToSave == null) {
 //                    mErrorDialogHandler.showError("Invalid Card Data");
@@ -132,18 +102,14 @@ public class PostActivity extends AppCompatActivity {
                 new TokenCallback() {
                     public void onSuccess(Token token) {
                         HashMap<String, String> params = new HashMap<String,String>();
-                        params.put("userId", user.getUid());
-                        params.put("userName", user.getEmail());
-                        params.put("userProfileUrl", user.getPhotoUrl() == null ? "" : user.getPhotoUrl().toString());
-                        params.put("amount", borrowAmount.getText().toString().trim());
-                        params.put("amountRaised", "0");
-                        params.put("repaymentDate", repaymentDate.getText().toString().trim());
-                        params.put("paymentPlan", paymentPlan.getText().toString().trim());
-                        params.put("interestRate", interestRate.getText().toString().trim());
-                        params.put("requestType", requestType.getText().toString().trim());
-                        params.put("requestReason", requestReason.getText().toString().trim());
+                        params.put("requestId", item.getRequestId());
+                        params.put("commenterId", user.getUid());
+                        params.put("commenterName", user.getEmail());
+                        params.put("commentContent", commentContent.getText().toString().trim());
+                        params.put("lendAmount", lendAmount.getText().toString().trim());
                         params.put("StripeToken", token.toString());
 
+                        url = url + item.getRequestId();
                         JsonObjectRequest jsObjRequest = new
                                 JsonObjectRequest(com.android.volley.Request.Method.POST,
                                 url,
@@ -170,7 +136,7 @@ public class PostActivity extends AppCompatActivity {
                     }
                     public void onError(Exception error) {
                         // Show localized error message
-                        Toast.makeText(getApplicationContext(), "Stripe Token Callback error!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "error!", Toast.LENGTH_SHORT).show();
 //                                Toast.makeText(StripeActivity.this, error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }

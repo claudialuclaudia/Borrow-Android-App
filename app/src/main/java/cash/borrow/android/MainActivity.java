@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         rvItems.setHasFixedSize(true);
         rvItems.setLayoutManager(new LinearLayoutManager(this));
 
-        ImageView imageView = (ImageView) findViewById(R.id.action_write);
-        imageView.setOnClickListener(new View.OnClickListener() {
+        ImageView postButton = (ImageView) findViewById(R.id.action_write);
+        postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(MainActivity.this,

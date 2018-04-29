@@ -1,26 +1,32 @@
 package cash.borrow.android.model;
 
 public class CommentItem {
+    private String commentId;
     private String requestId;
     private String commenterId;
-    private String commenter;
-    private int secPast;
-    private boolean lent;
-    private double lentAmount;
-    private String comment;
-    private String commentId;
+    private String commenterName;
+    private String commentContent;
+    private int lendAmount;
+    private String StripeToken;
 
     public CommentItem() {
     }
 
-    public CommentItem(String requestId, String commenterId, String commenter, int secPast, boolean lent, double lentAmount, String comment, String commentId) {
+    public CommentItem(String commentId, String requestId, String commenterId, String commenterName, String commentContent, int lendAmount, String stripeToken) {
+        this.commentId = commentId;
         this.requestId = requestId;
         this.commenterId = commenterId;
-        this.commenter = commenter;
-        this.secPast = secPast;
-        this.lent = lent;
-        this.lentAmount = lentAmount;
-        this.comment = comment;
+        this.commenterName = commenterName;
+        this.commentContent = commentContent;
+        this.lendAmount = lendAmount;
+        StripeToken = stripeToken;
+    }
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(String commentId) {
         this.commentId = commentId;
     }
 
@@ -40,65 +46,48 @@ public class CommentItem {
         this.commenterId = commenterId;
     }
 
-    public String getCommenter() {
-        return commenter;
+    public String getCommenterName() {
+        return commenterName;
     }
 
-    public void setCommenter(String commenter) {
-        this.commenter = commenter;
+    public void setCommenterName(String commenterName) {
+        this.commenterName = commenterName;
     }
 
-    public int getSecPast() {
-        return secPast;
+    public String getCommentContent() {
+        return commentContent;
     }
 
-    public void setSecPast(int secPast) {
-        this.secPast = secPast;
+    public void setCommentContent(String commentContent) {
+        this.commentContent = commentContent;
     }
 
-    public boolean isLent() {
-        return lent;
+    public int getLendAmount() {
+        return lendAmount;
     }
 
-    public void setLent(boolean lent) {
-        this.lent = lent;
+    public void setLendAmount(int lendAmount) {
+        this.lendAmount = lendAmount;
     }
 
-    public double getLentAmount() {
-        return lentAmount;
+    public String getStripeToken() {
+        return StripeToken;
     }
 
-    public void setLentAmount(double lentAmount) {
-        this.lentAmount = lentAmount;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public String getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
+    public void setStripeToken(String stripeToken) {
+        StripeToken = stripeToken;
     }
 
     @Override
     public String toString() {
         return "CommentItem{" +
-                "requestId='" + requestId + '\'' +
+                "commentId='" + commentId + '\'' +
+                ", requestId='" + requestId + '\'' +
                 ", commenterId='" + commenterId + '\'' +
-                ", commenter='" + commenter + '\'' +
-                ", secPast='" + secPast + '\'' +
-                ", lent=" + lent +
-                ", lentAmount=" + lentAmount +
-                ", comment='" + comment + '\'' +
-                ", commentId='" + commentId + '\'' +
+                ", commenterName='" + commenterName + '\'' +
+                ", commentContent='" + commentContent + '\'' +
+                ", lendAmount=" + lendAmount +
+                ", StripeToken='" + StripeToken + '\'' +
                 '}';
     }
 }

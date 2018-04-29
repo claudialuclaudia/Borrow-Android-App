@@ -26,7 +26,9 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".PostActivity" />
         <activity android:name=".GetActivity" />
-        <activity android:name=".StripeActivity"></activity>
+        <activity android:name=".StripeActivity" />
+        <activity android:name=".LendActivity" />
+        <activity android:name=".DetailActivity"></activity>
     </application>
 
 </manifest>
