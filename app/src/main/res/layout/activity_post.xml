@@ -126,6 +126,28 @@
         app:layout_constraintTop_toBottomOf="@+id/interestRate"
         app:layout_constraintLeft_toRightOf="@+id/requestTypeAsk"/>
 
+    <com.stripe.android.view.CardInputWidget
+        android:id="@+id/card_input_widget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/requestType"
+        />
+
+    <EditText
+        android:id="@+id/customer_name"
+        android:hint="Full Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/card_input_widget"/>
+
+    <EditText
+        android:id="@+id/zip_code"
+        android:hint="Zipcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/card_input_widget"
+        app:layout_constraintLeft_toRightOf="@+id/customer_name"/>
+
     <TextView
         android:id="@+id/greyPadding3"
         android:layout_width="500dp"

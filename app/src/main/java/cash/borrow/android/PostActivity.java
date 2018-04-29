@@ -26,6 +26,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.stripe.android.Stripe;
+import com.stripe.android.TokenCallback;
+import com.stripe.android.model.Card;
+import com.stripe.android.model.Token;
+import com.stripe.android.view.CardInputWidget;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,7 +48,12 @@ public class PostActivity extends AppCompatActivity {
 
     private ImageView profileImage;
     private EditText requestReason, borrowAmount, repaymentDate, paymentPlan, interestRate, requestType;
+    private CardInputWidget mCardInputWidget;
+    private EditText customerName;
+    private EditText zipcode;
     private Button postButton; // button which on clicking, sends the request
+
+    final private String url = "http://140.233.178.240:8080/borrowRequests"; // your URL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +77,23 @@ public class PostActivity extends AppCompatActivity {
         paymentPlan = findViewById(R.id.paymentPlan);
         interestRate = findViewById(R.id.interestRate);
         requestType = findViewById(R.id.requestType);
+        mCardInputWidget = findViewById(R.id.card_input_widget);
+        customerName = findViewById(R.id.customer_name);
+        zipcode = findViewById(R.id.zip_code);
         postButton = findViewById(R.id.postButton);
 
-//        loadUserProfile();
-        postRequest();
+        loadUserProfilePic();
+
+        postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveRequest();
+            }
+        });
     }
 
     //loads user's profile picture
-    private void loadUserProfile() {
+    private void loadUserProfilePic() {
         Query firebaseSearchQuery = mDatabase.orderByKey().startAt(user.getUid()).endAt(user.getUid());
         firebaseSearchQuery.addValueEventListener(new ValueEventListener() {
             @Override
@@ -94,48 +113,68 @@ public class PostActivity extends AppCompatActivity {
         });
     }
 
-    private void postRequest() {
+
+    private void saveRequest() {
+        Card cardToSave = mCardInputWidget.getCard();
+        if (cardToSave == null) {
+//                    mErrorDialogHandler.showError("Invalid Card Data");
+            Toast.makeText(getApplicationContext(), "Invalid Card Data", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        cardToSave.setName(customerName.getText().toString().trim());
+        cardToSave.setAddressZip(zipcode.getText().toString().trim());
+        Stripe stripe = new Stripe(getApplicationContext(), "pk_test_6pRNASCoBOKtIshFeQd4XMUh");
+
         final RequestQueue queue = Volley.newRequestQueue(this);
-        final String url = "http://140.233.178.240:8080/borrowRequests"; // your URL
-
         queue.start();
-        postButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "here", Toast.LENGTH_LONG).show();
-                HashMap<String, String> params = new HashMap<String,String>();
-                params.put("userId", user.getUid());
-                params.put("userName", user.getEmail());
-                params.put("userProfileUrl", user.getPhotoUrl() == null ? "" : user.getPhotoUrl().toString());
-                params.put("amount", borrowAmount.getText().toString().trim());
-                params.put("amountRaised", "0");
-                params.put("repaymentDate", repaymentDate.getText().toString().trim());
-                params.put("paymentPlan", paymentPlan.getText().toString().trim());
-                params.put("interestRate", interestRate.getText().toString().trim());
-                params.put("requestType", requestType.getText().toString().trim());
-                params.put("requestReason", requestReason.getText().toString().trim());
 
-                JsonObjectRequest jsObjRequest = new
-                        JsonObjectRequest(com.android.volley.Request.Method.POST,
-                        url,
-                        new JSONObject(params),
-                        new Response.Listener<JSONObject>() {
+        stripe.createToken(
+                cardToSave,
+                new TokenCallback() {
+                    public void onSuccess(Token token) {
+                        HashMap<String, String> params = new HashMap<String,String>();
+                        params.put("userId", user.getUid());
+                        params.put("userName", user.getEmail());
+                        params.put("userProfileUrl", user.getPhotoUrl() == null ? "" : user.getPhotoUrl().toString());
+                        params.put("amount", borrowAmount.getText().toString().trim());
+                        params.put("amountRaised", "0");
+                        params.put("repaymentDate", repaymentDate.getText().toString().trim());
+                        params.put("paymentPlan", paymentPlan.getText().toString().trim());
+                        params.put("interestRate", interestRate.getText().toString().trim());
+                        params.put("requestType", requestType.getText().toString().trim());
+                        params.put("requestReason", requestReason.getText().toString().trim());
+                        params.put("StripeToken", token.toString());
+
+                        JsonObjectRequest jsObjRequest = new
+                                JsonObjectRequest(com.android.volley.Request.Method.POST,
+                                url,
+                                new JSONObject(params),
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            if (response.getString("message").equals("Data received successfully")) {
+                                                finish();
+                                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
                             @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    Toast.makeText(getApplicationContext(), response.getString("message"), Toast.LENGTH_LONG).show();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getApplicationContext(),"That didn't work!", Toast.LENGTH_LONG).show();
                             }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),"That didn't work!", Toast.LENGTH_LONG).show();
+                        });
+                        queue.add(jsObjRequest);
                     }
-                });
-                queue.add(jsObjRequest);
-            }
-        });
+                    public void onError(Exception error) {
+                        // Show localized error message
+                        Toast.makeText(getApplicationContext(), "Stripe Token Callback error!", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(StripeActivity.this, error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
     }
 }

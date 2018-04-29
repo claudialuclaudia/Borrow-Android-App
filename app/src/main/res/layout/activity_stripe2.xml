@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cash.borrow.android.StripeActivity2">
+    tools:context="cash.borrow.android.StripeActivity">
 
     <com.stripe.android.view.CardInputWidget
         android:id="@+id/card_input_widget"

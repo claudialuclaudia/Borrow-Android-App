@@ -26,8 +26,7 @@
         <activity android:name=".SearchActivity" />
         <activity android:name=".PostActivity" />
         <activity android:name=".GetActivity" />
-        <activity android:name=".StripeActivity" />
-        <activity android:name=".StripeActivity2"></activity>
+        <activity android:name=".StripeActivity"></activity>
     </application>
 
 </manifest>
