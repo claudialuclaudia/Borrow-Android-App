@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import cash.borrow.android.CommentActivity;
 import cash.borrow.android.DetailActivity;
 import cash.borrow.android.LendActivity;
 import cash.borrow.android.R;
@@ -87,6 +88,17 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
             }
         });
 
+        holder.commentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(context, "You selected " + item.getRequestReason(), Toast.LENGTH_SHORT).show();
+                String itemId = item.getRequestId();
+                Intent intent = new Intent(context, CommentActivity.class);
+                intent.putExtra(ITEM_KEY, item);
+                context.startActivity(intent);
+            }
+        });
+
         holder.lendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,7 +142,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
         public TextView repaymentDate;
         public TextView interestRate;
         public ProgressBar progressBar;
-        public ImageView lendButton;
+        public ImageView lendButton, commentButton;
         public View mView;
 
 
@@ -145,6 +157,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
             repaymentDate = (TextView) itemView.findViewById(R.id.repaymentDate);
             interestRate = (TextView) itemView.findViewById(R.id.interestRate);
             lendButton = itemView.findViewById(R.id.refresh);
+            commentButton = itemView.findViewById(R.id.chat);
             progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
 
             mView = itemView;

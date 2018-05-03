@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cash.borrow.android.LendActivity">
+    tools:context="cash.borrow.android.CommentActivity">
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -21,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Lend"
+            android:text="Comment"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             tools:ignore="HardcodedText" />
@@ -62,51 +63,24 @@
         app:layout_constraintTop_toBottomOf="@+id/greyPadding"
         />
 
+
     <EditText
-        android:id="@+id/lendAmount"
+        android:id="@+id/commentContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="Leave a comment!"
         android:paddingLeft="16dp"
-        android:hint="How much would you like to lend?"
-        android:inputType="number"
         app:layout_constraintLeft_toRightOf="@+id/profile_image"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_image" />
-
-    <com.stripe.android.view.CardInputWidget
-        android:id="@+id/card_input_widget"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/zip_code"
-        />
-
-    <EditText
-        android:id="@+id/customer_name"
-        android:hint="Full Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/lendButton"/>
-
-    <EditText
-        android:id="@+id/zip_code"
-        android:hint="Zipcode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/lendButton"
-        app:layout_constraintLeft_toRightOf="@+id/customer_name"/>
+        app:layout_constraintBottom_toBottomOf="@+id/profile_image"/>
 
     <Button
-        android:id="@+id/lendButton"
+        android:id="@+id/commentButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lend"
+        android:text="Comment"
         android:textColor="@color/white"
         android:background="@color/darkBorrowGreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
-
 
 </android.support.constraint.ConstraintLayout>

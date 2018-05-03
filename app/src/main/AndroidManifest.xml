@@ -28,7 +28,8 @@
         <activity android:name=".GetActivity" />
         <activity android:name=".StripeActivity" />
         <activity android:name=".LendActivity" />
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".DetailActivity" />
+        <activity android:name=".CommentActivity"></activity>
     </application>
 
 </manifest>

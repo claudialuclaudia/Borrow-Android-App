@@ -42,15 +42,14 @@ import cash.borrow.android.adapter.RequestItemAdapter;
 import cash.borrow.android.model.RequestItem;
 import cash.borrow.android.model.UserInfoItem;
 
-public class LendActivity extends AppCompatActivity {
+public class CommentActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private FirebaseUser user;
 
-    private CardInputWidget mCardInputWidget;
-    private EditText lendAmount, customerName, zipcode;
-    private Button lendButton;
+    private EditText commentContent;
+    private Button commentButton;
     private ImageView profileImage;
 
     RequestItem item;
@@ -60,7 +59,7 @@ public class LendActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lend);
+        setContentView(R.layout.activity_comment);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -79,19 +78,19 @@ public class LendActivity extends AppCompatActivity {
             throw new AssertionError("Null data item received!");
         }
 
-        lendAmount = findViewById(R.id.lendAmount);
-        mCardInputWidget = findViewById(R.id.card_input_widget);
-        customerName = findViewById(R.id.customer_name);
-        zipcode = findViewById(R.id.zip_code);
-        lendButton = findViewById(R.id.lendButton);
+        commentContent = findViewById(R.id.commentContent);
+        commentButton = findViewById(R.id.commentButton);
         profileImage = findViewById(R.id.profile_image);
 
-        lendButton.setOnClickListener(new View.OnClickListener() {
+        commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveComment();
+                onBackPressed();
             }
         });
+
+        loadUserProfilePic();
 
         ImageView imageView = (ImageView) findViewById(R.id.action_back);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -100,8 +99,6 @@ public class LendActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-        loadUserProfilePic();
 
     }
 
@@ -127,62 +124,40 @@ public class LendActivity extends AppCompatActivity {
     }
 
     private void saveComment () {
-        Card cardToSave = mCardInputWidget.getCard();
-        if (cardToSave == null) {
-//                    mErrorDialogHandler.showError("Invalid Card Data");
-            Toast.makeText(getApplicationContext(), "Invalid Card Data", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        cardToSave.setName(customerName.getText().toString().trim());
-        cardToSave.setAddressZip(zipcode.getText().toString().trim());
-        Stripe stripe = new Stripe(getApplicationContext(), "pk_test_6pRNASCoBOKtIshFeQd4XMUh");
-
         final RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();
 
-        stripe.createToken(
-                cardToSave,
-                new TokenCallback() {
-                    public void onSuccess(Token token) {
-                        HashMap<String, String> params = new HashMap<String,String>();
-                        params.put("requestId", item.getRequestId());
-                        params.put("commenterId", user.getUid());
-                        params.put("commenterName", user.getDisplayName());
-                        params.put("commentContent", null);
-                        params.put("lendAmount", lendAmount.getText().toString().trim());
-                        params.put("StripeToken", token.toString());
+        HashMap<String, String> params = new HashMap<String,String>();
+        params.put("requestId", item.getRequestId());
+        params.put("commenterId", user.getUid());
+        params.put("commenterName", user.getDisplayName());
+        params.put("commentContent", commentContent.getText().toString().trim());
+        params.put("lendAmount", "0");
+        params.put("StripeToken", "");
 
-                        url = url + item.getRequestId();
-                        JsonObjectRequest jsObjRequest = new
-                                JsonObjectRequest(com.android.volley.Request.Method.POST,
-                                url,
-                                new JSONObject(params),
-                                new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject response) {
-                                        try {
-                                            if (response.getString("message").equals("Data received successfully")) {
-                                                finish();
-                                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(),"That didn't work!", Toast.LENGTH_LONG).show();
+        url = url + item.getRequestId();
+        JsonObjectRequest jsObjRequest = new
+                JsonObjectRequest(com.android.volley.Request.Method.POST,
+                url,
+                new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getString("message").equals("Data received successfully")) {
+                                finish();
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             }
-                        });
-                        queue.add(jsObjRequest);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    public void onError(Exception error) {
-                        // Show localized error message
-                        Toast.makeText(getApplicationContext(), "error!", Toast.LENGTH_SHORT).show();
-//                                Toast.makeText(StripeActivity.this, error.toString(), Toast.LENGTH_LONG).show();
-                    }
-                }
-        );
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"That didn't work!", Toast.LENGTH_LONG).show();
+            }
+        });
+        queue.add(jsObjRequest);
     }
 }
