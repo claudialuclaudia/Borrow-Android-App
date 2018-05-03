@@ -55,7 +55,7 @@ public class LendActivity extends AppCompatActivity {
 
     RequestItem item;
 
-    private String url = "http://140.233.160.180:8080/lend/:"; // your URL
+    private String url = "http://140.233.160.180:8080/lend/"; // your URL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
