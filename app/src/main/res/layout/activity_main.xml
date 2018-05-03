@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Home"
-            android:paddingLeft="100dp"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             tools:ignore="HardcodedText" />

@@ -19,12 +19,13 @@
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
-        android:layout_width="50dp"
+        android:layout_width="66dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/greyPadding"
         android:src="@drawable/kelly"
+        android:paddingLeft="16dp"
         app:layout_constraintTop_toBottomOf="@+id/greyPadding"
         />
 
@@ -35,6 +36,7 @@
         android:text="Kevin Stewart"
         android:textSize="12sp"
         android:gravity="top"
+        android:paddingLeft="10dp"
         android:textColor="@android:color/black"
         app:layout_constraintTop_toBottomOf="@+id/greyPadding"
         app:layout_constraintLeft_toRightOf="@+id/profile_image"
@@ -73,6 +75,7 @@
         android:textSize="10sp"
         android:gravity="top"
         android:textColor="@android:color/black"
+        android:paddingLeft="10dp"
         app:layout_constraintTop_toBottomOf="@+id/userNameText"
         app:layout_constraintLeft_toRightOf="@+id/profile_image"
         />
@@ -82,6 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="2"
+        android:paddingLeft="10dp"
         android:text="Got in a wreck. Need money for repairs"
         app:layout_constraintTop_toBottomOf="@+id/profile_image"/>
 
@@ -90,6 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Repayment Date: 04/01/2018"
+        android:paddingLeft="10dp"
         app:layout_constraintTop_toBottomOf="@id/requestReason"/>
 
     <TextView
@@ -97,15 +102,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Interest Rate: 5%"
+        android:paddingRight="20dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/requestReason"/>
 
     <ImageView
-        android:layout_width="17dp"
+        android:layout_width="27dp"
         android:layout_height="17dp"
         android:id="@+id/refresh"
         android:src="@drawable/ic_action_refresh"
-        android:layout_marginLeft="18dp"
+        android:paddingLeft="10dp"
         app:layout_constraintTop_toBottomOf="@+id/repaymentDate"/>
 
     <ImageView
@@ -132,10 +138,11 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="220dp"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:progressTint="@color/darkerGrey"
         android:backgroundTint="@color/buttonGrey"
+        android:paddingLeft="20dp"
         app:layout_constraintLeft_toRightOf="@+id/heart"
         app:layout_constraintTop_toBottomOf="@+id/repaymentDate"
         />
@@ -148,6 +155,8 @@
         android:textSize="12sp"
         android:gravity="top"
         android:textStyle="bold"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         android:textColor="@color/darkBorrowGreen"
         app:layout_constraintTop_toBottomOf="@+id/interestRate"
         app:layout_constraintLeft_toRightOf="@+id/progressBar"

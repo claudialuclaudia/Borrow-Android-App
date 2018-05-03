@@ -133,7 +133,7 @@ public class PostActivity extends AppCompatActivity {
                     public void onSuccess(Token token) {
                         HashMap<String, String> params = new HashMap<String,String>();
                         params.put("userId", user.getUid());
-                        params.put("userName", user.getEmail());
+                        params.put("userName", user.getDisplayName());
                         params.put("userProfileUrl", user.getPhotoUrl() == null ? "" : user.getPhotoUrl().toString());
                         params.put("amount", borrowAmount.getText().toString().trim());
                         params.put("amountRaised", "0");
