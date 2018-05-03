@@ -1,7 +1,6 @@
 package cash.borrow.android.model;
 
 public class CommentItem {
-    private String commentId;
     private String requestId;
     private String commenterId;
     private String commenterName;
@@ -12,22 +11,13 @@ public class CommentItem {
     public CommentItem() {
     }
 
-    public CommentItem(String commentId, String requestId, String commenterId, String commenterName, String commentContent, int lendAmount, String stripeToken) {
-        this.commentId = commentId;
+    public CommentItem(String requestId, String commenterId, String commenterName, String commentContent, int lendAmount, String stripeToken) {
         this.requestId = requestId;
         this.commenterId = commenterId;
         this.commenterName = commenterName;
         this.commentContent = commentContent;
         this.lendAmount = lendAmount;
         StripeToken = stripeToken;
-    }
-
-    public String getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(String commentId) {
-        this.commentId = commentId;
     }
 
     public String getRequestId() {
@@ -81,7 +71,6 @@ public class CommentItem {
     @Override
     public String toString() {
         return "CommentItem{" +
-                "commentId='" + commentId + '\'' +
                 ", requestId='" + requestId + '\'' +
                 ", commenterId='" + commenterId + '\'' +
                 ", commenterName='" + commenterName + '\'' +

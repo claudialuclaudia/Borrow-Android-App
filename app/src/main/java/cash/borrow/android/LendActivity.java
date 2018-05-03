@@ -140,7 +140,7 @@ public class LendActivity extends AppCompatActivity {
                         HashMap<String, String> params = new HashMap<String,String>();
                         params.put("requestId", item.getRequestId());
                         params.put("commenterId", user.getUid());
-                        params.put("commenterName", user.getEmail());
+                        params.put("commenterName", user.getDisplayName());
                         params.put("commentContent", commentContent.getText().toString().trim());
                         params.put("lendAmount", lendAmount.getText().toString().trim());
                         params.put("StripeToken", token.toString());
