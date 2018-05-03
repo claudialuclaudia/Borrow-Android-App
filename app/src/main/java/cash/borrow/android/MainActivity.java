@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void populateList() {
         final RequestQueue queue = Volley.newRequestQueue(this);
-        final String url = "http://140.233.178.240:8080/borrowRequests"; // your URL
+        final String url = "http://140.233.160.180:8080/borrowRequests"; // your URL
 
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>()

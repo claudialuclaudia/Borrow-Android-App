@@ -52,7 +52,7 @@ public class PostActivity extends AppCompatActivity {
     private EditText zipcode;
     private Button postButton; // button which on clicking, sends the request
 
-    final private String url = "http://140.233.178.240:8080/borrowRequests"; // your URL
+    final private String url = "http://140.233.160.180:8080/borrowRequests"; // your URL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
