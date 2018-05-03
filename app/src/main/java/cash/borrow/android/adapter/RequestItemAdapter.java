@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import cash.borrow.android.DetailActivity;
 import cash.borrow.android.LendActivity;
 import cash.borrow.android.R;
 import cash.borrow.android.model.RequestItem;
@@ -78,11 +79,11 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "You selected " + item.getRequestReason(), Toast.LENGTH_SHORT).show();
-//                String itemId = item.getRequestId();
-//                Intent intent = new Intent(mContext, DetailActivity.class);
-//                intent.putExtra(ITEM_KEY, item);
-//                mContext.startActivity(intent);
+//                Toast.makeText(context, "You selected " + item.getRequestReason(), Toast.LENGTH_SHORT).show();
+                String itemId = item.getRequestId();
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra(ITEM_KEY, item);
+                context.startActivity(intent);
             }
         });
 

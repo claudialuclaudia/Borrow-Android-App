@@ -2,6 +2,8 @@ package cash.borrow.android;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import cash.borrow.android.model.RequestItem;
 
 public class DetailActivity extends AppCompatActivity {
     private List<RequestItem> oneList;
+    private RecyclerView rvItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,10 @@ public class DetailActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+
+        rvItems = findViewById(R.id.detailRvItems);
+        rvItems.setHasFixedSize(true);
+        rvItems.setLayoutManager(new LinearLayoutManager(this));
 
         RequestItem item = getIntent().getExtras().getParcelable(RequestItemAdapter.ITEM_KEY);
         if (item == null) {
@@ -30,5 +37,6 @@ public class DetailActivity extends AppCompatActivity {
         oneList.add(item);
 
         RequestItemAdapter adapter = new RequestItemAdapter(this, oneList);
+        rvItems.setAdapter(adapter);
     }
 }
