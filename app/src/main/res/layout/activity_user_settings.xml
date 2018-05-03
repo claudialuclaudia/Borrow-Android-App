@@ -87,6 +87,25 @@
             android:minWidth="0dp"
             android:includeFontPadding="false"/>
 
+        <Button
+            android:id="@+id/buttonSignOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:text="sign out"
+            android:fontFamily="sans-serif"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="@color/white"
+            android:background="@drawable/white_out_line"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:includeFontPadding="false"/>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

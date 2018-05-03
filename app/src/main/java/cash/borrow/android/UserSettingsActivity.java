@@ -48,7 +48,7 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
 
     private ImageView imageViewUpload;
     private EditText editTextFirstName, editTextLastName, editTextLocation;
-    private Button buttonSave;
+    private Button buttonSave, buttonSignOut;
 
     private Uri uriProfileImage;
     private StorageReference storageReference;
@@ -69,7 +69,9 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
         editTextLastName = (EditText) findViewById(R.id.editTextLastName);
         editTextLocation = (EditText) findViewById(R.id.editTextLocation);
         buttonSave = (Button) findViewById(R.id.buttonSave);
+        buttonSignOut = findViewById(R.id.buttonSignOut);
         buttonSave.setOnClickListener(this);
+        buttonSignOut.setOnClickListener(this);
 
         imageViewUpload = (ImageView) findViewById(R.id.imageViewUpload);
         imageViewUpload.setOnClickListener(new View.OnClickListener() {
@@ -229,6 +231,11 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         if (view == buttonSave) {
             saveInfo();
+        }
+        if (view == buttonSignOut) {
+            mAuth.signOut();
+            finish();
+            startActivity(new Intent(getApplicationContext(), SignInActivity.class));
         }
     }
 }
