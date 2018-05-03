@@ -57,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), SignInActivity.class));
         }
 
+        if (firebaseAuth.getCurrentUser().getDisplayName() == null) {
+            startActivity(new Intent(getApplicationContext(), UserSettingsActivity.class));
+        }
+
         requestItemList = new ArrayList<>();
         requestItemMap = new HashMap<>();
         populateList();

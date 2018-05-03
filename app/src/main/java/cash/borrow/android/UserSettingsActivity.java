@@ -195,6 +195,7 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
 //                    .setPhotoUri(Uri.parse(profileImageUrl))
 //                    .build();
 //            user.updateProfile(profile);
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
     private void showImageChooser() {
