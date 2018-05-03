@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,7 +84,7 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
 
 
     private void loadUserInformation() {
-        FirebaseUser user = mAuth.getCurrentUser();
+        final FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null) {
             Query firebaseSearchQuery = mDatabase.orderByKey().startAt(user.getUid()).endAt(user.getUid());
@@ -98,6 +99,11 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
                         }
                         if (userInfoItem.getLastName() != null){
                             editTextLastName.setText(userInfoItem.getLastName());
+                        }
+                        if (userInfoItem.getFirstName() != null && userInfoItem.getLastName() != null) {
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(userInfoItem.getFirstName() + userInfoItem.getLastName()).build();
+                            user.updateProfile(profileUpdates);
                         }
                         if (userInfoItem.getLocation() != null){
                             editTextLocation.setText(userInfoItem.getLocation());
