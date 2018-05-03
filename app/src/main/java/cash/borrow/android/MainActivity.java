@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                                 String userId = p.getString("userId");
                                 String userName = p.getString("userName");
                                 String userProfileUrl = p.getString("userProfileUrl");
-                                int msPast = 10;
+//                                String msPast = p.getString("")
                                 int amount = Integer.parseInt(p.getString("amount"));
                                 int amountRaised = Integer.parseInt(p.getString("amountRaised"));
                                 String repaymentDate = p.getString("repaymentDate");
@@ -123,7 +123,8 @@ public class MainActivity extends AppCompatActivity {
                                 String requestType = p.getString("requestType");
                                 String requestReason = p.getString("requestReason");
                                 String[] empty = {};
-                                RequestItem requestItem = new RequestItem(requestId, userId, userName, userProfileUrl,msPast, amount, amountRaised, repaymentDate, paymentPlan,interestRate,requestType, requestReason, empty, empty, empty, empty, null);
+                                RequestItem requestItem = new RequestItem(requestId, userId, userName,
+                                        userProfileUrl, amount, amountRaised, repaymentDate, paymentPlan,interestRate,requestType, requestReason, empty, empty, empty, empty, null);
                                 requestItemMap.put(requestItem.getRequestId(), requestItem);
                                 requestItemList.add(requestItem);
 //                                Toast.makeText(getApplicationContext(), requestItemList.toString(), Toast.LENGTH_LONG).show();

@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -14,9 +15,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.stripe.android.Stripe;
 import com.stripe.android.TokenCallback;
@@ -33,19 +40,22 @@ import java.util.List;
 
 import cash.borrow.android.adapter.RequestItemAdapter;
 import cash.borrow.android.model.RequestItem;
+import cash.borrow.android.model.UserInfoItem;
 
 public class LendActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
     private FirebaseUser user;
 
     private CardInputWidget mCardInputWidget;
     private EditText commentContent, lendAmount, customerName, zipcode;
     private Button lendButton;
+    private ImageView profileImage;
 
     RequestItem item;
 
-    private String url = "http://140.233.178.240:8080/lend/:"; // your URL
+    private String url = "http://140.233.160.180:8080/lend/:"; // your URL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,7 @@ public class LendActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_USERS_PATH_UPLOADS);
         user = mAuth.getCurrentUser();
         if(user == null){
             //not signed in
@@ -74,11 +85,36 @@ public class LendActivity extends AppCompatActivity {
         customerName = findViewById(R.id.customer_name);
         zipcode = findViewById(R.id.zip_code);
         lendButton = findViewById(R.id.lendButton);
+        profileImage = findViewById(R.id.profile_image);
 
         lendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveComment();
+            }
+        });
+
+        loadUserProfilePic();
+
+    }
+
+    //loads user's profile picture
+    private void loadUserProfilePic() {
+        Query firebaseSearchQuery = mDatabase.orderByKey().startAt(user.getUid()).endAt(user.getUid());
+        firebaseSearchQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    UserInfoItem userInfoItem = postSnapshot.getValue(UserInfoItem.class);
+                    if (userInfoItem.getProfilePicUrl() != null){
+                        Glide.with(getApplicationContext())
+                                .load(userInfoItem.getProfilePicUrl())
+                                .into(profileImage);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
     }

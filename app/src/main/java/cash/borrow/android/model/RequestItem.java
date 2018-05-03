@@ -10,7 +10,6 @@ public class RequestItem implements Parcelable {
     private String userId;
     private String userName;
     private String userProfileUrl;
-    private int msPast;
     private int amount;
     private int amountRaised;
     private String repaymentDate;
@@ -27,12 +26,11 @@ public class RequestItem implements Parcelable {
     public RequestItem() {
     }
 
-    public RequestItem(String requestId, String userId, String userName, String userProfileUrl, int msPast, int amount, int amountRaised, String repaymentDate, String paymentPlan, double interestRate, String requestType, String requestReason, String[] hashTags, String[] atPeople, String[] attachedImages, String[] commentsId, String stripeToken) {
+    public RequestItem(String requestId, String userId, String userName, String userProfileUrl, int amount, int amountRaised, String repaymentDate, String paymentPlan, double interestRate, String requestType, String requestReason, String[] hashTags, String[] atPeople, String[] attachedImages, String[] commentsId, String stripeToken) {
         this.requestId = requestId;
         this.userId = userId;
         this.userName = userName;
         this.userProfileUrl = userProfileUrl;
-        this.msPast = msPast;
         this.amount = amount;
         this.amountRaised = amountRaised;
         this.repaymentDate = repaymentDate;
@@ -52,7 +50,6 @@ public class RequestItem implements Parcelable {
         userId = in.readString();
         userName = in.readString();
         userProfileUrl = in.readString();
-        msPast = in.readInt();
         amount = in.readInt();
         amountRaised = in.readInt();
         repaymentDate = in.readString();
@@ -109,14 +106,6 @@ public class RequestItem implements Parcelable {
 
     public void setUserProfileUrl(String userProfileUrl) {
         this.userProfileUrl = userProfileUrl;
-    }
-
-    public int getMsPast() {
-        return msPast;
-    }
-
-    public void setMsPast(int msPast) {
-        this.msPast = msPast;
     }
 
     public int getAmount() {
@@ -222,7 +211,6 @@ public class RequestItem implements Parcelable {
                 ", userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userProfileUrl='" + userProfileUrl + '\'' +
-                ", msPast=" + msPast +
                 ", amount=" + amount +
                 ", amountRaised=" + amountRaised +
                 ", repaymentDate='" + repaymentDate + '\'' +
@@ -249,7 +237,6 @@ public class RequestItem implements Parcelable {
         parcel.writeString(userId);
         parcel.writeString(userName);
         parcel.writeString(userProfileUrl);
-        parcel.writeInt(msPast);
         parcel.writeInt(amount);
         parcel.writeInt(amountRaised);
         parcel.writeString(repaymentDate);

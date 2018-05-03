@@ -64,9 +64,10 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
         holder.userNameText.setText(item.getUserName());
         String temp = "$" + item.getAmount();
         holder.borrowAmont.setText(temp);
-        temp = item.getMsPast() + "s ago";
-        holder.timeAgo.setText(temp);
+//        temp = item.getMsPast() + "s ago";
+//        holder.timeAgo.setText(temp);
         holder.requestReason.setText(item.getRequestReason());
+//        holder.timeAgo.setText(item.get);
         temp = "Repayment Date: " + item.getRepaymentDate();
         holder.repaymentDate.setText(temp);
         temp = "Interest Rate: " + item.getInterestRate() + "%";
@@ -123,7 +124,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
         public ImageView profileImage;
         public TextView userNameText;
         public TextView borrowAmont;
-        public TextView timeAgo;
+//        public TextView timeAgo;
         public TextView requestReason;
         public TextView repaymentDate;
         public TextView interestRate;
@@ -138,7 +139,7 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
             profileImage = (ImageView) itemView.findViewById(R.id.profile_image);
             userNameText = (TextView) itemView.findViewById(R.id.userNameText);
             borrowAmont = (TextView) itemView.findViewById(R.id.lendAmount);
-            timeAgo = (TextView) itemView.findViewById(R.id.timeAgo);
+//            timeAgo = (TextView) itemView.findViewById(R.id.timeAgo);
             requestReason = (TextView) itemView.findViewById(R.id.requestReason);
             repaymentDate = (TextView) itemView.findViewById(R.id.repaymentDate);
             interestRate = (TextView) itemView.findViewById(R.id.interestRate);
