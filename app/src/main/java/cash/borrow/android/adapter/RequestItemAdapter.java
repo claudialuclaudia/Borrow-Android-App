@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import cash.borrow.android.LendActivity;
 import cash.borrow.android.R;
 import cash.borrow.android.model.RequestItem;
@@ -49,15 +51,16 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
         //take that data item and display the value
         final RequestItem item = requestItemList.get(position);
 
-        try {
-            String imageFile = item.getUserProfileUrl();
-            InputStream inputStream = context.getAssets().open(imageFile);
-            Drawable d = Drawable.createFromStream(inputStream, null);
-            holder.profileImage.setImageDrawable(d);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String imageFile = item.getUserProfileUrl();
+//            InputStream inputStream = context.getAssets().open(imageFile);
+//            Drawable d = Drawable.createFromStream(inputStream, null);
+//            holder.profileImage.setImageDrawable(d);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
+        Glide.with(context).load(item.getUserProfileUrl()).into(holder.profileImage);
         holder.userNameText.setText(item.getUserName());
         String temp = "$" + item.getAmount();
         holder.borrowAmont.setText(temp);

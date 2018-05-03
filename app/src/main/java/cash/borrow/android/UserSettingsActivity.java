@@ -100,11 +100,11 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
                         if (userInfoItem.getLastName() != null){
                             editTextLastName.setText(userInfoItem.getLastName());
                         }
-                        if (userInfoItem.getFirstName() != null && userInfoItem.getLastName() != null) {
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(userInfoItem.getFirstName() + userInfoItem.getLastName()).build();
-                            user.updateProfile(profileUpdates);
-                        }
+//                        if (userInfoItem.getFirstName() != null && userInfoItem.getLastName() != null) {
+//                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+//                                    .setDisplayName(userInfoItem.getFirstName() + userInfoItem.getLastName()).build();
+//                            user.updateProfile(profileUpdates);
+//                        }
                         if (userInfoItem.getLocation() != null){
                             editTextLocation.setText(userInfoItem.getLocation());
                         }
@@ -132,6 +132,10 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
 //            StorageReference profileRef = storageReference.child(user.getUid() + Constants.PROFILE_PICS_PATH_UPLOADS
 //                    + System.currentTimeMillis() + "." + getFileExtension(uriProfileImage));
             StorageReference profileRef = storageReference.child(user.getUid() + "/profilePic.jpg");
+
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(firstName + " " + lastName).build();
+            user.updateProfile(profileUpdates);
 
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
@@ -174,7 +178,8 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
                 }
             });
         }
-//        if (fullName.isEmpty()) {
+
+        //        if (fullName.isEmpty()) {
 //            editTextName.setError("Name required");
 //            editTextName.requestFocus();
 //            return;

@@ -52,6 +52,8 @@ public class PostActivity extends AppCompatActivity {
     private EditText zipcode;
     private Button postButton; // button which on clicking, sends the request
 
+    private String userProfilePic;
+
     final private String url = "http://140.233.160.180:8080/borrowRequests"; // your URL
 
     @Override
@@ -103,6 +105,7 @@ public class PostActivity extends AppCompatActivity {
                         Glide.with(PostActivity.this)
                                 .load(userInfoItem.getProfilePicUrl())
                                 .into(profileImage);
+                        userProfilePic = userInfoItem.getProfilePicUrl();
                     }
                 }
             }
@@ -134,7 +137,7 @@ public class PostActivity extends AppCompatActivity {
                         HashMap<String, String> params = new HashMap<String,String>();
                         params.put("userId", user.getUid());
                         params.put("userName", user.getDisplayName());
-                        params.put("userProfileUrl", user.getPhotoUrl() == null ? "" : user.getPhotoUrl().toString());
+                        params.put("userProfileUrl", userProfilePic);
                         params.put("amount", borrowAmount.getText().toString().trim());
                         params.put("amountRaised", "0");
                         params.put("repaymentDate", repaymentDate.getText().toString().trim());
