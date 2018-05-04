@@ -1,6 +1,7 @@
 package cash.borrow.android;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +38,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import cash.borrow.android.adapter.RequestItemAdapter;
 import cash.borrow.android.model.RequestItem;
@@ -50,7 +52,7 @@ public class LendActivity extends AppCompatActivity {
 
     private CardInputWidget mCardInputWidget;
     private EditText lendAmount, customerName, zipcode;
-    private Button lendButton;
+    private Button lendButton, connectStripeButton;
     private ImageView profileImage;
 
     RequestItem item;
@@ -85,11 +87,19 @@ public class LendActivity extends AppCompatActivity {
         zipcode = findViewById(R.id.zip_code);
         lendButton = findViewById(R.id.lendButton);
         profileImage = findViewById(R.id.profile_image);
+        connectStripeButton = findViewById(R.id.stripeConnectButton);
 
         lendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveComment();
+            }
+        });
+
+        connectStripeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                connectWithStripe();
             }
         });
 
@@ -184,5 +194,14 @@ public class LendActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private void connectWithStripe() {
+//        To prevent CSRF attacks, add the state parameter, passing along a unique token as the value. We’ll include the state you gave us when we redirect the user back to your site.
+        String state = UUID.randomUUID().toString();
+        String url = "https://connect.stripe.com/express/oauth/authorize?" +
+                "client_id=ca_CnbUTKxV3YcYqL7r0qg0acNjE9NobGyy&state=" + state;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cash.borrow.android.StripeAccountActivity">
+
+    <Button
+        android:id="@+id/stripeConnectButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:text="Connect with Stripe"
+        android:fontFamily="sans-serif"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:background="@drawable/white_out_line"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:includeFontPadding="false"/>
+
+</android.support.constraint.ConstraintLayout>

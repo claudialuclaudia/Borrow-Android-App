@@ -1,6 +1,7 @@
 package cash.borrow.android;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,6 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 import cash.borrow.android.model.UserInfoItem;
 
@@ -50,7 +52,7 @@ public class PostActivity extends AppCompatActivity {
     private CardInputWidget mCardInputWidget;
     private EditText customerName;
     private EditText zipcode;
-    private Button postButton; // button which on clicking, sends the request
+    private Button postButton, connectStripeButton; // button which on clicking, sends the request
 
     private String userProfilePic;
 
@@ -82,13 +84,29 @@ public class PostActivity extends AppCompatActivity {
         customerName = findViewById(R.id.customer_name);
         zipcode = findViewById(R.id.zip_code);
         postButton = findViewById(R.id.postButton);
+        connectStripeButton = findViewById(R.id.stripeConnectButton);
 
         loadUserProfilePic();
+
+        ImageView imageView = (ImageView) findViewById(R.id.action_back);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveRequest();
+            }
+        });
+
+        connectStripeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                connectWithStripe();
             }
         });
     }
@@ -114,7 +132,6 @@ public class PostActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void saveRequest() {
         Card cardToSave = mCardInputWidget.getCard();
@@ -178,5 +195,14 @@ public class PostActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    private void connectWithStripe() {
+//        To prevent CSRF attacks, add the state parameter, passing along a unique token as the value. We’ll include the state you gave us when we redirect the user back to your site.
+        String state = UUID.randomUUID().toString();
+        String url = "https://connect.stripe.com/express/oauth/authorize?" +
+                "client_id=ca_CnbUTKxV3YcYqL7r0qg0acNjE9NobGyy&state=" + state;
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
     }
 }
