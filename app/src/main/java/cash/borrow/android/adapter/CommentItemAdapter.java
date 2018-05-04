@@ -47,7 +47,7 @@ public class CommentItemAdapter extends ArrayAdapter<CommentItem> {
         String commenter = item.getCommenterName();
         String commentContent;
         if (item.getLendAmount() != 0) { //lender
-            commentContent = commenter + " lent " + item.getLendAmount();
+            commentContent = commenter + " lent $" + item.getLendAmount();
         } else { //commenter
             commentContent = commenter + ": " + item.getCommentContent();
         }

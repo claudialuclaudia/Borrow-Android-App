@@ -145,7 +145,7 @@ public class LendActivity extends AppCompatActivity {
         }
         cardToSave.setName(customerName.getText().toString().trim());
         cardToSave.setAddressZip(zipcode.getText().toString().trim());
-        Stripe stripe = new Stripe(getApplicationContext(), "pk_test_6pRNASCoBOKtIshFeQd4XMUh");
+        Stripe stripe = new Stripe(getApplicationContext(), "pk_test_IVB0XMZKNrMfCxwZPvzUqRpV");
 
         final RequestQueue queue = Volley.newRequestQueue(this);
         queue.start();

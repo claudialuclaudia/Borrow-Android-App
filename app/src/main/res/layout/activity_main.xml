@@ -48,8 +48,6 @@
             app:layoutManager="LinearLayoutManager"
             />
 
-
-
     </LinearLayout>
 
     <ImageButton

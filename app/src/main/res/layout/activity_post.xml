@@ -25,7 +25,7 @@
             android:paddingLeft="40dp"
             android:paddingRight="5dp"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textSize="20sp"
             tools:ignore="HardcodedText" />
 
     </android.support.v7.widget.Toolbar>
@@ -60,10 +60,11 @@
 
     <EditText
         android:id="@+id/RequestReason"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:hint="Type Borrow Request Here"
+        android:textSize="20sp"
         android:minLines="4"
         app:layout_constraintLeft_toRightOf="@+id/profile_image"
         app:layout_constraintTop_toBottomOf="@+id/greyPadding" />
@@ -73,18 +74,24 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:paddingBottom="10dp"
         android:text="Input Borrow Amount: "
         android:paddingLeft="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/RequestReason"
+        android:textSize="20sp"
+        android:textColor="@color/darkBorrowGreen"
+        app:layout_constraintTop_toTopOf="@+id/lendAmount"
         />
 
     <EditText
         android:id="@+id/lendAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:hint="200"
         android:inputType="number"
+        android:textSize="20sp"
+        android:paddingBottom="17dp"
+        android:textColor="@color/black"
         app:layout_constraintLeft_toRightOf="@+id/borrowAmountAsk"
         app:layout_constraintTop_toBottomOf="@+id/RequestReason" />
 
@@ -93,6 +100,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Repayment Day: "
+        android:textSize="20sp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/darkBorrowGreen"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/lendAmount"
         android:paddingLeft="16dp" />
 
@@ -102,7 +113,10 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:hint="07/01/2018"
-        app:layout_constraintTop_toBottomOf="@+id/lendAmount"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:paddingBottom="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/borrowAmountAsk"
         app:layout_constraintLeft_toRightOf="@+id/repaymentDateAsk"/>
 
     <TextView
@@ -110,6 +124,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Payment Plan: "
+        android:textSize="20sp"
+        android:textColor="@color/darkBorrowGreen"
+        android:textStyle="bold"
+        android:paddingBottom="10dp"
         app:layout_constraintTop_toBottomOf="@+id/repaymentDate"
         android:paddingLeft="16dp" />
 
@@ -118,7 +136,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="None"
-        app:layout_constraintTop_toBottomOf="@+id/repaymentDate"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:paddingBottom="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/repaymentDateAsk"
         app:layout_constraintLeft_toRightOf="@+id/paymentPlanAsk"/>
 
     <TextView
@@ -126,6 +147,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Interest Rate: "
+        android:textSize="20sp"
+        android:textColor="@color/darkBorrowGreen"
+        android:textStyle="bold"
+        android:paddingBottom="10dp"
         app:layout_constraintTop_toBottomOf="@+id/paymentPlan"
         android:paddingLeft="16dp" />
 
@@ -135,7 +160,10 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:hint="2.0"
-        app:layout_constraintTop_toBottomOf="@+id/paymentPlan"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:paddingBottom="17dp"
+        app:layout_constraintTop_toBottomOf="@+id/paymentPlanAsk"
         app:layout_constraintLeft_toRightOf="@+id/interestRateAsk"/>
 
     <TextView
@@ -144,6 +172,9 @@
         android:layout_height="wrap_content"
         android:text="Request Type: "
         app:layout_constraintTop_toBottomOf="@+id/interestRate"
+        android:textSize="20sp"
+        android:textColor="@color/darkBorrowGreen"
+        android:textStyle="bold"
         android:paddingLeft="16dp" />
 
     <EditText
@@ -151,14 +182,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Public"
-        app:layout_constraintTop_toBottomOf="@+id/interestRate"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/interestRateAsk"
         app:layout_constraintLeft_toRightOf="@+id/requestTypeAsk"/>
 
     <com.stripe.android.view.CardInputWidget
         android:id="@+id/card_input_widget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/requestType"
+        app:layout_constraintBottom_toTopOf="@+id/zip_code"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"/>
 
@@ -167,7 +200,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Full Name"
-        app:layout_constraintTop_toBottomOf="@+id/card_input_widget"
+        app:layout_constraintBottom_toBottomOf="@+id/zip_code"
         android:paddingLeft="16dp" />
 
     <EditText
@@ -176,7 +209,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/card_input_widget"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/postButton"
         app:layout_constraintLeft_toRightOf="@+id/customer_name"/>
 
     <Button

@@ -51,8 +51,8 @@
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/profile_image"
-        android:layout_width="66dp"
-        android:layout_height="66dp"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
         android:paddingLeft="16dp"
         android:paddingTop="16dp"
         android:layout_alignParentLeft="true"
@@ -67,8 +67,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
-        android:hint="How much would you like to lend?"
+        android:hint="How much to lend?"
         android:inputType="number"
+        android:textSize="20sp"
         app:layout_constraintLeft_toRightOf="@+id/profile_image"
         app:layout_constraintBottom_toBottomOf="@+id/profile_image" />
 

@@ -70,9 +70,9 @@ public class RequestItemAdapter extends RecyclerView.Adapter<RequestItemAdapter.
 //        holder.timeAgo.setText(temp);
         holder.requestReason.setText(item.getRequestReason());
 //        holder.timeAgo.setText(item.get);
-        temp = "Repayment Date: " + item.getRepaymentDate();
+        temp = item.getRepaymentDate();
         holder.repaymentDate.setText(temp);
-        temp = "Interest Rate: " + item.getInterestRate() + "%";
+        temp = item.getInterestRate() + "%";
         holder.interestRate.setText(temp);
         holder.progressBar.setMax(item.getAmount());
         holder.progressBar.setProgress(item.getAmountRaised());

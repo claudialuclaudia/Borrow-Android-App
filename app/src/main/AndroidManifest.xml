@@ -30,7 +30,8 @@
         <activity android:name=".LendActivity" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".CommentActivity" />
-        <activity android:name=".StripeAccountActivity"></activity>
+        <activity android:name=".StripeAccountActivity" />
+        <activity android:name=".UserInitialSettingsActivity"></activity>
     </application>
 
 </manifest>

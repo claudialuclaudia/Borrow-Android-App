@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cash.borrow.android.UserSettingsActivity"
+    tools:context="cash.borrow.android.UserInitialSettingsActivity"
     android:background="@color/borrowGreen">
 
     <LinearLayout
@@ -37,7 +37,7 @@
             android:layout_marginRight="40dp"
             android:layout_marginBottom="5dp"
             android:hint="Your First Name"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:inputType="textPersonName"
             android:background="@drawable/edittext"
             android:padding="12dp" />
@@ -50,7 +50,7 @@
             android:layout_marginRight="40dp"
             android:layout_marginBottom="5dp"
             android:hint="Your Last Name"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:inputType="textPersonName"
             android:background="@drawable/edittext"
             android:padding="12dp" />
@@ -63,7 +63,7 @@
             android:layout_marginRight="40dp"
             android:layout_marginBottom="5dp"
             android:hint="Enter your location"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:inputType="textPostalAddress"
             android:background="@drawable/edittext"
             android:padding="12dp"/>
@@ -88,13 +88,13 @@
             android:includeFontPadding="false"/>
 
         <Button
-            android:id="@+id/buttonSignOut"
+            android:id="@+id/buttonGetStarted"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="80dp"
-            android:text="sign out"
+            android:text="Get started!"
             android:fontFamily="sans-serif"
             android:textSize="16dp"
             android:textStyle="bold"
