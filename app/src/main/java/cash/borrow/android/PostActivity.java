@@ -1,11 +1,15 @@
 package cash.borrow.android;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -35,6 +39,7 @@ import com.stripe.android.view.CardInputWidget;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -53,6 +58,8 @@ public class PostActivity extends AppCompatActivity {
     private EditText customerName;
     private EditText zipcode;
     private Button postButton, connectStripeButton; // button which on clicking, sends the request
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     private String userProfilePic;
 
@@ -109,6 +116,35 @@ public class PostActivity extends AppCompatActivity {
                 connectWithStripe();
             }
         });
+
+        repaymentDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        PostActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year,month,day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+//                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+
+                String date = month + "/" + day + "/" + year;
+                repaymentDate.setText(date);
+            }
+        };
     }
 
     //loads user's profile picture
