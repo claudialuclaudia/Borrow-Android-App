@@ -158,6 +158,7 @@ public class LendActivity extends AppCompatActivity {
                         params.put("requestId", item.getRequestId());
                         params.put("commenterId", user.getUid());
                         params.put("commenterName", user.getDisplayName());
+                        params.put("commenterEmail", user.getEmail());
                         params.put("commentContent", null);
                         params.put("lendAmount", lendAmount.getText().toString().trim());
                         params.put("StripeToken", token.toString());

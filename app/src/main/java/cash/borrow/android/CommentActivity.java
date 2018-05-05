@@ -131,6 +131,7 @@ public class CommentActivity extends AppCompatActivity {
         params.put("requestId", item.getRequestId());
         params.put("commenterId", user.getUid());
         params.put("commenterName", user.getDisplayName());
+        params.put("commenterEmail", user.getEmail());
         params.put("commentContent", commentContent.getText().toString().trim());
         params.put("lendAmount", "0");
         params.put("StripeToken", "");

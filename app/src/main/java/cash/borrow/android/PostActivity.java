@@ -154,6 +154,7 @@ public class PostActivity extends AppCompatActivity {
                         HashMap<String, String> params = new HashMap<String,String>();
                         params.put("userId", user.getUid());
                         params.put("userName", user.getDisplayName());
+                        params.put("userEmail", user.getEmail());
                         params.put("userProfileUrl", userProfilePic);
                         params.put("amount", borrowAmount.getText().toString().trim());
                         params.put("amountRaised", "0");
