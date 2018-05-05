@@ -40,6 +40,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -60,6 +61,7 @@ public class PostActivity extends AppCompatActivity {
     private Button postButton, connectStripeButton; // button which on clicking, sends the request
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private String formattedDate;
 
     private String userProfilePic;
 
@@ -138,11 +140,17 @@ public class PostActivity extends AppCompatActivity {
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
 //                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
 
+                month = month + 1;
                 String date = month + "/" + day + "/" + year;
                 repaymentDate.setText(date);
+
+                month = month - 1;
+                year = year - 1900; //this year is 1900 years ahead for some reason
+
+                formattedDate = Long.toString(new Date(year, month, day, 0, 0).getTime());
+//                repaymentDate.setText(formattedDate);
             }
         };
     }
@@ -195,6 +203,7 @@ public class PostActivity extends AppCompatActivity {
                         params.put("amount", borrowAmount.getText().toString().trim());
                         params.put("amountRaised", "0");
                         params.put("repaymentDate", repaymentDate.getText().toString().trim());
+                        params.put("repaymentDateEpochTime", formattedDate);
                         params.put("paymentPlan", paymentPlan.getText().toString().trim());
                         params.put("interestRate", interestRate.getText().toString().trim());
                         params.put("requestType", requestType.getText().toString().trim());
