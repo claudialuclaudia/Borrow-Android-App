@@ -212,16 +212,16 @@
         app:layout_constraintBottom_toTopOf="@+id/postButton"
         app:layout_constraintLeft_toRightOf="@+id/customer_name"/>
 
-    <Button
-        android:id="@+id/stripeConnectButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Connect to Stripe"
-        android:textColor="@color/white"
-        android:background="@color/darkBorrowGreen"
-        android:layout_marginRight="3dp"
-        app:layout_constraintBottom_toBottomOf="@id/zip_code"
-        app:layout_constraintRight_toRightOf="parent"/>
+    <!--<Button-->
+        <!--android:id="@+id/stripeConnectButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Connect to Stripe"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:background="@color/darkBorrowGreen"-->
+        <!--android:layout_marginRight="3dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@id/zip_code"-->
+        <!--app:layout_constraintRight_toRightOf="parent"/>-->
 
     <Button
         android:id="@+id/postButton"

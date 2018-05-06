@@ -58,7 +58,7 @@ public class PostActivity extends AppCompatActivity {
     private CardInputWidget mCardInputWidget;
     private EditText customerName;
     private EditText zipcode;
-    private Button postButton, connectStripeButton; // button which on clicking, sends the request
+    private Button postButton; // button which on clicking, sends the request
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private String formattedDate;
@@ -93,7 +93,7 @@ public class PostActivity extends AppCompatActivity {
         customerName = findViewById(R.id.customer_name);
         zipcode = findViewById(R.id.zip_code);
         postButton = findViewById(R.id.postButton);
-        connectStripeButton = findViewById(R.id.stripeConnectButton);
+//        connectStripeButton = findViewById(R.id.stripeConnectButton);
 
         loadUserProfilePic();
 
@@ -112,12 +112,12 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
-        connectStripeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                connectWithStripe();
-            }
-        });
+//        connectStripeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                connectWithStripe();
+//            }
+//        });
 
         repaymentDate.setOnClickListener(new View.OnClickListener() {
             @Override

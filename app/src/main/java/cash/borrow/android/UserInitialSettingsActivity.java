@@ -234,8 +234,6 @@ public class UserInitialSettingsActivity extends AppCompatActivity implements Vi
             saveInfo();
         }
         if (view == buttonGetStarted) {
-            mAuth.signOut();
-            finish();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
     }

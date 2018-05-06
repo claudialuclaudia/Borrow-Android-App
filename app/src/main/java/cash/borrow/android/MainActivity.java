@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (firebaseAuth.getCurrentUser().getDisplayName() == null) {
-            startActivity(new Intent(getApplicationContext(), UserSettingsActivity.class));
+            startActivity(new Intent(getApplicationContext(), UserInitialSettingsActivity.class));
         }
 
         requestItemList = new ArrayList<>();

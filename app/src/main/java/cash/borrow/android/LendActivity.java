@@ -52,7 +52,7 @@ public class LendActivity extends AppCompatActivity {
 
     private CardInputWidget mCardInputWidget;
     private EditText lendAmount, customerName, zipcode;
-    private Button lendButton, connectStripeButton;
+    private Button lendButton;
     private ImageView profileImage;
 
     RequestItem item;
@@ -87,7 +87,7 @@ public class LendActivity extends AppCompatActivity {
         zipcode = findViewById(R.id.zip_code);
         lendButton = findViewById(R.id.lendButton);
         profileImage = findViewById(R.id.profile_image);
-        connectStripeButton = findViewById(R.id.stripeConnectButton);
+//        connectStripeButton = findViewById(R.id.stripeConnectButton);
 
         lendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,12 +96,12 @@ public class LendActivity extends AppCompatActivity {
             }
         });
 
-        connectStripeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                connectWithStripe();
-            }
-        });
+//        connectStripeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                connectWithStripe();
+//            }
+//        });
 
         ImageView imageView = (ImageView) findViewById(R.id.action_back);
         imageView.setOnClickListener(new View.OnClickListener() {
