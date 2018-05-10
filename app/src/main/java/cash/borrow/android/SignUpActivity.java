@@ -90,6 +90,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view == buttonRegister){
             userSignUp();
+            startActivity(new Intent(getApplicationContext(), UserSettingsActivity.class));
         }
 
         if (view == textViewSignInInstead) {

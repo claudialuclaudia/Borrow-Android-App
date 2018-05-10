@@ -152,6 +152,7 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
                             UserInfoItem userInfoItem = new UserInfoItem(firstName, firstName.toLowerCase(),
                                     lastName, lastName.toLowerCase(), location, taskSnapshot.getDownloadUrl().toString());
                             mDatabase.child(user.getUid()).setValue(userInfoItem);
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -232,6 +233,7 @@ public class UserSettingsActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         if (view == buttonSave) {
             saveInfo();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
         if (view == buttonSignOut) {
             mAuth.signOut();
